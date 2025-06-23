@@ -1,7 +1,11 @@
 # deep-learning-notes
+
 A GitHub repository of my study notes and personal thoughts on deep learning
+
 ---
+
 ## 目录
+
 - [一、最受欢迎的编程语言](#一最受欢迎的编程语言)
   - [Python](#1-python)
   - [JavaScript (包括 TypeScript)](#2-javascript-包括-typescript)
@@ -12,19 +16,19 @@ A GitHub repository of my study notes and personal thoughts on deep learning
   - [SQL](#7-sql)
   - [其他值得关注的语言](#其他值得关注的语言)
 - [二、最流行的开发环境](#二最流行的开发环境)
-    - [Visual Studio Code (VS Code)](#1-visual-studio-code-vs-code)
-    - [JetBrains 系列 IDEs](#2-jetbrains-系列-ides)
-    - [Visual Studio](#3-visual-studio)
-    - [Xcode](#4-xcode)
-    - [Jupyter (Jupyter Notebook / JupyterLab)](#5-jupyter-jupyter-notebook--jupyterlab)
-    - [其他常用代码编辑器](#6其他常用代码编辑器)
+  - [Visual Studio Code (VS Code)](#1-visual-studio-code-vs-code)
+  - [JetBrains 系列 IDEs](#2-jetbrains-系列-ides)
+  - [Visual Studio](#3-visual-studio)
+  - [Xcode](#4-xcode)
+  - [Jupyter (Jupyter Notebook / JupyterLab)](#5-jupyter-jupyter-notebook--jupyterlab)
+  - [其他常用代码编辑器](#6-其他常用代码编辑器)
 - [三、深度学习学习路线](#三深度学习学习路线)
-    - [掌握数学基础](#1-掌握数学基础)
-    - [学习编程语言与库](#2-学习编程语言与库)
-    - [掌握深度学习框架](#3-掌握深度学习框架)
-    - [学习核心概念与模型](#4-学习核心概念与模型)
-    - [实践项目与竞赛](#5-实践项目与竞赛)
-    - [持续学习与跟进最新进展](#6-持续学习与跟进最新进展)
+  - [掌握数学基础](#1-掌握数学基础)
+  - [学习编程语言与库](#2-学习编程语言与库)
+  - [掌握深度学习框架](#3-掌握深度学习框架)
+  - [学习核心概念与模型](#4-学习核心概念与模型)
+  - [实践项目与竞赛](#5-实践项目与竞赛)
+  - [持续学习与跟进最新进展](#6-持续学习与跟进最新进展)
 - [四、深度学习服务器软硬件配置](#四深度学习服务器软硬件配置)
   - [推荐硬件配置](#41-推荐硬件配置)
   - [操作系统安装（以 Ubuntu 为例）](#42-操作系统安装以-ubuntu-为例)
@@ -41,7 +45,7 @@ A GitHub repository of my study notes and personal thoughts on deep learning
 - [六、深度学习项目代码结构](#六深度学习项目代码结构)
   - [推荐的项目结构示例](#推荐的项目结构示例)
   - [各目录/文件详解](#各目录文件详解)
-- [七、深度学习常用工具及其命令](#七深度学习常用工具及其命令)
+- [七、深度学习常用工具及其命令、使用方法](#七深度学习常用工具及其命令使用方法)
   - [1. 版本控制工具：Git](#1-版本控制工具git)
   - [2. 虚拟环境工具：Conda](#2-虚拟环境工具conda)
   - [3. 配置管理工具：pip](#3-配置管理工具pip)
@@ -50,7 +54,7 @@ A GitHub repository of my study notes and personal thoughts on deep learning
   - [6. 编辑器：Vim](#6-编辑器vim)
   - [7. 常用Python库](#7-常用python库)
 - [八、深度学习流程](#八深度学习流程)
-  - [🔁 总体流程概览](#-总体流程概览)
+  - [🔁 总体流程概览](#总体流程概览)
   - [1️⃣ 数据准备（Dataset Construction）](#1-数据准备dataset-construction)
   - [2️⃣ 数据预处理与增强（Data Augmentation）](#2-数据预处理与增强data-augmentation)
   - [3️⃣ 模型构建（Model Definition）](#3-模型构建model-definition)
@@ -140,6 +144,7 @@ A GitHub repository of my study notes and personal thoughts on deep learning
 ---
 
 ## 二、最流行的开发环境
+
 开发者通常会选择最适合他们所用编程语言和项目需求的开发环境。目前最流行的开发环境主要分为两大类：**集成开发环境 (IDE)** 和**代码编辑器 (Code Editor)**。
 
 ---
@@ -566,24 +571,24 @@ software:
 
 一个完整的机器学习项目通常遵循一个标准化的流程，从问题定义到模型部署，环环相扣。
 
-1.  **问题定义与目标分析 (Problem Definition & Goal Analysis)**
+1. **问题定义与目标分析 (Problem Definition & Goal Analysis)**
     * 明确业务需求：要解决什么问题？是分类、回归还是聚类问题？
     * 定义成功标准：如何衡量模型的成功？是准确率、收入提升还是用户满意度？
     * 确定技术可行性：当前的数据和技术能否支持解决这个问题？
 
-2.  **数据收集与准备 (Data Collection & Preparation)**
+2. **数据收集与准备 (Data Collection & Preparation)**
     * **数据收集**: 从数据库、API、公开数据集、网络爬虫等多种渠道获取原始数据。
     * **数据清洗**: 处理数据中的缺失值、异常值、重复值和噪声。
     * **数据探索 (EDA - Exploratory Data Analysis)**: 通过可视化和统计方法，理解数据的分布、相关性等特性，为特征工程提供洞见。
 
-3.  **特征工程 (Feature Engineering)**
+3. **特征工程 (Feature Engineering)**
     * 这是决定机器学习项目成败的关键步骤。
     * **特征选择**: 从所有特征中挑选出最相关、最有用的特征子集。
     * **特征提取**: 从原始数据中创造出新的、更有意义的特征（例如，从时间戳中提取“星期几”、“是否为节假日”）。
     * **特征缩放/归一化**: 将不同尺度范围的特征数值调整到相似的范围内（如[0, 1]或均值为0，方差为1），以避免某些特征在模型训练中占据主导地位。常用方法有Min-Max Scaling和Standardization。
     * **特征编码**: 将类别型特征（如“颜色”：“红”、“绿”、“蓝”）转换为数值型特征，因为大多数模型只能处理数值输入。常用方法有独热编码 (One-Hot Encoding) 和标签编码 (Label Encoding)。
 
-4.  **模型选择与训练 (Model Selection & Training)**
+4. **模型选择与训练 (Model Selection & Training)**
     * **选择算法**: 根据问题类型（分类/回归）、数据规模、特征维度等，选择一个或多个候选算法。
     * **数据集划分**:
         * **训练集 (Training Set)**: 用于训练模型，学习数据中的模式。
@@ -591,11 +596,11 @@ software:
         * **测试集 (Test Set)**: 用于在模型训练完成后，最终评估模型的泛化能力。测试集的数据绝对不能用于训练过程。
     * **模型训练**: 将训练集喂给算法，算法通过优化过程（如梯度下降）来学习模型参数。
 
-5.  **模型评估与调参 (Model Evaluation & Hyperparameter Tuning)**
+5. **模型评估与调参 (Model Evaluation & Hyperparameter Tuning)**
     * **模型评估**: 使用预先定义的评估指标，在**测试集**上评估模型的最终性能。
     * **超参数调优**: 调整模型的“超参数”（例如，K-近邻算法中的K值，或决策树的深度）。这是一个需要反复试验的过程，目的是找到最优的超参数组合。
 
-6.  **模型部署与监控 (Model Deployment & Monitoring)**
+6. **模型部署与监控 (Model Deployment & Monitoring)**
     * **模型部署**: 将训练好的模型集成到实际的生产环境中，例如网站、APP或内部系统中，使其能够对外提供预测服务。常见的部署方式有API服务、嵌入式部署等。
     * **性能监控**: 持续监控模型在真实世界中的表现，因为数据分布可能会随时间变化（概念漂移），导致模型性能下降。
     * **模型更新**: 当模型性能下降到一定程度时，需要使用新的数据重新训练或更新模型。
