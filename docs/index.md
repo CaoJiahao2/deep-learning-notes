@@ -21,6 +21,8 @@
 - [循环神经网络 (RNN/LSTM/GRU)](./architectures/rnn-lstm.md) — 序列建模与注意力机制
 - [生成对抗网络 (GAN)](./architectures/gan.md) — 从 Vanilla GAN 到 StyleGAN
 - [扩散模型 (Diffusion)](./architectures/diffusion.md) — DDPM、Stable Diffusion
+- [目标检测](./architectures/object-detection.md) — 两阶段与单阶段（Faster R-CNN、YOLO）
+- [图像分割](./architectures/segmentation.md) — 语义/实例分割（FCN、U-Net、Mask R-CNN、SAM）
 - [现代架构演进 MoE/SSM](./architectures/modern-architectures.md) — 稀疏专家、状态空间模型、高效注意力
 
 ## 训练技术
@@ -35,9 +37,15 @@
 ## 大模型专题
 
 - [LLM/MLLM 全景调研](./llm-mllm/survey.md) — 开源与闭源模型一览
+- [预训练](./llm-mllm/pretraining.md) — 预训练目标、数据工程、Scaling Laws
+- [分词与词嵌入](./llm-mllm/tokenizer-embedding.md) — BPE、WordPiece、SentencePiece
 - [微调技术](./llm-mllm/fine-tuning.md) — LoRA、QLoRA、Adapter、RLHF/DPO
 - [推理优化](./llm-mllm/inference.md) — KV Cache、Flash Attention、量化
+- [提示工程](./llm-mllm/prompt-engineering.md) — Zero/Few-shot、CoT、ReAct、提示注入
+- [推理模型 o1/R1](./llm-mllm/reasoning-models.md) — CoT、Test-time Compute、DeepSeek-R1
 - [多模态对齐与融合](./llm-mllm/multimodal-alignment.md) — CLIP、Q-Former、LLaVA、跨模态生成
+- [评测体系](./llm-mllm/evaluation.md) — MMLU/GSM8K、LLM-as-Judge、评测陷阱
+- [大模型缺陷](./llm-mllm/llm-defects.md) — 幻觉、灾难性遗忘、模型坍塌
 
 ## 智能体
 
