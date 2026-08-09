@@ -21,6 +21,7 @@
 - [循环神经网络 (RNN/LSTM/GRU)](./architectures/rnn-lstm.md) — 序列建模与注意力机制
 - [生成对抗网络 (GAN)](./architectures/gan.md) — 从 Vanilla GAN 到 StyleGAN
 - [扩散模型 (Diffusion)](./architectures/diffusion.md) — DDPM、Stable Diffusion
+- [现代架构演进 MoE/SSM](./architectures/modern-architectures.md) — 稀疏专家、状态空间模型、高效注意力
 
 ## 训练技术
 
@@ -29,16 +30,27 @@
 - [优化器详解](./training/optimization.md) — SGD→AdamW→Lion 演进
 - [正则化技术](./training/regularization.md) — Dropout、BN/LN、数据增强
 - [分布式训练](./training/distributed.md) — DP、TP、PP、ZeRO、DeepSpeed
+- [强化学习与对齐](./training/reinforcement-learning.md) — MDP→PPO→RLHF/DPO→GRPO/RLVR
 
 ## 大模型专题
 
 - [LLM/MLLM 全景调研](./llm-mllm/survey.md) — 开源与闭源模型一览
 - [微调技术](./llm-mllm/fine-tuning.md) — LoRA、QLoRA、Adapter、RLHF/DPO
 - [推理优化](./llm-mllm/inference.md) — KV Cache、Flash Attention、量化
+- [多模态对齐与融合](./llm-mllm/multimodal-alignment.md) — CLIP、Q-Former、LLaVA、跨模态生成
+
+## 智能体
+
+- [AI Agent 与 RAG](./agents/ai-agents.md) — ReAct、Function Calling、MCP、检索增强生成
+
+## 具身智能
+
+- [具身智能与 VLA](./embodied-ai/embodied-intelligence.md) — VLA 模型、Diffusion Policy、世界模型、Sim-to-Real
 
 ## 模型部署
 
 - [模型部署与服务化](./deployment/model-serving.md) — ONNX、TensorRT、Triton、vLLM
+- [模型压缩技术](./deployment/model-compression.md) — 量化 GPTQ/AWQ、剪枝、知识蒸馏
 
 ## 资源汇总
 

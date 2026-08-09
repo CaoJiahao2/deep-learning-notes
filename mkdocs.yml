@@ -77,18 +77,26 @@ nav:
       - 循环神经网络 RNN/LSTM/GRU: architectures/rnn-lstm.md
       - 生成对抗网络 GAN: architectures/gan.md
       - 扩散模型 Diffusion: architectures/diffusion.md
+      - 现代架构演进 MoE/SSM: architectures/modern-architectures.md
   - 训练技术:
       - 完整训练流程: training/training-pipeline.md
       - 反向传播: training/backpropagation.md
       - 优化器详解: training/optimization.md
       - 正则化技术: training/regularization.md
       - 分布式训练: training/distributed.md
+      - 强化学习与对齐: training/reinforcement-learning.md
   - 大模型专题:
       - LLM/MLLM 全景调研: llm-mllm/survey.md
       - 微调技术: llm-mllm/fine-tuning.md
       - 推理优化: llm-mllm/inference.md
+      - 多模态对齐与融合: llm-mllm/multimodal-alignment.md
+  - 智能体:
+      - AI Agent 与 RAG: agents/ai-agents.md
+  - 具身智能:
+      - 具身智能与 VLA: embodied-ai/embodied-intelligence.md
   - 模型部署:
       - 模型部署与服务化: deployment/model-serving.md
+      - 模型压缩技术: deployment/model-compression.md
   - 资源汇总:
       - 常用工具命令: resources/tools.md
       - 常用数据集: resources/datasets.md
