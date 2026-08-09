@@ -1,7 +1,7 @@
 # 📘 deep-learning-notes
 
 <p align="center">
-  <img src="./assets/logo.png" alt="logo" width="200"/>
+  <img src="./asserts/logo.png" alt="logo" width="200"/>
 </p>
 
 <p align="center">
@@ -36,6 +36,7 @@ docs/
 │   ├── learning-roadmap.md   # 学习路线图
 │   └── environment-setup.md  # 环境配置（GPU、CUDA、PyTorch）
 ├── fundamentals/             # 基础理论
+│   ├── math-foundations.md   # 数学基础（推导的地基）
 │   └── machine-learning.md   # 机器学习概述
 ├── architectures/            # 模型架构
 │   ├── transformer.md        # Transformer 架构详解
@@ -45,6 +46,7 @@ docs/
 │   └── diffusion.md          # 扩散模型
 ├── training/                 # 训练技术
 │   ├── training-pipeline.md  # 完整训练流程
+│   ├── backpropagation.md    # 反向传播完整推导
 │   ├── optimization.md       # 优化器详解
 │   ├── regularization.md     # 正则化技术
 │   └── distributed.md        # 分布式训练
@@ -76,6 +78,26 @@ cd deep-learning-notes
 ```
 
 所有文档均为 Markdown 格式，可直接在 VS Code、Obsidian 或任何 Markdown 阅读器中查看。
+
+### 本地预览与公式校验
+
+项目使用 **MkDocs + Material + KaTeX** 渲染文档，数学公式在浏览器中正常显示：
+
+```bash
+# 1. 安装依赖
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+npm install   # 公式校验所需的 KaTeX
+
+# 2. 本地预览（支持公式实时渲染）
+mkdocs serve
+
+# 3. 校验所有数学公式可编译（KaTeX，CI 也会执行）
+node scripts/check_math.mjs
+
+# 4. 严格构建（CI 使用，任何警告都会失败）
+mkdocs build --strict
+```
 
 ---
 

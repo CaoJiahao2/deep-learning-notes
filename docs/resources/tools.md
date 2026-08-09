@@ -6,15 +6,15 @@
 
 ## 目录
 
-1. [Git 版本控制](#1-git-版本控制)
-2. [Conda 虚拟环境](#2-conda-虚拟环境)
-3. [pip 包管理](#3-pip-包管理)
-4. [Linux 常用命令](#4-linux-常用命令)
-5. [Tmux 终端复用](#5-tmux-终端复用)
-6. [Vim 编辑器](#6-vim-编辑器)
-7. [常用 Python 库](#7-常用-python-库)
+1. [Git 版本控制](#1-git)
+2. [Conda 虚拟环境](#2-conda)
+3. [pip 包管理](#3-pip)
+4. [Linux 常用命令](#4-linux)
+5. [Tmux 终端复用](#5-tmux)
+6. [Vim 编辑器](#6-vim)
+7. [常用 Python 库](#7-python)
 8. [Docker](#8-docker)
-9. [监控与调试](#9-监控与调试)
+9. [监控与调试](#9)
 
 ---
 

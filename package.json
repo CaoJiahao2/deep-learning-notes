@@ -1,0 +1,12 @@
+{
+  "name": "deep-learning-notes-math-lint",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KaTeX-based math formula linter for docs",
+  "scripts": {
+    "check:math": "node scripts/check_math.mjs"
+  },
+  "devDependencies": {
+    "katex": "^0.16.11"
+  }
+}

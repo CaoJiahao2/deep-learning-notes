@@ -6,14 +6,14 @@
 
 ## 目录
 
-1. [分布式训练概述](#1-分布式训练概述)
-2. [数据并行 (DP/DDP)](#2-数据并行-dpddp)
-3. [模型并行](#3-模型并行)
-4. [混合并行与 3D 并行](#4-混合并行与-3d-并行)
-5. [ZeRO 优化 (DeepSpeed)](#5-zero-优化-deepspeed)
-6. [通信原语](#6-通信原语)
-7. [实战配置](#7-实战配置)
-8. [参考文献](#8-参考文献)
+1. [分布式训练概述](#1)
+2. [数据并行 (DP/DDP)](#2-dpddp)
+3. [模型并行](#3)
+4. [混合并行与 3D 并行](#4-3d)
+5. [ZeRO 优化 (DeepSpeed)](#5-zero-deepspeed)
+6. [通信原语](#6)
+7. [实战配置](#7)
+8. [参考文献](#8)
 
 ---
 
@@ -163,6 +163,15 @@ Megatron-LM 提出的三维并行策略：
 - Megatron-LM：TP + PP
 - DeepSpeed ZeRO：DP 优化
 - 两者结合：Megatron-DeepSpeed 集成
+
+---
+
+### 4.3 前沿并行策略（2024–2025）
+
+- **FSDP / FSDP2**：PyTorch 官方"分片数据并行"，将模型参数/梯度/优化器状态分片到各 GPU，可按需 AllGather；FSDP2 更进一步，将参数分片从"整层"细化到"参数分块"，与 TP/序列并行更易组合。
+- **Ring Attention**：将 KV 分块到多设备并循环传递，注意力计算与通信重叠，可在有限显存下支持**百万 token 级**上下文。
+- **序列并行（Sequence Parallelism）**：把长序列沿序列维度切分，配合 Megatron 的 LayerNorm/Dropout 分片，缓解长序列显存瓶颈。
+- **MoE 专家并行（Expert Parallel）**：MoE 模型把不同专家放到不同 GPU，通过 All-to-All 通信路由 token 到对应专家，是 DeepSeek / Mixtral 等大规模 MoE 训练的标准做法。
 
 ---
 

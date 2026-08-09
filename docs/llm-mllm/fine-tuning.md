@@ -6,15 +6,15 @@
 
 ## 目录
 
-1. [微调范式概述](#1-微调范式概述)
-2. [全量微调 (Full Fine-Tuning)](#2-全量微调-full-fine-tuning)
-3. [LoRA 及其变体](#3-lora-及其变体)
-4. [Adapter 系列](#4-adapter-系列)
+1. [微调范式概述](#1)
+2. [全量微调 (Full Fine-Tuning)](#2-full-fine-tuning)
+3. [LoRA 及其变体](#3-lora)
+4. [Adapter 系列](#4-adapter)
 5. [Prefix/Prompt Tuning](#5-prefixprompt-tuning)
-6. [指令微调 (Instruction Tuning)](#6-指令微调-instruction-tuning)
-7. [对齐技术 (RLHF/DPO)](#7-对齐技术-rlhfdpo)
-8. [微调策略选择](#8-微调策略选择)
-9. [参考文献](#9-参考文献)
+6. [指令微调 (Instruction Tuning)](#6-instruction-tuning)
+7. [对齐技术 (RLHF/DPO)](#7-rlhfdpo)
+8. [微调策略选择](#8)
+9. [参考文献](#9)
 
 ---
 
@@ -226,6 +226,26 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sig
 
 其中 $y_w$ 是偏好回答，$y_l$ 是非偏好回答。
 
+#### DPO 的推导（从 Bradley-Terry 到闭式最优策略）
+
+RLHF 的奖励模型基于 **Bradley-Terry 模型**：给定偏好对 $(y_w, y_l)$，人类偏好 $y_w$ 的概率为
+
+$$P(y_w \succ y_l \mid x) = \sigma\big(r(x, y_w) - r(x, y_l)\big)$$
+
+其中 $r$ 为奖励模型，$\sigma$ 为 sigmoid。RLHF 的 KL 约束优化目标为
+
+$$\max_{\pi_\theta} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_\theta(\cdot \mid x)}\left[r(x, y)\right] - \beta\, D_{KL}\big(\pi_\theta(\cdot \mid x) \,\|\, \pi_{ref}(\cdot \mid x)\big)$$
+
+这是一个带约束问题，其**闭式最优解**为（由配分函数归一化）：
+
+$$\pi^*(y \mid x) = \frac{1}{Z(x)}\pi_{ref}(y \mid x)\exp\left(\frac{1}{\beta}r(x, y)\right)$$
+
+反解出奖励：$r(x, y) = \beta\log\dfrac{\pi^*(y\mid x)}{\pi_{ref}(y\mid x)} + \beta\log Z(x)$。代入 Bradley-Terry 的 $P(y_w \succ y_l)$，配分函数 $Z(x)$ 恰好约掉，得到：
+
+$$\mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sigma\left(\beta\log\frac{\pi_\theta(y_w\mid x)}{\pi_{ref}(y_w\mid x)} - \beta\log\frac{\pi_\theta(y_l\mid x)}{\pi_{ref}(y_l\mid x)}\right)\right]$$
+
+这正是 §7.2 的 DPO 损失。**关键洞察**：偏好优化无需显式训练奖励模型，奖励被隐式编码在"当前策略与参考策略的似然比"中。
+
 **DPO 优势**：
 - 无需训练奖励模型
 - 训练更稳定
@@ -239,6 +259,14 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sig
 | ORPO | 将 SFT 和对齐合并为一步 |
 | SimPO | 以参考策略为基准，无需参考模型 |
 | RLAIF | 用 AI 反馈替代人类反馈 |
+| **GRPO** | 同一 prompt 采样一组输出，用组内相对优势替代价值模型（DeepSeek-R1/V3 的核心训练目标） |
+| **RLVR** | 用**可验证奖励**（代码单元测试、数学答案可核对）替代学习得到的奖励模型，有效缓解奖励黑客 |
+
+**GRPO 目标**：对每个 prompt 采样 $G$ 个输出，advantage 为组内归一化 $\hat{A}_i = \dfrac{r_i - \mu}{\sigma}$，目标为
+
+$$\mathcal{J}_{GRPO}(\theta) = \mathbb{E}\left[\frac{1}{G}\sum_{i=1}^{G}\frac{1}{|y_i|}\sum_{t}\min\left(\frac{\pi_\theta(y_{i,t}\mid\cdots)}{\pi_{\theta_{\text{old}}}(y_{i,t}\mid\cdots)}\hat{A}_i,\, \operatorname{clip}\left(\frac{\pi_\theta}{\pi_{\theta_{\text{old}}}}, 1-\epsilon, 1+\epsilon\right)\hat{A}_i\right)\right]$$
+
+与 PPO 的主要区别：**无需单独的价值/奖励模型**，用组内统计量估计 advantage，训练更简单、更适合大规模推理模型。
 
 ---
 
@@ -285,3 +313,7 @@ $$\mathcal{L}_{DPO} = -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log\sig
 [8] Liu, H., et al. Few-Shot Parameter-Efficient Fine-Tuning is Better and Cheaper than In-Context Learning. NeurIPS, 2022. (IA3)
 
 [9] Wang, Y., et al. DoRA: Weight-Decomposed Low-Rank Adaptation. ICML, 2024.
+
+[10] DeepSeek-AI. DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. arXiv:2501.12948, 2025. (GRPO / RLVR)
+
+[11] Shao, Z., et al. DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models. arXiv:2402.03300, 2024. (GRPO)

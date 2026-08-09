@@ -11,6 +11,7 @@
 
 ## 基础理论
 
+- [数学基础](./fundamentals/math-foundations.md) — 线性代数、微积分、概率与信息论（推导的地基）
 - [机器学习概述](./fundamentals/machine-learning.md) — 基本概念、分类、三要素、评估方法
 
 ## 模型架构
@@ -24,6 +25,7 @@
 ## 训练技术
 
 - [完整训练流程](./training/training-pipeline.md) — 从数据准备到模型部署
+- [反向传播](./training/backpropagation.md) — 从链式法则到 softmax+交叉熵的完整推导
 - [优化器详解](./training/optimization.md) — SGD→AdamW→Lion 演进
 - [正则化技术](./training/regularization.md) — Dropout、BN/LN、数据增强
 - [分布式训练](./training/distributed.md) — DP、TP、PP、ZeRO、DeepSpeed

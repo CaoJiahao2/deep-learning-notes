@@ -6,14 +6,14 @@
 
 ## 目录
 
-1. [推理优化概述](#1-推理优化概述)
+1. [推理优化概述](#1)
 2. [KV Cache](#2-kv-cache)
 3. [Flash Attention](#3-flash-attention)
-4. [模型量化](#4-模型量化)
-5. [推理框架](#5-推理框架)
-6. [投机解码 (Speculative Decoding)](#6-投机解码-speculative-decoding)
-7. [其他优化技术](#7-其他优化技术)
-8. [参考文献](#8-参考文献)
+4. [模型量化](#4)
+5. [推理框架](#5)
+6. [投机解码 (Speculative Decoding)](#6-speculative-decoding)
+7. [其他优化技术](#7)
+8. [参考文献](#8)
 
 ---
 
@@ -45,7 +45,9 @@
 
 ### 2.2 显存占用
 
-$$\text{KV Cache 大小} = 2 \times \text{层数} \times \text{头数} \times \text{头维度} \times \text{序列长度} \times \text{精度字节数}$$
+$$\text{KV Cache 大小} = 2 \times \text{层数} \times n_{kv} \times \text{头维度} \times \text{序列长度} \times \text{精度字节数}$$
+
+其中 $n_{kv}$ 是 **KV 头数**：MHA 中 $n_{kv} = n_{head}$，MQA 中 $n_{kv} = 1$，GQA 中 $1 \leq n_{kv} < n_{head}$。
 
 以 LLaMA-7B 为例（32 层，32 头，头维度 128，seq_len=2048，FP16）：
 - KV Cache = $2 \times 32 \times 32 \times 128 \times 2048 \times 2 = 1 \text{ GB}$
@@ -58,6 +60,7 @@ $$\text{KV Cache 大小} = 2 \times \text{层数} \times \text{头数} \times \t
 |------|------|------|
 | Multi-Query Attention (MQA) | 多个 Q 头共享一组 K, V | KV Cache 减少 $h$ 倍 |
 | Grouped-Query Attention (GQA) | Q 头分组共享 K, V | 折中方案 |
+| **Multi-head Latent Attention (MLA)** | 对 KV 做低秩压缩（DeepSeek-V2/V3），缓存压缩 latent | KV Cache 大幅下降（可达 90%+），推理成本显著降低 |
 | PagedAttention | 分页管理 KV Cache | 减少碎片，提高利用率 |
 | KV Cache 量化 | 将 KV Cache 量化为 INT8/INT4 | 显存减半或更多 |
 | Sliding Window | 只保留最近窗口的 KV Cache | 固定显存占用 |
@@ -90,12 +93,12 @@ $$\text{KV Cache 大小} = 2 \times \text{层数} \times \text{头数} \times \t
 ### 3.4 使用方式
 
 ```python
-# PyTorch 2.0+ 内置
-with torch.backends.cuda.sdp_kernel(
-    enable_flash=True,
-    enable_math=False,
-    enable_mem_efficient=False
-):
+# PyTorch 2.0+ 内置（FlashAttention / Memory-Efficient / Math 后端自动选择）
+output = F.scaled_dot_product_attention(Q, K, V)
+
+# 如需显式指定后端（PyTorch 2.1+，sdp_kernel 已废弃）
+from torch.nn.attention import sdpa_kernel, SDPBackend
+with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
     output = F.scaled_dot_product_attention(Q, K, V)
 ```
 
@@ -235,6 +238,22 @@ Continuous Batching：每个 decode 步后，完成的请求立即释放资源�
 - **Medusa**：在原模型上加多个预测头，无需独立 draft model
 - **Lookahead Decoding**：利用 Jacobi 迭代
 - **Eagle**：基于特征预测的投机解码
+
+---
+
+### 6.4 MLA 与 PD 分离（2024–2025 前沿）
+
+**MLA（DeepSeek-V2/V3）**：将每层的 K、V 压缩为低秩 latent $\mathbf{c}_t = W^{DKV}\mathbf{h}_t \in \mathbb{R}^{d_c}$（$d_c \ll d_{kv}$），推理时只需缓存 $\mathbf{c}_t$ 与少量解耦的旋转位置项，KV 显存可降低一个数量级，同时保持甚至超越 MHA 的效果。
+
+**PD 分离（Prefill-Decode Disaggregation）**：由于 Prefill 阶段是计算密集型、Decode 阶段是显存/带宽密集型，将两者部署到不同机器：
+
+```text
+客户端 → [Prefill 实例（计算型）] → [KV 传输] → [Decode 实例（显存型）] → 输出
+```
+
+- Prefill 实例可用高算力 GPU 批量处理长 prompt；
+- Decode 实例可长时间驻留 KV Cache，配合 continuous batching 提升吞吐；
+- 典型实现：DeepSeek 在线服务的 Prefill/Decode 分离架构、vLLM 的分布式运行时。
 
 ---
 

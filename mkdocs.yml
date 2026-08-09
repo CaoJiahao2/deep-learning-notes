@@ -1,0 +1,95 @@
+site_name: 深度学习笔记 Deep Learning Notes
+site_description: 全面、系统的深度学习笔记 —— 从数学基础到大模型部署
+repo_url: https://github.com/yourusername/deep-learning-notes
+repo_name: deep-learning-notes
+edit_uri: blob/main/docs/
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+  features:
+    - navigation.tabs
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+  - tables
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
+
+nav:
+  - 首页: index.md
+  - 入门指南:
+      - 学习路线图: getting-started/learning-roadmap.md
+      - 环境配置: getting-started/environment-setup.md
+  - 基础理论:
+      - 数学基础: fundamentals/math-foundations.md
+      - 机器学习概述: fundamentals/machine-learning.md
+  - 模型架构:
+      - Transformer: architectures/transformer.md
+      - 卷积神经网络 CNN: architectures/cnn.md
+      - 循环神经网络 RNN/LSTM/GRU: architectures/rnn-lstm.md
+      - 生成对抗网络 GAN: architectures/gan.md
+      - 扩散模型 Diffusion: architectures/diffusion.md
+  - 训练技术:
+      - 完整训练流程: training/training-pipeline.md
+      - 反向传播: training/backpropagation.md
+      - 优化器详解: training/optimization.md
+      - 正则化技术: training/regularization.md
+      - 分布式训练: training/distributed.md
+  - 大模型专题:
+      - LLM/MLLM 全景调研: llm-mllm/survey.md
+      - 微调技术: llm-mllm/fine-tuning.md
+      - 推理优化: llm-mllm/inference.md
+  - 模型部署:
+      - 模型部署与服务化: deployment/model-serving.md
+  - 资源汇总:
+      - 常用工具命令: resources/tools.md
+      - 常用数据集: resources/datasets.md
+      - 学习资源: resources/learning-resources.md

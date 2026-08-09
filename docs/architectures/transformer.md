@@ -6,18 +6,18 @@
 
 ## 目录
 
-1. [背景与动机](#1-背景与动机)
-2. [整体架构](#2-整体架构)
-3. [Self-Attention 机制](#3-self-attention-机制)
+1. [背景与动机](#1)
+2. [整体架构](#2)
+3. [Self-Attention 机制](#3-self-attention)
 4. [Multi-Head Attention](#4-multi-head-attention)
 5. [Positional Encoding](#5-positional-encoding)
 6. [Feed-Forward Network](#6-feed-forward-network)
-7. [残差连接与 Layer Normalization](#7-残差连接与-layer-normalization)
-8. [Encoder 详解](#8-encoder-详解)
-9. [Decoder 详解](#9-decoder-详解)
-10. [训练与推理](#10-训练与推理)
-11. [Transformer 变体](#11-transformer-变体)
-12. [参考文献](#12-参考文献)
+7. [残差连接与 Layer Normalization](#7-layer-normalization)
+8. [Encoder 详解](#8-encoder)
+9. [Decoder 详解](#9-decoder)
+10. [训练与推理](#10)
+11. [Transformer 变体](#11-transformer)
+12. [参考文献](#12)
 
 ---
 
@@ -160,7 +160,7 @@ $$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
 |------|------|------|
 | 可学习位置编码 | BERT, GPT | 直接学习位置嵌入，简单但无法外推 |
 | 相对位置编码 | Transformer-XL, T5 | 编码相对距离而非绝对位置 |
-| 旋转位置编码 (RoPE) | LLaMA, Qwen, ChatGLM | 通过旋转矩阵注入相对位置信息，可外推 |
+| 旋转位置编码 (RoPE) | LLaMA, Qwen, ChatGLM | 通过旋转矩阵注入相对位置信息；训练长度之外需配合 YaRN / NTK-aware / 位置插值等缩放方法外推 |
 | ALiBi | BLOOM | 在注意力分数上加线性偏置，极强外推能力 |
 
 ---
@@ -174,6 +174,12 @@ $$\text{FFN}(x) = \text{ReLU}(xW_1 + b_1)W_2 + b_2$$
 或使用 GELU 等激活函数：
 
 $$\text{FFN}(x) = \text{GELU}(xW_1 + b_1)W_2 + b_2$$
+
+**现代大模型多使用 GLU 变体（SwiGLU / GeGLU）**，将单个线性层替换为门控结构：
+
+$$\text{SwiGLU}(x) = \underbrace{\text{Swish}(xW_1)}_{\text{gate}} \odot \underbrace{(xW_3)}_{\text{value}}, \qquad \text{FFN}_{LLaMA}(x) = \text{SwiGLU}(x)W_2$$
+
+其中 $\text{Swish}(x) = x\sigma(x)$，$\odot$ 为逐元素乘。相比 ReLU FFN，GLU 变体在相近参数量下通常在语言建模上更优，是 LLaMA、Mistral、Qwen 等的主流选择。
 
 - $W_1 \in \mathbb{R}^{d_{model} \times d_{ff}}$，$W_2 \in \mathbb{R}^{d_{ff} \times d_{model}}$
 - 中间维度 $d_{ff}$ 通常是 $d_{model}$ 的 4 倍
@@ -203,6 +209,10 @@ $$\text{output} = \text{LayerNorm}(x + \text{Sublayer}(x))$$
 $$\text{LayerNorm}(x) = \gamma \cdot \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta$$
 
 其中 $\mu$ 和 $\sigma^2$ 在最后一个维度上计算。
+
+**RMSNorm（LLaMA 等现代模型）**：去掉均值归一化，仅保留缩放，计算更省且训练稳定：
+
+$$\text{RMSNorm}(x) = \frac{x}{\sqrt{\frac{1}{d}\sum_{i=1}^{d} x_i^2 + \epsilon}} \cdot \gamma$$
 
 **Pre-Norm vs Post-Norm**：
 - 原始论文使用 Post-Norm（先残差后归一化）
@@ -331,6 +341,30 @@ $$lr = d_{model}^{-0.5} \cdot \min(step\_num^{-0.5}, step\_num \cdot warmup\_ste
 
 ---
 
+
+### 11.5 现代注意力与 KV 压缩（2023–2025）
+
+| 技术 | 核心思想 | 收益 |
+|------|---------|------|
+| **Multi-head Latent Attention (MLA)** | 对 KV 做低秩压缩（DeepSeek-V2），推理时仅缓存压缩后的 latent 与少量投影 | KV Cache 大幅下降，推理成本显著降低 |
+| **FlashDecoding** | 将长序列的 Query 分块并行，每块独立算 softmax 再合并 | 长序列 decode 吞吐提升 |
+| **Ring Attention** | 将 KV 分块分布在多设备并循环传输，attention 计算与通信重叠 | 支持超长上下文（百万级 token） |
+| **Sliding Window + 长上下文** | 局部窗口注意力 + 少量全局 token | 长序列显存可控 |
+
+**MLA 示意**：设 $\mathbf{c}_t = W^{DKV} \mathbf{h}_t$ 为压缩的 KV latent，推理时仅缓存 $\mathbf{c}_t$（远小于完整 K/V），注意力时再上投影恢复 $\mathbf{k}_t, \mathbf{v}_t$。
+
+### 11.6 线性注意力与状态空间模型（SSM）
+
+标准 attention 的 $O(n^2)$ 复杂度是长序列的瓶颈。**线性注意力/SSM** 通过将注意力改写为可递推的线性形式，把复杂度降到 $O(n)$：
+
+- **Mamba（S6）**：引入输入依赖的选择性扫描，隐藏状态 $h_t$ 按 $\mathbf{h}_t = \bar{\mathbf{A}}_t \mathbf{h}_{t-1} + \bar{\mathbf{B}}_t \mathbf{x}_t$ 递推，$\bar{\mathbf{A}}, \bar{\mathbf{B}}$ 由输入生成。
+- **Mamba-2 / SSD**：将选择性 SSM 与结构化矩阵乘法统一，可用 GPU 矩阵乘法高效实现。
+- **RWKV / xLSTM / Gated DeltaNet**：RNN 式线性递推 + 门控，兼顾并行训练与线性推理。
+- **Jamba / Samba**：SSM 与 attention 的混合架构，兼顾长程建模与内容检索。
+
+这些模型在**超长上下文**与**低成本推理**场景正成为 Transformer 的重要补充方向。
+
+
 ## 12. 参考文献
 
 [1] Vaswani, A., et al. Attention Is All You Need. NeurIPS, 2017.
@@ -348,3 +382,15 @@ $$lr = d_{model}^{-0.5} \cdot \min(step\_num^{-0.5}, step\_num \cdot warmup\_ste
 [7] Shazeer, N. Fast Transformer Decoding: One Write-Head Is All You Need. arXiv:1911.02150, 2019.
 
 [8] Press, O., et al. Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation. ICLR, 2022.
+
+[9] DeepSeek-AI. DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model. arXiv:2405.04434, 2024. (MLA)
+
+[10] Gu, A. & Dao, T. Mamba: Linear-Time Sequence Modeling with Selective State Spaces. COLM, 2024.
+
+[11] Dao, T. & Gu, A. Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality. ICML, 2024.
+
+[12] Liu, Z., et al. Ring Attention with Blockwise Transformers for Near-Infinite Context. ICLR, 2024.
+
+[13] Shazeer, N. GLU Variants Improve Transformer. arXiv:2002.05202, 2020.
+
+[14] Zhang, B. & Sennrich, R. Root Mean Square Layer Normalization. NeurIPS, 2019.

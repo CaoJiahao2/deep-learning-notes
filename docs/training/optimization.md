@@ -6,13 +6,13 @@
 
 ## 目录
 
-1. [梯度下降基础](#1-梯度下降基础)
-2. [SGD 与 Momentum](#2-sgd-与-momentum)
-3. [自适应学习率方法](#3-自适应学习率方法)
-4. [Adam 及其变体](#4-adam-及其变体)
-5. [学习率调度](#5-学习率调度)
-6. [优化器选择指南](#6-优化器选择指南)
-7. [参考文献](#7-参考文献)
+1. [梯度下降基础](#1)
+2. [SGD 与 Momentum](#2-sgd-momentum)
+3. [自适应学习率方法](#3)
+4. [Adam 及其变体](#4-adam)
+5. [学习率调度](#5)
+6. [优化器选择指南](#6)
+7. [参考文献](#7)
 
 ---
 
@@ -147,6 +147,23 @@ $$\theta_{t+1} = \theta_t - \eta \cdot (\text{sign}(\beta_1 m_{t-1} + (1 - \beta
 - 内存占用比 AdamW 少一半（不需要二阶矩）
 - 训练 Vision Transformer 和扩散模型更高效
 - 对 batch size 和 learning rate 更敏感
+
+---
+
+### 4.6 前沿优化器（2024–2025）
+
+| 优化器 | 核心思想 | 特点 |
+|--------|---------|------|
+| **Muon** | 对"类矩阵"参数近似做 $O$（正交化）更新，标量参数用 AdamW | 大模型训练常比 AdamW 收敛更快（如原版 Gemini 2 / 若干开源模型） |
+| **Schedule-Free** | 去掉显式学习率调度，用凸组合（interpolation）更新历史 | 减少调度调参负担，PyTorch 官方已实现 `torch.optim.ScheduleFree` |
+| **SophiG** | 用矩阵 preconditioner 的幂次近似（Schur-Newton）替代逐元素缩放 | 高精度、内存可控，适合稠密中层 |
+| **muP（Maximal Update Parametrization）** | 随宽度缩放时使用不同的学习率标度，使模型达到"最大更新" | 理论支撑：小模型超参可迁移到大模型的必要架构与学习率标度 |
+
+**Muon 更新示意**（设 $M$ 为权重矩阵）：
+
+$$M_{t+1} = M_t - \eta\,\operatorname{NewtonSchulz}(\text{orthog}(\text{muon\_momentum}_t))$$
+
+其中 `orthog` 做正交化、`NewtonSchulz` 近似矩阵平方根，从而在保持秩的同时提供更"全局"的更新方向。
 
 ---
 
