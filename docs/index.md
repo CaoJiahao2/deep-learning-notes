@@ -21,8 +21,12 @@
 - [循环神经网络 (RNN/LSTM/GRU)](./architectures/rnn-lstm.md) — 序列建模与注意力机制
 - [生成对抗网络 (GAN)](./architectures/gan.md) — 从 Vanilla GAN 到 StyleGAN
 - [扩散模型 (Diffusion)](./architectures/diffusion.md) — DDPM、Stable Diffusion
+- [Flow Matching 与 Rectified Flow](./architectures/flow-matching.md) — SD3、Flux、π0 的统一训练范式
+- [视频生成](./architectures/video-generation.md) — Sora、Wan 2.1、DiT、3D VAE
+- [可控图像生成](./architectures/controllable-image-generation.md) — ControlNet、IP-Adapter、InstantID、Leffa
 - [目标检测](./architectures/object-detection.md) — 两阶段与单阶段（Faster R-CNN、YOLO）
 - [图像分割](./architectures/segmentation.md) — 语义/实例分割（FCN、U-Net、Mask R-CNN、SAM）
+- [单目深度与 3D 视觉](./architectures/monocular-depth.md) — Depth Anything v2、Metric3D v2
 - [现代架构演进 MoE/SSM](./architectures/modern-architectures.md) — 稀疏专家、状态空间模型、高效注意力
 
 ## 训练技术
@@ -49,11 +53,22 @@
 
 ## 智能体
 
-- [AI Agent 与 RAG](./agents/ai-agents.md) — ReAct、Function Calling、MCP、检索增强生成
+- [AI Agent 基础与核心循环](./agents/fundamentals.md) — ReAct、规划范式、Agent 评测
+- [工具使用与 MCP](./agents/tools-and-mcp.md) — Function Calling、Model Context Protocol
+- [Agentic RAG](./agents/agentic-rag.md) — Agent 主导的检索与查询改写
+- [Agent 记忆机制](./agents/memory.md) — 短期/长期、向量/笔记式、MemGPT
+- [多智能体协作](./agents/multi-agent.md) — AutoGen、CrewAI、LangGraph
+- [GUI Agent 与 Computer Use](./agents/gui-agent.md) — Operator、Computer Use、AutoGLM
 
 ## 具身智能
 
-- [具身智能与 VLA](./embodied-ai/embodied-intelligence.md) — VLA 模型、Diffusion Policy、世界模型、Sim-to-Real
+- [具身智能基础](./embodied-ai/fundamentals.md) — MDP/POMDP、三种范式、关键概念
+- [VLA 模型](./embodied-ai/vla.md) — RT-2、OpenVLA、π0/π0.5、GR00T
+- [模仿学习与策略学习](./embodied-ai/policy-learning.md) — BC、Diffusion Policy、Flow Matching Policy、DP3、HIL-SERL
+- [世界模型](./embodied-ai/world-model.md) — Dreamer、Genie、GameNGen、UniSim
+- [数据集与数据采集](./embodied-ai/data.md) — Open X-Embodiment、DROID、UMI、MimicGen
+- [Sim-to-Real 与仿真器](./embodied-ai/sim2real.md) — Isaac Lab、Genesis、域随机化、Real-to-Sim
+- [具身智能前沿专题](./embodied-ai/frontier.md) — 分层规划、双系统 VLA、Humanoid、灵巧操作
 
 ## 模型部署
 

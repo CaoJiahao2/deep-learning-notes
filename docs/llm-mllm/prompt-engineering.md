@@ -180,7 +180,7 @@ Thought: 我已掌握足够信息，可以给出完整回答。
 Answer: 2024 年诺贝尔物理学奖授予 John J. Hopfield 和 Geoffrey E. Hinton...
 ```
 
-ReAct 是构建 AI Agent 的核心范式，详见 [AI Agent 与 RAG](../agents/ai-agents.md)。
+ReAct 是构建 AI Agent 的核心范式，详见 [AI Agent 基础与核心循环](../agents/fundamentals.md) 与 [Agentic RAG](../agents/agentic-rag.md)。
 
 **ReAct 与现代 Tool Use 的关系**：OpenAI 的 Function Calling 和 Anthropic 的 Tool Use 本质上是 ReAct 的工程化实现——模型不再用纯文本描述 Action，而是输出结构化的函数调用（函数名 + 参数 JSON）。这使得工具调用更可靠、更易解析。
 
