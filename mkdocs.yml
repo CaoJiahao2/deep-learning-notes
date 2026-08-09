@@ -77,6 +77,8 @@ nav:
       - 循环神经网络 RNN/LSTM/GRU: architectures/rnn-lstm.md
       - 生成对抗网络 GAN: architectures/gan.md
       - 扩散模型 Diffusion: architectures/diffusion.md
+      - 目标检测: architectures/object-detection.md
+      - 图像分割: architectures/segmentation.md
       - 现代架构演进 MoE/SSM: architectures/modern-architectures.md
   - 训练技术:
       - 完整训练流程: training/training-pipeline.md
@@ -87,9 +89,15 @@ nav:
       - 强化学习与对齐: training/reinforcement-learning.md
   - 大模型专题:
       - LLM/MLLM 全景调研: llm-mllm/survey.md
+      - 预训练: llm-mllm/pretraining.md
+      - 分词与词嵌入: llm-mllm/tokenizer-embedding.md
       - 微调技术: llm-mllm/fine-tuning.md
       - 推理优化: llm-mllm/inference.md
+      - 提示工程: llm-mllm/prompt-engineering.md
+      - 推理模型 o1/R1: llm-mllm/reasoning-models.md
       - 多模态对齐与融合: llm-mllm/multimodal-alignment.md
+      - 大模型典型缺陷: llm-mllm/llm-defects.md
+      - 评测体系: llm-mllm/evaluation.md
   - 智能体:
       - AI Agent 与 RAG: agents/ai-agents.md
   - 具身智能:
