@@ -1,0 +1,45 @@
+# 深度学习笔记 — 文档索引
+
+欢迎来到 deep-learning-notes 文档站。以下是按主题域组织的完整文档索引。
+
+---
+
+## 入门指南
+
+- [学习路线图](./getting-started/learning-roadmap.md) — 从零基础到独立研究的系统化学习路径
+- [环境配置](./getting-started/environment-setup.md) — GPU 服务器、CUDA、PyTorch 环境搭建
+
+## 基础理论
+
+- [机器学习概述](./fundamentals/machine-learning.md) — 基本概念、分类、三要素、评估方法
+
+## 模型架构
+
+- [Transformer 架构详解](./architectures/transformer.md) — Self-Attention、Multi-Head、位置编码
+- [卷积神经网络 (CNN)](./architectures/cnn.md) — LeNet→ResNet→EfficientNet 演进
+- [循环神经网络 (RNN/LSTM/GRU)](./architectures/rnn-lstm.md) — 序列建模与注意力机制
+- [生成对抗网络 (GAN)](./architectures/gan.md) — 从 Vanilla GAN 到 StyleGAN
+- [扩散模型 (Diffusion)](./architectures/diffusion.md) — DDPM、Stable Diffusion
+
+## 训练技术
+
+- [完整训练流程](./training/training-pipeline.md) — 从数据准备到模型部署
+- [优化器详解](./training/optimization.md) — SGD→AdamW→Lion 演进
+- [正则化技术](./training/regularization.md) — Dropout、BN/LN、数据增强
+- [分布式训练](./training/distributed.md) — DP、TP、PP、ZeRO、DeepSpeed
+
+## 大模型专题
+
+- [LLM/MLLM 全景调研](./llm-mllm/survey.md) — 开源与闭源模型一览
+- [微调技术](./llm-mllm/fine-tuning.md) — LoRA、QLoRA、Adapter、RLHF/DPO
+- [推理优化](./llm-mllm/inference.md) — KV Cache、Flash Attention、量化
+
+## 模型部署
+
+- [模型部署与服务化](./deployment/model-serving.md) — ONNX、TensorRT、Triton、vLLM
+
+## 资源汇总
+
+- [常用工具命令](./resources/tools.md) — Git、Conda、Docker、Linux
+- [常用数据集](./resources/datasets.md)
+- [学习资源](./resources/learning-resources.md)
