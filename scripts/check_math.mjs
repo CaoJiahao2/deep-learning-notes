@@ -37,11 +37,23 @@ function extractMath(src) {
   return math;
 }
 
+// 支持传参：node check_math.mjs <file|dir> ...
+// 未传参时默认扫描 docs/ 全部 .md（CI 行为不变）
+const targets = process.argv.slice(2);
+const files = [];
+for (const p of (targets.length ? targets : ["docs"])) {
+  let st;
+  try { st = statSync(p); } catch { console.error(`✗ 路径不存在: ${p}`); process.exit(1); }
+  if (st.isDirectory()) files.push(...walk(p));
+  else if (p.endsWith(".md")) files.push(p);
+  else console.warn(`⚠ 跳过非 .md 文件: ${p}`);
+}
+
 let failures = 0;
 let total = 0;
 let fileCount = 0;
 
-for (const file of walk("docs")) {
+for (const file of files) {
   const src = readFileSync(file, "utf8");
   const items = extractMath(src);
   if (items.length === 0) continue;

@@ -4,6 +4,10 @@
 
 ---
 
+## 全景手册
+
+- [深度学习基础知识全景手册](./fundamentals/panorama.md) — 从数学基础到大模型部署、计算机视觉、多模态与 VLA/世界模型的贯通式综述，附推荐学习顺序
+
 ## 入门指南
 
 - [学习路线图](./getting-started/learning-roadmap.md) — 从零基础到独立研究的系统化学习路径
@@ -80,3 +84,4 @@
 - [常用工具命令](./resources/tools.md) — Git、Conda、Docker、Linux
 - [常用数据集](./resources/datasets.md)
 - [学习资源](./resources/learning-resources.md)
+- [大模型求职指南](./resources/llm-career-guide.md) — 岗位地图、技术栈要求、简历/笔试/面试准备与投递策略

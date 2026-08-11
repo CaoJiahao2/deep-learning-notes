@@ -65,6 +65,7 @@ extra_css:
 
 nav:
   - 首页: index.md
+  - 深度学习全景手册: fundamentals/panorama.md
   - 入门指南:
       - 学习路线图: getting-started/learning-roadmap.md
       - 环境配置: getting-started/environment-setup.md
@@ -124,3 +125,4 @@ nav:
       - 常用工具命令: resources/tools.md
       - 常用数据集: resources/datasets.md
       - 学习资源: resources/learning-resources.md
+      - 大模型求职指南: resources/llm-career-guide.md
