@@ -97,9 +97,11 @@ nav:
       - 预训练: llm-mllm/pretraining.md
       - 分词与词嵌入: llm-mllm/tokenizer-embedding.md
       - 微调技术: llm-mllm/fine-tuning.md
+      - 后训练 Post-Training 综述: llm-mllm/post-training-survey.md
       - 推理优化: llm-mllm/inference.md
       - 提示工程: llm-mllm/prompt-engineering.md
       - 推理模型 o1/R1: llm-mllm/reasoning-models.md
+      - 多模态推理模型 LMRM 综述: llm-mllm/multimodal-reasoning-survey.md
       - 多模态对齐与融合: llm-mllm/multimodal-alignment.md
       - 大模型典型缺陷: llm-mllm/llm-defects.md
       - 评测体系: llm-mllm/evaluation.md

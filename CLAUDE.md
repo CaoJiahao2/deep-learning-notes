@@ -65,3 +65,14 @@ mkdocs build --strict
 - The linter does NOT skip fenced code blocks — keep `$` out of code samples.
 
 **Workflow**: edit → `node scripts/check_math.mjs <changed files>` → `mkdocs build --strict`. A non-compilable formula fails CI.
+
+## TODO 目录处理流程 (Processing the TODO directory)
+
+`TODO/` 存放待处理的 Markdown 文档。每次处理流程如下：
+
+1. 阅读 `TODO/*.md` 的内容，判断主题归属，将内容整合进网站合适的章节（例如 LLM 后训练 → `docs/llm-mllm/`、多模态推理 → `docs/llm-mllm/` 等）。
+2. 整合时遵守本文档的公式规范：新公式一律使用 `$$...$$`（块级）与 `$...$`（行内）。TODO 文档若使用 `\[...\]` / `\(...\)`，必须转换为 `$$...$$` / `$...$`（linter 不检查 `\[...\]`）。
+3. 文档以「参考文献」章节结尾（论文标题 + 年份）。
+4. 在 `mkdocs.yml` 的 `nav:` 与 `docs/index.md` 中登记新文档。
+5. 用 linter 与严格构建校验改动：`node scripts/check_math.mjs <changed files>` → `mkdocs build --strict`。
+6. 处理完成后清空 `TODO/` 下的 md 文档（清空内容，保留目录）。

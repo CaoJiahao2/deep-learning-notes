@@ -48,9 +48,11 @@
 - [预训练](./llm-mllm/pretraining.md) — 预训练目标、数据工程、Scaling Laws
 - [分词与词嵌入](./llm-mllm/tokenizer-embedding.md) — BPE、WordPiece、SentencePiece
 - [微调技术](./llm-mllm/fine-tuning.md) — LoRA、QLoRA、Adapter、RLHF/DPO
+- [后训练 Post-Training 综述](./llm-mllm/post-training-survey.md) — SFT、RLHF/RLAIF/DPO、GRPO、Reasoning RL、量化/蒸馏
 - [推理优化](./llm-mllm/inference.md) — KV Cache、Flash Attention、量化
 - [提示工程](./llm-mllm/prompt-engineering.md) — Zero/Few-shot、CoT、ReAct、提示注入
 - [推理模型 o1/R1](./llm-mllm/reasoning-models.md) — CoT、Test-time Compute、DeepSeek-R1
+- [多模态推理模型 LMRM 综述](./llm-mllm/multimodal-reasoning-survey.md) — Perception→CoT→Search→RL→Agent、N-LMRM
 - [多模态对齐与融合](./llm-mllm/multimodal-alignment.md) — CLIP、Q-Former、LLaVA、跨模态生成
 - [评测体系](./llm-mllm/evaluation.md) — MMLU/GSM8K、LLM-as-Judge、评测陷阱
 - [大模型缺陷](./llm-mllm/llm-defects.md) — 幻觉、灾难性遗忘、模型坍塌
