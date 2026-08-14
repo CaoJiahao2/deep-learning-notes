@@ -75,4 +75,4 @@ mkdocs build --strict
 3. 文档以「参考文献」章节结尾（论文标题 + 年份）。
 4. 在 `mkdocs.yml` 的 `nav:` 与 `docs/index.md` 中登记新文档。
 5. 用 linter 与严格构建校验改动：`node scripts/check_math.mjs <changed files>` → `mkdocs build --strict`。
-6. 处理完成后清空 `TODO/` 下的 md 文档（清空内容，保留目录）。
+6. 处理完成后直接删除 `TODO/` 下的 md 文档（删除文件本身）。

@@ -64,6 +64,7 @@
 - [Agentic RAG](./agents/agentic-rag.md) — Agent 主导的检索与查询改写
 - [Agent 记忆机制](./agents/memory.md) — 短期/长期、向量/笔记式、MemGPT
 - [多智能体协作](./agents/multi-agent.md) — AutoGen、CrewAI、LangGraph
+- [Agent Runtime：OpenClaw 与 Hermes Agent](./agents/agent-runtime.md) — Gateway/Runtime 架构、持久记忆、Agent 管理 Skills、Sandbox 对比
 - [GUI Agent 与 Computer Use](./agents/gui-agent.md) — Operator、Computer Use、AutoGLM
 
 ## 具身智能

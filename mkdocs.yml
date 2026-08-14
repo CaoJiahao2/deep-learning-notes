@@ -111,6 +111,7 @@ nav:
       - Agentic RAG: agents/agentic-rag.md
       - Agent 记忆机制: agents/memory.md
       - 多智能体协作: agents/multi-agent.md
+      - "Agent Runtime：OpenClaw 与 Hermes Agent": agents/agent-runtime.md
       - GUI Agent 与 Computer Use: agents/gui-agent.md
   - 具身智能:
       - 具身智能基础: embodied-ai/fundamentals.md
