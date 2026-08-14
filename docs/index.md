@@ -17,6 +17,7 @@
 
 - [数学基础](./fundamentals/math-foundations.md) — 线性代数、微积分、概率与信息论（推导的地基）
 - [机器学习概述](./fundamentals/machine-learning.md) — 基本概念、分类、三要素、评估方法
+- [ML 系统可靠性](./fundamentals/reliability.md) — 数据漂移、训练-服务偏差、静默回归与生产事故应对
 
 ## 模型架构
 
@@ -88,3 +89,20 @@
 - [常用数据集](./resources/datasets.md)
 - [学习资源](./resources/learning-resources.md)
 - [大模型求职指南](./resources/llm-career-guide.md) — 岗位地图、技术栈要求、简历/笔试/面试准备与投递策略
+- [3D 生成：NeRF 与 Gaussian Splatting](./architectures/3d-generation.md) — 体渲染、3DGS、文本到 3D、4D 动态场景
+- [语音与音频大模型](./architectures/speech-audio.md) — ASR/TTS、语音 Tokenizer、语音 LLM、音乐生成
+- [推荐系统与 CTR 模型](./architectures/recommendation.md) — DeepFM/DIN/DIEN、多目标排序、LLM 推荐
+- [AI 训练基础设施](./training/ai-infrastructure.md) — GPU 集群、RDMA 网络、容错调度、Checkpoint、成本模型
+- [长上下文与检索增强](./llm-mllm/long-context-rag.md) — 位置编码外推、Ring Attention、RAG、GraphRAG
+- [大模型数据工程](./llm-mllm/data-engineering.md) — 语料清洗、质量过滤、SFT 构造、合成数据、污染检测
+- [代码大模型与程序推理](./llm-mllm/code-intelligence.md) — FIM、SWE-bench、Agentic Coding
+- [统一多模态与任意到任意生成](./llm-mllm/unified-multimodal.md) — 统一分词器、原生多模态、Any-to-Any
+- [LLM 安全与对齐](./llm-mllm/safety-alignment.md) — 红队、Constitutional AI、Scalable Oversight、Agent 安全
+- [机制可解释性](./llm-mllm/interpretability.md) — SAE、Circuits、Steering Vectors、因果追踪
+- [非自回归与扩散式语言模型](./llm-mllm/non-autoregressive.md) — 投机解码、Medusa、LLaDA、并行生成
+- [模型编辑与知识更新](./llm-mllm/model-editing.md) — ROME/MEMIT、持续预训练、Adapter 注入
+- [测试时计算与推理扩展](./llm-mllm/test-time-compute.md) — Best-of-N、ToT、搜索增强、推理时 Scaling Law
+- [个性化与定制化](./llm-mllm/personalization.md) — 用户画像、LoRA 个性化、个性化 RLHF、端侧适配
+- [端侧 AI 与移动端推理](./deployment/edge-on-device.md) — llama.cpp/MLX、GGUF、NPU、端云协同
+- [LLM 应用工程（LLMOps）](./deployment/llm-ops.md) — Prompt 管理、评估流水线、Tracing、灰度发布
+- [AI for Science 专题](./resources/ai-for-science.md) — 蛋白质结构、天气预测、材料发现、数学定理证明
