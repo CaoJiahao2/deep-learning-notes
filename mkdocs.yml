@@ -86,6 +86,9 @@ nav:
       - 图像分割: architectures/segmentation.md
       - 单目深度与 3D 视觉: architectures/monocular-depth.md
       - 现代架构演进 MoE/SSM: architectures/modern-architectures.md
+      - 3D 生成：NeRF 与 Gaussian Splatting: architectures/3d-generation.md
+      - 语音与音频大模型: architectures/speech-audio.md
+      - 推荐系统与 CTR 模型: architectures/recommendation.md
   - 训练技术:
       - 完整训练流程: training/training-pipeline.md
       - 反向传播: training/backpropagation.md
@@ -139,17 +142,15 @@ nav:
       - 数据集与数据采集: embodied-ai/data.md
       - Sim-to-Real 与仿真器: embodied-ai/sim2real.md
       - 具身智能前沿专题: embodied-ai/frontier.md
-  - 模型部署:
-      - 模型部署与服务化: deployment/model-serving.md
+  - 推理部署:
+      - 推理实现详解: deployment/inference-implementation.md
+      - 推理服务化与部署: deployment/model-serving.md
       - 模型压缩技术: deployment/model-compression.md
+      - 端侧 AI 与移动端推理: deployment/edge-on-device.md
+      - LLM 应用工程（LLMOps）: deployment/llm-ops.md
   - 资源汇总:
       - 常用工具命令: resources/tools.md
       - 常用数据集: resources/datasets.md
       - 学习资源: resources/learning-resources.md
       - 大模型求职指南: resources/llm-career-guide.md
-      - 3D 生成：NeRF 与 Gaussian Splatting: architectures/3d-generation.md
-      - 语音与音频大模型: architectures/speech-audio.md
-      - 推荐系统与 CTR 模型: architectures/recommendation.md
-      - 端侧 AI 与移动端推理: deployment/edge-on-device.md
-      - LLM 应用工程（LLMOps）: deployment/llm-ops.md
       - AI for Science 专题: resources/ai-for-science.md

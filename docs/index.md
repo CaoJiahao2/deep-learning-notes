@@ -84,9 +84,10 @@
 - [Sim-to-Real 与仿真器](./embodied-ai/sim2real.md) — Isaac Lab、Genesis、域随机化、Real-to-Sim
 - [具身智能前沿专题](./embodied-ai/frontier.md) — 分层规划、双系统 VLA、Humanoid、灵巧操作
 
-## 模型部署
+## 推理部署
 
-- [模型部署与服务化](./deployment/model-serving.md) — ONNX、TensorRT、Triton、vLLM
+- [推理服务化与部署](./deployment/model-serving.md) — ONNX、TensorRT、Triton、vLLM
+- [推理实现详解](./deployment/inference-implementation.md) — Prefill/Decode、KV Cache、Continuous Batching、PagedAttention、FlashAttention、多 GPU、PD 解耦
 - [模型压缩技术](./deployment/model-compression.md) — 量化 GPTQ/AWQ、剪枝、知识蒸馏
 
 ## 资源汇总
