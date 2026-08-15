@@ -27,7 +27,7 @@ CI (`.github/workflows/deploy.yml`) runs: `pip install -r requirements.txt` → 
 
 ## Architecture
 
-- **`docs/`** — all content. Subdirectories are topic domains: `getting-started/`, `fundamentals/`, `architectures/`, `training/`, `llm-mllm/`, `deployment/`, `resources/`. `index.md` is the site home page.
+- **`docs/`** — all content. Subdirectories are topic domains: `fundamentals/`, `architectures/`, `training/`, `llm-mllm/`, `deployment/`, `resources/`. `index.md` is the site home page.
 - **`mkdocs.yml`** — the source of truth for navigation. `nav:` maps page titles to files. **When adding a new doc, add it to `nav:` here** (and to `docs/index.md` per contributing checklist).
 - **`scripts/check_math.mjs`** — KaTeX linter. Walks `docs/` for `.md` files, extracts block `$$...$$` then inline `$...$` (skipping ranges already consumed by block spans), and renders each with `throwOnError: true`. Reports `file:line`, exits 1 on any failure. Accepts optional file/dir paths to check only what changed; with no args it scans all of `docs/` (what CI runs).
 - **`docs/javascripts/katex.js`** — runtime renderer; registers `$$...$$`, `\\[...\\]`, `$...$`, `\\(...\\)` delimiters with Material's `document$` stream.

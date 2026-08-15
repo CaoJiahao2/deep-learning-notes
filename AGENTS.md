@@ -4,7 +4,7 @@
 
 This is a Chinese-language deep learning knowledge base built with **MkDocs Material** and **KaTeX**. The repository is documentation, tooling, and site config — no application code or traditional test suite.
 
-- `docs/` — All Markdown content, grouped by domain (`architectures/`, `training/`, `llm-mllm/`, `agents/`, `embodied-ai/`, `deployment/`, `fundamentals/`, `getting-started/`, `resources/`).
+- `docs/` — All Markdown content, grouped by domain (`architectures/`, `training/`, `llm-mllm/`, `agents/`, `embodied-ai/`, `deployment/`, `fundamentals/`, `resources/`).
 - `mkdocs.yml` — Site config and the source of truth for navigation (`nav:`).
 - `scripts/check_math.mjs` — KaTeX linter that validates all LaTeX in `docs/`.
 - `asserts/` — Images and static assets.

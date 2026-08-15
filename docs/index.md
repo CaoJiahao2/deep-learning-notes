@@ -8,14 +8,20 @@
 
 - [深度学习基础知识全景手册](./fundamentals/panorama.md) — 从数学基础到大模型部署、计算机视觉、多模态与 VLA/世界模型的贯通式综述，附推荐学习顺序
 
-## 入门指南
-
-- [学习路线图](./getting-started/learning-roadmap.md) — 从零基础到独立研究的系统化学习路径
-- [环境配置](./getting-started/environment-setup.md) — GPU 服务器、CUDA、PyTorch 环境搭建
-
 ## 基础理论
 
+- [学习路线图](./fundamentals/learning-roadmap.md) — 从零基础到独立研究的系统化学习路径
+- [环境配置](./fundamentals/environment-setup.md) — GPU 服务器、CUDA、PyTorch 环境搭建
+- [Python 与数值计算基础](./fundamentals/python-programming.md) — Python 语法、NumPy 向量化、Pandas 数据处理
+- [数据结构与算法基础](./fundamentals/data-structures-algorithms.md) — 复杂度、线性结构、哈希、树图、排序搜索
+- [计算机组成原理与层次结构](./fundamentals/computer-architecture.md) — 计算机层次、冯·诺依曼、CPU、存储层次
+- [操作系统基础](./fundamentals/operating-system.md) — 进程线程、调度、虚拟内存、文件系统、并发同步
+- [计算机网络基础](./fundamentals/computer-networks.md) — 分层模型、TCP/UDP、HTTP、RDMA 与集群
+- [数据库基础](./fundamentals/database-basics.md) — 关系模型、SQL、索引、事务、向量数据库与 RAG
+- [GPU 架构与 CUDA 编程](./fundamentals/gpu-cuda.md) — GPU 硬件、线程模型、显存带宽、Kernel 优化
 - [数学基础](./fundamentals/math-foundations.md) — 线性代数、微积分、概率与信息论（推导的地基）
+- [概率论与统计深入](./fundamentals/probability-statistics.md) — 分布族、极限定理、MLE/MAP/贝叶斯、假设检验
+- [优化理论与方法](./fundamentals/optimization-theory.md) — 梯度下降收敛、凸优化/KKT、SGD/Adam、二阶方法
 - [机器学习概述](./fundamentals/machine-learning.md) — 基本概念、分类、三要素、评估方法
 - [ML 系统可靠性](./fundamentals/reliability.md) — 数据漂移、训练-服务偏差、静默回归与生产事故应对
 

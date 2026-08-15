@@ -69,7 +69,7 @@
 ### 命名规范
 
 - 文件名：小写英文 + 连字符，如 `fine-tuning.md`
-- 目录名：小写英文 + 连字符，如 `getting-started/`
+- 目录名：小写英文 + 连字符，如 `architectures/`
 - 图片：放在 `asserts/` 目录下，有意义的命名
 
 ---

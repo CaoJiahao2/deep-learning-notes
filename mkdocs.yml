@@ -66,11 +66,19 @@ extra_css:
 nav:
   - 首页: index.md
   - 深度学习全景手册: fundamentals/panorama.md
-  - 入门指南:
-      - 学习路线图: getting-started/learning-roadmap.md
-      - 环境配置: getting-started/environment-setup.md
   - 基础理论:
+      - 学习路线图: fundamentals/learning-roadmap.md
+      - 环境配置: fundamentals/environment-setup.md
+      - Python 与数值计算基础: fundamentals/python-programming.md
+      - 数据结构与算法基础: fundamentals/data-structures-algorithms.md
+      - 计算机组成原理与层次结构: fundamentals/computer-architecture.md
+      - 操作系统基础: fundamentals/operating-system.md
+      - 计算机网络基础: fundamentals/computer-networks.md
+      - 数据库基础: fundamentals/database-basics.md
+      - GPU 架构与 CUDA 编程: fundamentals/gpu-cuda.md
       - 数学基础: fundamentals/math-foundations.md
+      - 概率论与统计深入: fundamentals/probability-statistics.md
+      - 优化理论与方法: fundamentals/optimization-theory.md
       - 机器学习概述: fundamentals/machine-learning.md
       - ML 系统可靠性: fundamentals/reliability.md
   - 模型架构:

@@ -32,10 +32,12 @@
 
 ```
 docs/
-├── getting-started/           # 入门指南
+├── fundamentals/              # 基础理论（含入门与计算机基础）
 │   ├── learning-roadmap.md    # 学习路线图
-│   └── environment-setup.md   # 环境配置（GPU、CUDA、PyTorch）
-├── fundamentals/              # 基础理论
+│   ├── environment-setup.md   # 环境配置（GPU、CUDA、PyTorch）
+│   ├── computer-architecture.md # 计算机组成原理与层次结构
+│   ├── operating-system.md    # 操作系统基础
+│   ├── gpu-cuda.md            # GPU 架构与 CUDA 编程
 │   ├── math-foundations.md    # 数学基础（推导的地基）
 │   └── machine-learning.md    # 机器学习概述
 ├── architectures/             # 模型架构
