@@ -238,6 +238,8 @@ NVIDIA **GR00T** 是通用人形机器人的 VLA 基础模型，强调：
 | Sim-to-Real | 可微仿真 + Real-to-Sim + 域随机化 |
 | 多模态融合 | 触觉、力觉、听觉的整合 |
 
+> 相关文档：评测基准详见 [`embodied-ai/evaluation.md`](evaluation.md)，操作与灵巧操控详见 [`embodied-ai/manipulation.md`](manipulation.md)，世界模型详见 [`embodied-ai/world-model.md`](world-model.md)。
+
 ---
 
 ## 8 参考文献 {#8}

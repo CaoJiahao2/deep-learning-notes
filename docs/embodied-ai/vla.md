@@ -133,6 +133,8 @@ $$a_{t:t+H} = \pi_\theta(o_t, \ell)$$
 
 ---
 
+> 相关文档：VLA 的评测基准详见 [`embodied-ai/evaluation.md`](evaluation.md)，操作学习详见 [`embodied-ai/manipulation.md`](manipulation.md)，世界动作模型/世界模型详见 [`embodied-ai/world-model.md`](world-model.md)。
+
 ## 6 参考文献 {#6}
 
 [1] Brohan et al., *RT-1: Robotics Transformer for Real-World Control at Scale*, CoRL, 2022. arXiv:2203.07814.

@@ -172,6 +172,8 @@ Execute:
 
 ---
 
+> 相关文档：Agent 评测基准详见 [`agents/agent-evaluation.md`](agent-evaluation.md)，Agent 安全详见 [`agents/agent-security.md`](agent-security.md)，网页 Agent 见 [`agents/web-agents.md`](web-agents.md)。
+
 ## 6 参考文献 {#6}
 
 [1] S. Yao et al., *ReAct: Synergizing Reasoning and Acting in Language Models*, ICLR, 2023. arXiv:2210.03629.

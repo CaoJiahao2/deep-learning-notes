@@ -67,13 +67,19 @@
 - [多智能体协作](./agents/multi-agent.md) — AutoGen、CrewAI、LangGraph
 - [Agent Runtime：OpenClaw 与 Hermes Agent](./agents/agent-runtime.md) — Gateway/Runtime 架构、持久记忆、Agent 管理 Skills、Sandbox 对比
 - [GUI Agent 与 Computer Use](./agents/gui-agent.md) — Operator、Computer Use、AutoGLM
+- [编程智能体：架构与使用](./agents/coding-agents.md) — Agent Loop、沙箱权限、Codex CLI、Claude Code、Harness/Loop Engineer
+- [Agent 评测与基准](./agents/agent-evaluation.md) — AgentBench、GAIA、SWE-bench、τ-bench、WebArena、OSWorld
+- [Agent 安全与提示注入](./agents/agent-security.md) — 直接/间接注入、工具滥用、沙箱边界、OWASP
+- [网页智能体与浏览 Agent](./agents/web-agents.md) — DOM/Accessibility grounding、WebVoyager、BrowserGym
 
 ## 具身智能
 
 - [具身智能基础](./embodied-ai/fundamentals.md) — MDP/POMDP、三种范式、关键概念
 - [VLA 模型](./embodied-ai/vla.md) — RT-2、OpenVLA、π0/π0.5、GR00T
 - [模仿学习与策略学习](./embodied-ai/policy-learning.md) — BC、Diffusion Policy、Flow Matching Policy、DP3、HIL-SERL
-- [世界模型](./embodied-ai/world-model.md) — Dreamer、Genie、GameNGen、UniSim
+- [世界模型](./embodied-ai/world-model.md) — Dreamer、Genie/Sora、Cosmos、World Labs、VLA 融合
+- [具身智能评测基准](./embodied-ai/evaluation.md) — CALVIN、RLBench、ManiSkill、SimplerEnv、HumanoidBench
+- [操作学习：灵巧操控与移动操作](./embodied-ai/manipulation.md) — 接触丰富操作、灵巧手、移动操作、世界动作模型 (WAM)
 - [数据集与数据采集](./embodied-ai/data.md) — Open X-Embodiment、DROID、UMI、MimicGen
 - [Sim-to-Real 与仿真器](./embodied-ai/sim2real.md) — Isaac Lab、Genesis、域随机化、Real-to-Sim
 - [具身智能前沿专题](./embodied-ai/frontier.md) — 分层规划、双系统 VLA、Humanoid、灵巧操作

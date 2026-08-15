@@ -125,11 +125,17 @@ nav:
       - 多智能体协作: agents/multi-agent.md
       - "Agent Runtime：OpenClaw 与 Hermes Agent": agents/agent-runtime.md
       - GUI Agent 与 Computer Use: agents/gui-agent.md
+      - 编程智能体：架构与使用: agents/coding-agents.md
+      - Agent 评测与基准: agents/agent-evaluation.md
+      - Agent 安全与提示注入: agents/agent-security.md
+      - 网页智能体与浏览 Agent: agents/web-agents.md
   - 具身智能:
       - 具身智能基础: embodied-ai/fundamentals.md
       - VLA 模型: embodied-ai/vla.md
       - 模仿学习与策略学习: embodied-ai/policy-learning.md
       - 世界模型: embodied-ai/world-model.md
+      - 具身智能评测基准: embodied-ai/evaluation.md
+      - 操作学习：灵巧操控与移动操作: embodied-ai/manipulation.md
       - 数据集与数据采集: embodied-ai/data.md
       - Sim-to-Real 与仿真器: embodied-ai/sim2real.md
       - 具身智能前沿专题: embodied-ai/frontier.md

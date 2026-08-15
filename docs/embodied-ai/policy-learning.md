@@ -159,6 +159,8 @@ RL 微调     →  在仿真或真机环境探索
 
 ---
 
+> 相关文档：策略在操作任务中的应用见 [`embodied-ai/manipulation.md`](manipulation.md)，策略评测见 [`embodied-ai/evaluation.md`](evaluation.md)。
+
 ## 7 参考文献 {#7}
 
 [1] C. Chi et al., *Diffusion Policy: Visuomotor Policy Learning via Action Diffusion*, RSS, 2023. arXiv:2303.04137.

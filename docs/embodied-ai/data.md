@@ -174,6 +174,8 @@ UC Berkeley 团队，强调"真实厨房环境 + 真实任务"。
 
 ---
 
+> 相关文档：数据如何驱动操作学习见 [`embodied-ai/manipulation.md`](manipulation.md)，数据基准见 [`embodied-ai/evaluation.md`](evaluation.md)，真机数据与仿真见 [`embodied-ai/sim2real.md`](sim2real.md)。
+
 ## 7 参考文献 {#7}
 
 [1] Open X-Embodiment Collaboration, *Open X-Embodiment: Robotic Learning Datasets and RT-X Models*, ICRA, 2024. arXiv:2310.08864.
