@@ -360,7 +360,7 @@
 
 **基本概念**：
 - **混淆矩阵（Confusion Matrix）**：
-  ```
+```text
                预测
   实际    |  正类  |  负类  |
   --------|-------|-------|
@@ -649,3 +649,17 @@
 > 3. 如何在模型复杂度和泛化能力之间找到平衡点？
 > 4. 对于类别不平衡的分类问题，应该选择哪些评估指标？为什么？
 
+
+---
+
+## 参考文献
+
+[1] T. Hastie, R. Tibshirani, J. Friedman, *The Elements of Statistical Learning (2nd Edition)*, Springer, 2009.
+
+[2] C. M. Bishop, *Pattern Recognition and Machine Learning*, Springer, 2006.
+
+[3] K. P. Murphy, *Probabilistic Machine Learning: An Introduction*, MIT Press, 2022.
+
+[4] V. N. Vapnik, *The Nature of Statistical Learning Theory*, Springer, 1995.（VC 维与泛化理论）
+
+[5] S. Shalev-Shwartz & S. Ben-David, *Understanding Machine Learning: From Theory to Algorithms*, Cambridge University Press, 2014.

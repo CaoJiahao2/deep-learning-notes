@@ -1,195 +1,293 @@
-# 数据集与数据采集
+# 具身智能数据：采集、数据集、标注与数据飞轮
 
-> 大规模、高质量、跨实体的机器人数据，是 VLA / 世界模型训练的命脉。
+> 大规模、高质量、跨实体的机器人数据是 VLA / 世界模型训练的命脉。本章系统梳理数据金字塔、采集硬件、开源数据集版图、人类视频利用、数据缩放定律与数据飞轮闭环。
 
 ---
 
 ## 目录
 
-1. [数据需求总览](#1)
-2. [真机遥操作 (Teleoperation)](#2)
-3. [开源数据集](#3)
-4. [仿真数据生成](#4)
-5. [网络视频数据](#5)
-6. [数据工程实践](#6)
-7. [参考文献](#7)
+1. [数据金字塔](#1)
+2. [真机遥操作采集](#2)
+3. [开源数据集版图](#3)
+4. [人类视频与隐动作标注](#4)
+5. [仿真数据生成](#5)
+6. [数据缩放定律](#6)
+7. [数据质量与语义标注](#7)
+8. [数据飞轮与自改进](#8)
+9. [数据工程实践](#9)
+10. [相关文档](#10)
+11. [参考文献](#11)
 
 ---
 
-## 1 数据需求总览 {#1}
+## 1 数据金字塔 {#1}
 
-| 数据来源 | 真实度 | 规模 | 多样性 | 标注成本 |
-|---|---|---|---|---|
-| 真机遥操 | 高 | 小-中 | 受限于平台 | 高（人工） |
-| 仿真生成 | 中（有 gap） | 大 | 高（可随机化） | 低（自动） |
-| 网络视频 | 低（无动作） | 极大 | 极高 | 低（弱监督） |
+具身智能的数据来源呈金字塔结构：越往塔尖越接近"真实机器人动作"，规模越小、成本越高。
 
-不同来源的数据扮演不同角色：
+```mermaid
+flowchart TD
+    A["互联网视频 / 图文<br/>规模: 10^8+ 小时<br/>无动作标签, 学先验"] --> B["仿真合成数据<br/>规模: 10^5-10^7 轨迹<br/>有动作, 有 sim-to-real gap"]
+    B --> C["跨实体真机数据<br/>OXE / DROID / AgiBot World<br/>多形态, 中等规模"]
+    C --> D["本机遥操作数据<br/>任务专属, 高质量<br/>规模: 10^1-10^3 轨迹"]
+```
 
-- **真机数据**：训练 VLA 主干，最真实；
-- **仿真数据**：扩展规模与多样性，需配合 Sim-to-Real；
-- **网络视频**：学习视觉先验、物体可供性、物理常识，作为 VLM 预训练来源。
+| 数据来源 | 真实度 | 规模 | 动作标签 | 成本 | 主要用途 |
+|---|---|---|---|---|---|
+| 互联网视频 | 中 | 极大 | 无 | 低 | VLM 预训练、世界模型、隐动作学习 |
+| 仿真合成 | 中（有 gap） | 大 | 有 | 低（GPU 时间） | 预训练扩充、RL、域随机化 |
+| 跨实体真机 | 高 | 中（10^4–10^6） | 有 | 高（共享） | VLA 通用骨干训练 |
+| 本机遥操作 | 极高 | 小（10^1–10^3） | 有 | 极高（专属） | 任务后训练、专精化 |
 
----
-
-## 2 真机遥操作 (Teleoperation) {#2}
-
-人类通过 VR 手柄、空间鼠标或主从臂操控机器人完成任务，记录关节状态与图像，得到高质量演示。代表性便携采集装置：
-
-### 2.1 UMI（Universal Manipulation Interface, 2024）
-
-手持式夹爪 + GoPro + 智能手机，把人手操作转化为机器人可执行的末端轨迹，无需机器人本体即可采集。
-
-优势：低成本、便携、可大规模部署到非实验室环境。
-
-### 2.2 DexCap
-
-便携式灵巧手数据采集手套，捕获人手高自由度动作。
-
-### 2.3 Gello
-
-低成本 3D 打印主控臂，与从臂同构，直觉操作。
-
-### 2.4 ALOHA / ALOHA 2
-
-双手机器人遥操作平台，强调双手协作任务（如拧螺丝、穿针）。
-
-### 2.5 跨实体数据采集
-
-不同实验室、不同机器人形态的演示数据往往格式不一。要联合训练，需要：
-
-- **统一状态空间**：把关节角度统一为末端 6DoF + 夹爪；
-- **统一时间步**：重采样到固定频率；
-- **统一标注格式**：RLDS、Open X-Embodiment 标准。
+现代 VLA 的数据配方是**四层混用**：视频学先验、仿真扩规模、跨实体学泛化、本机数据保专精（GR00T N1 把这三源配方显式写进了论文）。
 
 ---
 
-## 3 开源数据集 {#3}
+## 2 真机遥操作采集 {#2}
 
-### 3.1 Open X-Embodiment (RT-X, 2023)
+人类通过主从臂、VR 手柄、外骨骼或手持装置操控机器人完成任务，同步记录关节状态、末端位姿与多视角图像，得到高质量演示。
 
-由 Google DeepMind 牵头、多家机构联合发布的开源机器人数据集，覆盖 **22 种机器人形态**、百万级 episodes，统一为 RLDS 格式，是训练跨实体通用策略的关键数据基础。OpenVLA、Octo 等模型都在此数据上训练。
+### 2.1 主从臂平台
 
-### 3.2 DROID
+- **ALOHA / ALOHA 2 / Mobile ALOHA**（Stanford, 2023–2024）：低成本 3D 打印双臂主从系统，强调双手协作精细任务（拧螺丝、穿针）；Mobile ALOHA 把 ALOHA 装上移动底盘，实现全身移动双臂采集。配合 ACT 策略，数十至数百条演示即可学会精细任务，是学术圈最流行的采集范式；
+- **GELLO**（2023）：低成本 3D 打印主控臂，与从臂同构、即插即用，把采集硬件成本压到数百美元级；
+- ** leader-follower 经济学**：主从臂方案的瓶颈是操作员熟练度与疲劳，社区经验约为每条 30–60 秒轨迹 + 熟练操作员 20–50 条/小时。
 
-Stanford 等机构开源的分布式机器人数据，强调"日常家庭场景"的丰富度。
+### 2.2 手持与穿戴采集
 
-### 3.3 RoboNet
+- **UMI**（Universal Manipulation Interface, 2024）：手持夹爪 + GoPro + SLAM 定位，无需机器人本体即可采集，采集地点不受实验室限制，已用于大规模家庭/商用场景数据；
+- **DexCap**（2024）：便携式灵巧手动捕手套，直接捕获人手高自由度动作并重定向到机器灵巧手；
+- **AirExo / 外骨骼系**（2024–2025）：穿戴式外骨骼遥操作，兼顾低延迟与力反馈。
 
-大规模多机器人形态数据，包含 1000+ 物体、12 个机器人。
+### 2.3 跨实体数据采集协议
 
-### 3.4 BridgeData / BridgeData V2
+不同实验室、不同机器人形态的数据要联合训练，必须统一：
 
-UC Berkeley 团队，强调"真实厨房环境 + 真实任务"。
-
-### 3.5 AgiBot / AgiBot-World
-
-国内机器人公司发布的大规模具身数据集，覆盖工业 + 家庭场景。
-
-### 3.6 Physical Intelligence 数据
-
-π0 / π0.5 训练数据为闭源，但其论文披露了数据规模与组成（多实体、多任务）。
-
----
-
-## 4 仿真数据生成 {#4}
-
-### 4.1 MimicGen
-
-从少量人类演示出发，自动生成大量"语义等效"的仿真轨迹：
-
-- 把演示轨迹中的物体用仿真中的其他物体替换；
-- 重新计算机械臂轨迹以完成新物体的任务。
-
-可在没有新数据采集的情况下，把演示数据扩展 10x–100x。
-
-### 4.2 仿真器中的大规模生成
-
-借助 Isaac Sim、Isaac Lab、Genesis 等 GPU 并行仿真器，可在短时间内生成百万级轨迹。优势：
-
-- 成本低（GPU 时间）；
-- 多样性高（域随机化）；
-- 自动标注（关节、位姿、力矩）。
-
-局限：存在 Sim-to-Real gap，需配合域随机化、Real-to-Sim 标定等技术。
+- **统一状态空间**：关节角统一投影为末端 6-DoF 位姿 + 夹爪开合（OXE 的做法）；
+- **统一时间步**：重采样到固定控制频率（典型 5–50 Hz）；
+- **统一标注格式**：RLDS / LeRobot Dataset，包含观测、动作、语言标注、成功标志；
+- **形态 token**：把机器人构型作为条件输入，让单模型服务多本体。
 
 ---
 
-## 5 网络视频数据 {#5}
+## 3 开源数据集版图 {#3}
 
-### 5.1 价值
+### 3.1 Open X-Embodiment（RT-X, 2023）
 
-网络视频虽无动作标签，但蕴含丰富的：
+DeepMind 牵头、全球 30+ 机构共建的里程碑数据集：
 
-- 物体可供性（"人可以怎么用这个物体"）；
-- 物理常识（"重物落地会下沉"）；
-- 长程人类行为（"做早餐的步骤"）。
+- **规模**：22 种机器人形态、约 160 万 episodes、数十万任务场景，统一 RLDS 格式；
+- **贡献**：实验证明跨实体联合训练带来正向迁移——RT-X 在 OXE 上训练后，多个形态的性能超过各自单独训练；
+- **地位**：Octo、OpenVLA、RDT-1B 等 VLA 的标准预训练语料。
 
-可作为 VLM 视觉-语言 backbone 的预训练来源。
+### 3.2 DROID（2024）
 
-### 5.2 代表工作
+Stanford、Berkeley 等 13 家机构联合的分布式采集工程：
 
-- **GR-1 / GR-2**（ByteDance, 2024）：在大规模视频上预训练视频生成 + 动作预测模型；
-- **HUMANISE**：用视频训练"人在做什么"的常识模型；
-- **SuSIE / Something-Something**：人类操作视频数据集。
+- **规模**：564 个真实场景、86 类任务、1500+ 小时、约 8.6 万条成功轨迹（以 Franka 平台为主，多站点分布式采集）；
+- **特色**：分布式多站点采集、标准化 Franka + 多相机 rig、**事后语言标注**（用 VLM 对轨迹自动生成/校正任务描述）、包含失败重试的完整 episode；
+- **地位**：π0、π0.5、OpenVLA-OFT 等新一代模型的核心训练数据之一。
 
-### 5.3 局限
+### 3.3 中国数据集力量（2024–2025）
 
-- 没有动作标签，只能做"预训练"或"弱监督微调"；
-- 视角、相机参数、机器人本体不可见；
-- 噪声大，需要严格清洗。
+- **AgiBot World**（智元）：100 台同构机器人、100+ 真实场景（工业、家庭、商业），百万级 episodes，含双臂 + 移动底盘 + 灵巧手任务；配套 Genie Sim 仿真基准；
+- **RoboMind**（北银河通用等联合）：10 万+ 真机轨迹、数千任务、覆盖双臂/人形/轮式多种本体，强调中文语言标注；
+- **Open6DOR / RLBench 变体**等任务级补充数据。
 
----
+国产数据集的共同特点：**同构机器人批量部署 + 真实场景（非实验室）+ 中文指令**，直接服务国产 VLA（如 GO-1、UniVLA）。
 
-## 6 数据工程实践 {#6}
+### 3.4 其他重要数据集
 
-### 6.1 数据清洗
+| 数据集 | 规模/特色 | 场景 |
+|---|---|---|
+| BridgeData V2 | 24 环境、6 万+ 轨迹，低成本 WidowX | 桌面操作 |
+| RoboNet | 15 机器人、1100+ 物体 | 桌面推动/抓取 |
+| RH20T | 人类+机器人成对视频，10 万+ | 人类演示对齐 |
+| Ego4D | 3670 小时第一视角人类视频 | 人类行为先验 |
+| RLDS 化仿真集 | RLBench / ManiSkill / Meta-World 演示 | 仿真预训练 |
 
-- 去除失败轨迹（夹爪空抓、目标未到达）；
-- 过滤异常值（关节限位、图像模糊）；
-- 标注质量检查（演示者熟练度、任务一致性）。
+### 3.5 闭源数据
 
-### 6.2 数据增强
-
-- **视觉增强**：随机裁剪、颜色抖动；
-- **空间增强**：随机平移、旋转、镜像（注意任务对称性）；
-- **时序增强**：随机时间扰动（注意动作块长度）。
-
-### 6.3 数据平衡
-
-不同任务、不同物体的轨迹数量差异巨大，需要：
-
-- 按任务类型做重采样；
-- 按物体类别做加权；
-- 训练时做任务/物体平衡采样。
-
-### 6.4 数据格式
-
-主流格式：
-
-- **RLDS**（Reinforcement Learning Datasets）：Google 推出，适合基于 TF/Torch 的 RL 训练；
-- **HDF5**：通用结构化格式，灵活性高；
-- **Parquet + WebDataset**：大规模数据常用；
-- **LeRobot Dataset**：Hugging Face 的机器人数据标准。
+Physical Intelligence（π0）、Tesla、Figure 的数据闭源，但论文披露关键配方：π0 使用 OXE + DROID + 自有 7 种本体约 1 万小时数据；Helix 强调"少量人类遥操作 + 大量自主飞行数据"。**闭源数据规模已显著领先开源**（10 倍以上），这是当前具身智能的核心壁垒之一。
 
 ---
 
-> 相关文档：数据如何驱动操作学习见 [`embodied-ai/manipulation.md`](manipulation.md)，数据基准见 [`embodied-ai/evaluation.md`](evaluation.md)，真机数据与仿真见 [`embodied-ai/sim2real.md`](sim2real.md)。
+## 4 人类视频与隐动作标注 {#4}
 
-## 7 参考文献 {#7}
+互联网视频没有动作标签，如何把"人怎么做"变成"机器人怎么学"是 2024 年以来的关键课题。
+
+### 4.1 隐动作模型（Latent Action Model, LAM）
+
+Genie（2024）提出的思路：训练一个编码器把相邻两帧之间的"人的动作"压缩为**隐动作 token** $z_t$，再训练逆动力学/前向动力学：
+
+$$z_t = f_\theta(o_t, o_{t+1}), \qquad \hat{o}_{t+1} = g_\theta(o_{\le t}, z_{\le t})$$
+
+隐动作无物理单位，但捕获了"画面变化的原因"。配合少量带真机动作的数据对齐后，隐动作可映射为真实控制信号（Genie 2、GR00T 的视频预训练均采用类似思路）。
+
+### 4.2 视频预训练到动作预测
+
+- **GR-1 / GR-2**（ByteDance, 2023–2024）：先在 Ego4D 等大规模视频上做"帧预测"预训练，再微调为动作预测，样本效率显著提升；
+- **VPT**（OpenAI, 2022）：用少量标注视频训练逆动力学模型（IDM），给海量 Minecraft 视频自动打伪动作标签，再行为克隆——"伪标签自举"范式；
+- **EgoMimic / DexVLA 视频分支**：人类第一视角与机器人视角成对数据，做跨视角动作对齐。
+
+### 4.3 局限
+
+- 视频缺少力/触觉与机器人本体动力学信息；
+- 人手 ↔ 机械夹爪/灵巧手的重定向（retargeting）有信息损失；
+- 视频中的"人手"是强干扰项，需要掩码或表示学习处理。
+
+---
+
+## 5 仿真数据生成 {#5}
+
+### 5.1 演示扩增
+
+- **MimicGen**（2023）：从少量人类演示出发，依据物体位姿自动变换生成大量语义等效轨迹，可将数据扩展 10–100 倍；
+- **DexMimicGen**（2025）：双臂/灵巧手版本的扩增系统；
+- **RoboCasa**（2024）：程序化生成大规模厨房/家居场景 + MimicGen 扩增，产出 10 万+ 演示。
+
+### 5.2 仿真器与并行生成
+
+借助 GPU 并行物理仿真器（Isaac Lab、Genesis、MuJoCo MJX），单卡可并行数千环境，数小时生成百万级轨迹。优势：
+
+- 成本低（GPU 时间 vs 人工遥操作）；
+- 自动获得完美标注（关节、位姿、接触力、分割）；
+- 域随机化（DOM）：随机化光照、材质、摩擦、物体形状，缩小 sim-to-real gap。
+
+局限：物理保真度（接触、软体、流体）仍不足；视觉 gap 需要真实纹理扫描资产 + 神经渲染（3DGS 数字孪生）弥补。
+
+### 5.3 Real-to-Sim 与数字孪生
+
+- 用 3D 扫描 + Gaussian Splatting / NeRF 把真实场景复刻为可交互仿真场景；
+- 在数字孪生中做策略预训练/评测，再迁移真机；
+- 代表：SimplerEnv（真机数据的仿真复刻评测）、 Genesis、Habitat 3.0。
+
+---
+
+## 6 数据缩放定律 {#6}
+
+机器人学习的 scaling 行为是 2024–2025 年的核心实证问题：
+
+- **RT-1 / RT-2**：任务数与数据量增大 → 未见任务泛化成功率持续上升（幂律样趋势）；
+- **OXE RT-X**：跨实体数据量翻倍，各实体性能普遍提升——跨实体数据不是噪声而是增益；
+- **π0**：数据异质性（任务/场景多样性）比单纯轨迹数更重要；后训练阶段数百条高质量演示即可显著超越从零训练；
+- **GR00T N1**：显式给出"真机 : 视频 : 仿真"三源配比消融，视频+仿真数据使同等真机预算下的性能显著提升。
+
+**当前共识**：机器人数据同样存在 scaling 现象，但"多样性 > 数量"，且后训练数据质量权重远高于预训练。
+
+---
+
+## 7 数据质量与语义标注 {#7}
+
+### 7.1 成功/失败与重试数据
+
+- 训练 VLA 通常只用成功轨迹，但**失败与重试数据是宝贵资源**：错误检测器、恢复策略、世界模型的负样本都需要它们；
+- DROID 的做法：完整保留失败-重试-成功 episode，事后标注成败边界。
+
+### 7.2 语言标注自动化
+
+语言指令是 VLA 的条件输入，人工标注昂贵。主流方案：
+
+- **VLM 自动标注**：用 GPT-4V/Qwen-VL 看轨迹关键帧生成任务描述（DROID 事后标注管线）；
+- **模板增强**：每条轨迹生成多个同义指令变体（"pick up the red mug" ↔ "grab the red cup"），提升语言鲁棒性；
+- **人类校验**：自动标注 + 抽样人工复核的质量控制流程。
+
+### 7.3 数据归一化与格式
+
+- 动作归一化：不同本体的关节范围/末端速度差异巨大，需按本体统计量归一化到统一分布（否则跨实体训练发散）；
+- 主流格式：**RLDS**（TF 生态、OXE 标准）、**LeRobot Dataset**（Hugging Face、社区新标准）、HDF5（ALOHA 系）、WebDataset/Parquet（大规模流式）。
+
+---
+
+## 8 数据飞轮与自改进 {#8}
+
+数据飞轮是具身智能区别于静态数据集的范式：**部署越多 → 数据越多 → 模型越强 → 部署越多**。
+
+```mermaid
+flowchart LR
+    A["模型部署<br/>自主执行任务"] --> B["数据回收<br/>成功+失败轨迹"]
+    B --> C["自动标注与筛选<br/>VLM 标注 / 错误检测"]
+    C --> D["后训练 / RL 微调<br/>持续提升成功率"]
+    D --> A
+```
+
+关键组件：
+
+1. **错误检测**：VLM 判别任务是否成功（RT-H、SuccessVQA 类方法），或用世界模型预测与实际观测的偏差检测异常；
+2. **自动恢复**：失败后回退到上一个稳定状态重试（物理 reset 替代品），或训练专门的恢复策略；
+3. **人类远程干预**（可选）：低成本遥操作纠错（HIL-SERL、物理智能的远程数据中心模式）；
+4. **选择性训练**：只把"有信息量"的数据（失败边界、新颖场景）加入训练集，避免分布坍缩（model collapse 类比）。
+
+Tesla FSD 的"影子模式 + 事件触发回传"是数据飞轮的成熟先例，具身智能正在复制这一工程路径。
+
+---
+
+## 9 数据工程实践 {#9}
+
+### 9.1 数据清洗
+
+- 去除无效轨迹（夹爪空抓、目标未到达、遥操作抖动）；
+- 过滤异常值（关节限位、图像模糊、SLAM 漂移）；
+- 演示者熟练度检查（新手演示往往拖慢收敛）。
+
+### 9.2 数据增强
+
+- **视觉增强**：随机裁剪、颜色抖动（注意保持物体颜色语义）；
+- **空间增强**：随机平移旋转（注意任务对称性与重力方向）；
+- **时序增强**：随机时间偏移（注意 action chunk 对齐）；
+- **本体增强**：随机化初始关节构型，提升策略对初始状态鲁棒性。
+
+### 9.3 数据配比与平衡
+
+- 按任务/物体/场景做加权采样，防止高频任务淹没低频任务；
+- 预训练（大配比多源数据）与后训练（小配比高质量数据）分层管理；
+- 记录 data card：来源、本体、控制频率、成功率、标注方式，保证可追溯。
+
+---
+
+## 10 相关文档 {#10}
+
+- 数据驱动的策略学习方法：[模仿学习与策略学习](./policy-learning.md)
+- 仿真到现实的迁移：[Sim-to-Real 与仿真器](./sim2real.md)
+- VLA 模型如何消费这些数据：[VLA 模型](./vla.md)
+- 数据质量如何评测：[具身智能评测基准](./evaluation.md)
+- 大模型数据工程通论：[大模型数据工程](../llm-mllm/data-engineering.md)
+
+---
+
+## 11 参考文献 {#11}
 
 [1] Open X-Embodiment Collaboration, *Open X-Embodiment: Robotic Learning Datasets and RT-X Models*, ICRA, 2024. arXiv:2310.08864.
 
-[2] A. Mandlekar et al., *MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations*, CoRL, 2023.
+[2] A. Khazatsky et al., *DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset*, RSS, 2024. arXiv:2403.12945.
 
-[3] Data et al., *On the Design of Universal Manipulation Interface*, RSS, 2024.
+[3] T. Z. Zhao et al., *Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware* (ALOHA/ACT), RSS, 2023.
 
-[4] F. Torabi et al., *RoboNet: A Large-Scale Multi-Robot Manipulation Dataset*, 2019.
+[4] Q. Fu et al., *A Touch, Vision, and Language Dataset for Multimodal Alignment*, 2024.（Mobile ALOHA：C. Fu et al., *Mobile ALOHA*, 2024. arXiv:2401.02117）
 
-[5] H. Walke et al., *BridgeData: Scaling Robot Learning with Multi-Modal Demonstration Data*, 2023.
+[5] Data et al., *On the Bringing-Home of Robot Learning: Universal Manipulation Interface* (UMI), RSS, 2024.
 
-[7] A. O'Neill et al., *Open-X-Embodiment: The Next Generation of Robot Learning Datasets*, RSS, 2024.
+[6] C. Wang et al., *DexCap: Scalable and Portable Mocap System for Dexterous Hand Teleoperation*, 2024.
 
-[8] C. Luo et al., *Gr-1: Video Generation Model as World Model for Robot Manipulation*, 2024.
+[7] P. Wu et al., *GELLO: A General, Low-Cost, and Intuitive Teleoperation Framework*, 2023.
 
-[9] AgiBot Team, *AgiBot-World: A Large-Scale Robotic Manipulation Dataset*, 2025.
+[8] A. Mandlekar et al., *MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations*, CoRL, 2023.
+
+[9] Y. Ze et al., *DexMimicGen: Automated Data Generation for Bimanual Dexterous Manipulation*, 2024.
+
+[10] S. Dasari et al., *RoboNet: A Large-Scale Multi-Robot Learning Benchmark*, 2019.
+
+[11] H. Walke et al., *BridgeData V2: A Dataset for Robot Learning at Scale*, 2023.
+
+[12] AgiBot Team, *AgiBot World Colosseo: A Large-Scale Manipulation Dataset*, 2025.
+
+[13] X. Qi et al., *The RoboMind Open Dataset with Knowledge-Guided Learning*, 2024.
+
+[14] D. Bruce et al., *Genie: Generative Interactive Environments* (Latent Action Model), ICML, 2024.
+
+[15] ByteDance, *GR-2: A Video-Generative Model for General Robot Control*, 2024.
+
+[16] OpenAI, *Video PreTraining (VPT): Learning to Act by Watching Unlabeled Online Videos*, 2022.
+
+[17] NVIDIA, *GR00T N1: An Open Foundation Model for Generalist Humanoid Robots*, 2025.
+
+[18] K. Black et al., *Real-Time Action Chunking with Large Models*, 2024.

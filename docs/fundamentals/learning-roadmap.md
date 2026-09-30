@@ -204,3 +204,24 @@
 - [Hugging Face](https://huggingface.co/)
 - [Distill.pub](https://distill.pub/)
 - [Lil'Log](https://lilianweng.github.io/)
+
+---
+
+## 延伸阅读
+
+- 每年技术热点与标志性工作的时间线：[深度学习技术演进史（2012–2025）](./tech-evolution.md)
+- 全景式知识地图：[深度学习基础知识全景手册](./panorama.md)
+
+---
+
+## 参考文献
+
+[1] S. J. Russell & P. Norvig, *Artificial Intelligence: A Modern Approach (4th Edition)*, Pearson, 2020.（知识体系总览）
+
+[2] I. Goodfellow, Y. Bengio, A. Courville, *Deep Learning*, MIT Press, 2016.
+
+[3] J. D. Kelleher et al., *Fundamentals of Machine Learning for Predictive Data Analytics*, MIT Press, 2020.（入门路线参考）
+
+[4] Papers With Code, *State-of-the-Art Tracking Platform*, https://paperswithcode.com/, 2019–2025.
+
+[5] Lilian Weng, *Lil'Log: Thoughts on Machine Learning and AI*, https://lilianweng.github.io/, 2017–2025.

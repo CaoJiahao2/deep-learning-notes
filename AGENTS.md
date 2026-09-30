@@ -54,7 +54,7 @@ Both must pass before submitting a PR.
 - **Commits**: Chinese, concise and descriptive. Use `新增 <topic>` for additions, `更新 <topic>` for revisions.
 - **Branches**: `feature/your-topic` off `main`.
 - **PR checklist**:
-  - Register new pages in `mkdocs.yml` `nav:` and link from `docs/index.md`.
+  - Register new pages in `mkdocs.yml` `nav:` (inside the correct sub-group) and add them to the section overview page (`docs/<section>/index.md` 章节地图).
   - End every new document with 参考文献 (paper title + year).
   - Run the math linter on changed files and `mkdocs build --strict`.
   - Describe the change and link related issues.

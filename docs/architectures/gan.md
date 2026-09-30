@@ -71,7 +71,7 @@ $$\max_G \mathbb{E}_{z \sim p_z(z)}[\log D(G(z))]$$
 
 ### 3.1 交替训练
 
-```
+```text
 for 每个训练迭代：
     # 训练判别器（k 步）
     for step in range(k):

@@ -41,7 +41,7 @@ Transformer 的核心创新：**完全摒弃循环结构，仅依赖注意力机
 
 Transformer 采用经典的 **Encoder-Decoder** 结构：
 
-```
+```text
 输入序列 → [Encoder × N] → [Decoder × N] → 输出序列
 ```
 
@@ -94,7 +94,7 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 对于输入句子 "The cat sat on the mat"，每个词的 Query 会与所有词的 Key 计算相似度，得到注意力权重矩阵：
 
-```
+```text
         The   cat   sat   on   the   mat
 The    [0.3, 0.1, 0.2, 0.1, 0.2, 0.1]
 cat    [0.1, 0.4, 0.2, 0.1, 0.1, 0.1]
@@ -263,7 +263,7 @@ Linear + Softmax → Output probabilities
 
 通过上三角掩码矩阵将未来位置的注意力分数设为 $-\infty$，使 softmax 后权重为 0：
 
-```
+```text
 Attention(Q, K, V) = softmax(QK^T/√d_k + M)V
 
 其中 M 为上三角矩阵，M[i,j] = -∞ if j > i else 0

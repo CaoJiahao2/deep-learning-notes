@@ -30,47 +30,50 @@
 
 ## 📂 文档结构
 
+全站共八大章节，每章都有 `index.md` 总览页（卡片式导航 + 学习建议），章节内部再按子主题分组：
+
 ```
 docs/
-├── fundamentals/              # 基础理论（含入门与计算机基础）
+├── index.md                   # 首页：知识版图 + 推荐学习路径
+├── fundamentals/              # 基础理论（入门路线 / 编程算法 / 计算机系统 / 数学 / 机器学习）
+│   ├── index.md               # 章节总览
+│   ├── panorama.md            # 深度学习全景手册（全站总纲）
 │   ├── learning-roadmap.md    # 学习路线图
-│   ├── environment-setup.md   # 环境配置（GPU、CUDA、PyTorch）
-│   ├── computer-architecture.md # 计算机组成原理与层次结构
-│   ├── operating-system.md    # 操作系统基础
 │   ├── gpu-cuda.md            # GPU 架构与 CUDA 编程
-│   ├── math-foundations.md    # 数学基础（推导的地基）
-│   └── machine-learning.md    # 机器学习概述
-├── architectures/             # 模型架构
-│   ├── transformer.md        # Transformer 架构详解
-│   ├── cnn.md                # 卷积神经网络
-│   ├── rnn-lstm.md           # 循环神经网络
-│   ├── gan.md                # 生成对抗网络
-│   ├── diffusion.md          # 扩散模型
+│   └── math-foundations.md    # 数学基础（推导的地基）
+├── architectures/             # 模型架构（主干网络 / 生成模型 / 视觉理解 / 领域应用）
+│   ├── index.md               # 章节总览
+│   ├── transformer.md         # Transformer 架构详解
+│   ├── diffusion.md           # 扩散模型
 │   └── modern-architectures.md # 现代架构演进（MoE、SSM/Mamba、高效注意力）
-├── training/                 # 训练技术
-│   ├── training-pipeline.md  # 完整训练流程
-│   ├── backpropagation.md    # 反向传播完整推导
-│   ├── optimization.md       # 优化器详解
-│   ├── regularization.md     # 正则化技术
-│   ├── distributed.md        # 分布式训练
-│   └── reinforcement-learning.md # 强化学习与对齐（PPO、RLHF/DPO、GRPO/RLVR）
-├── llm-mllm/                 # 大模型专题
-│   ├── survey.md             # LLM/MLLM/生成模型全景调研
-│   ├── fine-tuning.md        # 微调技术（LoRA、QLoRA 等）
-│   ├── inference.md          # 推理优化（KV Cache、量化等）
-│   └── multimodal-alignment.md # 多模态对齐与融合（CLIP、Q-Former、LLaVA）
-├── agents/                   # 智能体
-│   └── ai-agents.md          # AI Agent 与 RAG（ReAct、Function Calling、MCP）
-├── embodied-ai/              # 具身智能
-│   └── embodied-intelligence.md # VLA 模型、Diffusion Policy、世界模型、Sim-to-Real
-├── deployment/               # 模型部署
-│   ├── model-serving.md      # 模型服务化与推理加速
-│   └── model-compression.md  # 模型压缩（量化、剪枝、知识蒸馏）
-└── resources/                # 资源汇总
-    ├── datasets.md           # 常用数据集
-    ├── learning-resources.md # 学习资源
-    └── tools.md              # 常用工具命令
+├── training/                  # 训练技术（训练基础 / 学习范式 / 规模化训练）
+│   ├── index.md               # 章节总览
+│   ├── backpropagation.md     # 反向传播完整推导
+│   └── distributed.md         # 分布式训练
+├── llm-mllm/                  # 大模型专题（预训练 / 后训练 / 推理扩展 / 多模态 / 评测治理 / 前沿）
+│   ├── index.md               # 章节总览
+│   ├── pretraining.md         # 预训练
+│   ├── post-training-survey.md # 后训练综述（SFT、RLHF/DPO、GRPO）
+│   └── reasoning-models.md    # 推理模型（o1/R1）
+├── agents/                    # 智能体（核心机制 / 协作运行时 / 垂直领域 / 评测安全）
+│   ├── index.md               # 章节总览
+│   ├── fundamentals.md        # Agent 基础与核心循环
+│   └── tools-and-mcp.md       # 工具使用与 MCP
+├── embodied-ai/               # 具身智能（基础策略 / 数据仿真 / 世界模型评测 / 前沿应用）
+│   ├── index.md               # 章节总览
+│   ├── vla.md                 # VLA 模型（RT-2/OpenVLA/π0/GR00T）
+│   └── sim2real.md            # Sim-to-Real 与仿真器
+├── deployment/                # 推理部署（推理实现 / 服务化 / 压缩端侧 / LLMOps）
+│   ├── index.md               # 章节总览
+│   ├── inference-implementation.md # 推理实现详解（KV Cache、PagedAttention）
+│   └── model-compression.md   # 模型压缩（量化、剪枝、知识蒸馏）
+└── resources/                 # 资源汇总（工具命令 / 数据集 / 学习资源 / 求职 / AI4S）
+    ├── index.md               # 章节总览
+    ├── datasets.md            # 常用数据集
+    └── learning-resources.md  # 学习资源
 ```
+
+完整文档清单见 [mkdocs.yml](./mkdocs.yml) 的 `nav:` 与各章节 `index.md`。
 
 ---
 

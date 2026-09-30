@@ -294,7 +294,7 @@ GitHub 仓库至少包含：README、环境配置、数据说明、训练/评测
 #### 数学、机器学习与深度学习题
 
 - 手推 Softmax + Cross-Entropy 梯度；
-- 为什么要除以 \(\sqrt{d_k}\)；
+- 为什么要除以 $\sqrt{d_k}$；
 - BatchNorm、LayerNorm、RMSNorm 的区别；
 - Adam 与 AdamW、权重衰减和学习率调度；
 - 过拟合识别与处理；
@@ -479,9 +479,9 @@ GitHub 仓库至少包含：README、环境配置、数据说明、训练/评测
 
 可以简单打分：
 
-\[
-Score = 0.4 \times 核心技能匹配 + 0.25 \times 项目证据 + 0.2 \times 兴趣 + 0.15 \times 地点/团队等现实因素
-\]
+$$
+\text{Score} = 0.4 \times \text{核心技能匹配} + 0.25 \times \text{项目证据} + 0.2 \times \text{兴趣} + 0.15 \times \text{地点与团队等现实因素}
+$$
 
 优先投递高匹配岗位，同时保留一部分“冲刺岗位”和“保底岗位”。同一家公司不要无差别海投十几个方向，应保持一条可信的职业主线。
 
@@ -582,3 +582,24 @@ Score = 0.4 \times 核心技能匹配 + 0.25 \times 项目证据 + 0.2 \times �
 - [Hugging Face PEFT](https://huggingface.co/docs/peft/index)
 
 > 注：框架版本与招聘要求会持续变化。准备时应重新阅读目标岗位的最新 JD，并以官方文档确认工具的当前能力。
+
+---
+
+## 参考文献
+
+- Attention Is All You Need, 2017
+- Language Models are Few-Shot Learners (GPT-3), 2020
+- Training Language Models to Follow Instructions with Human Feedback (InstructGPT), 2022
+- Direct Preference Optimization: Your Language Model is Secretly a Reward Model, 2023
+- DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models (GRPO), 2024
+- LoRA: Low-Rank Adaptation of Large Language Models, 2021
+- QLoRA: Efficient Finetuning of Quantized LLMs, 2023
+- Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism, 2019
+- ZeRO: Memory Optimizations Toward Training Trillion Parameter Models (DeepSpeed), 2020
+- PyTorch: An Imperative Style, High-Performance Deep Learning Library, 2019
+- Efficient Memory Management for Large Language Model Serving with PagedAttention (vLLM), 2023
+- Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020
+- ReAct: Synergizing Reasoning and Acting in Language Models, 2022
+- Measuring Massive Multitask Language Understanding (MMLU), 2020
+- SWE-bench: Can Language Models Resolve Real-World GitHub Issues?, 2023
+- Designing Machine Learning Systems (Chip Huyen), 2022

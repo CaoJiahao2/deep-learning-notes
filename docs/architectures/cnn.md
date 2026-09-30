@@ -87,7 +87,7 @@ $$H_{out} = \left\lfloor\frac{H_{in} + 2P - k_h}{S}\right\rfloor + 1$$
 
 ### 3.1 LeNet-5 (1998)
 
-```
+```text
 Input(32×32) → Conv(5×5, 6) → AvgPool(2×2) → Conv(5×5, 16) → AvgPool(2×2)
 → FC(120) → FC(84) → FC(10)
 ```
@@ -96,7 +96,7 @@ Input(32×32) → Conv(5×5, 6) → AvgPool(2×2) → Conv(5×5, 16) → AvgPool
 
 ### 3.2 AlexNet (2012)
 
-```
+```text
 Input(224×224×3) → Conv(11×11, 96) → MaxPool → Conv(5×5, 256) → MaxPool
 → Conv(3×3, 384) → Conv(3×3, 384) → Conv(3×3, 256) → MaxPool
 → FC(4096) → FC(4096) → FC(1000)
@@ -116,7 +116,7 @@ Input(224×224×3) → Conv(11×11, 96) → MaxPool → Conv(5×5, 256) → MaxP
 - 三个 3×3 卷积的感受野 = 一个 7×7 卷积
 
 **VGG16 结构**：
-```
+```text
 2×Conv(3×3, 64)  → MaxPool
 2×Conv(3×3, 128) → MaxPool
 3×Conv(3×3, 256) → MaxPool
@@ -152,7 +152,7 @@ $$\mathbf{y} = \mathcal{F}(\mathbf{x}, \{W_i\}) + \mathbf{x}$$
 - **Bottleneck**：1×1 → 3×3 → 1×1，首尾 1×1 分别压缩和恢复通道，用于 ResNet-50/101/152
 
 **ResNet-50 结构**：
-```
+```text
 Conv(7×7, 64) → MaxPool
 [3× Bottleneck(64→256)] × 3
 [4× Bottleneck(128→512)] × 4

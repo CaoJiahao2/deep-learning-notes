@@ -137,7 +137,7 @@ transform = transforms.Compose([
 
 ### 4.1 推荐的项目结构
 
-```
+```text
 project/
 ├── configs/               # 配置文件
 │   └── default.yaml
@@ -424,3 +424,19 @@ def inference(model, input_data):
 3. **数据泄露**：在训练前对整个数据集做了归一化
 4. **学习率与 batch size 不匹配**：batch size 加倍时，学习率也应适当调整
 5. **未设置随机种子**：导致实验不可复现
+
+---
+
+## 参考文献
+
+[1] A. Paszke et al., *PyTorch: An Imperative Style, High-Performance Deep Learning Library*, NeurIPS, 2019.
+
+[2] I. Loshchilov & F. Hutter, *Decoupled Weight Decay Regularization* (AdamW), ICLR, 2019.
+
+[3] P. Goyal et al., *Accurate, Large Minibatch SGD: Training ImageNet in 1 Hour*（线性缩放法则）, 2017. arXiv:1706.02677.
+
+[4] A. Krizhevsky, *One Weird Trick for Parallelizing Convolutional Neural Networks*, 2014. arXiv:1404.5997.
+
+[5] L. N. Smith, *A Disciplined Approach to Neural Network Hyper-Parameters*（LR finder 与 One-Cycle）, 2018. arXiv:1803.09820.
+
+[6] T. Chen et al., *Training Deep Nets with Sublinear Memory Cost*（梯度检查点）, 2016.

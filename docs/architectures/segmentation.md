@@ -76,7 +76,7 @@ $$\text{PQ} = \underbrace{\frac{\sum_{(p,g)\in TP}\text{IoU}(p,g)}{|TP|}}_{\text
 - **上采样（Upsampling）**：通过转置卷积（Transposed Convolution）或双线性插值将低分辨率特征图恢复到原图分辨率。
 - **跳跃连接（Skip Connection）**：融合浅层精细空间信息与深层语义信息，形成 FCN-32s、FCN-16s、FCN-8s 三种变体，数字越小融合的浅层特征越多，边缘越精细。
 
-```
+```text
 FCN-32s: 输入 → conv → pool×5 → conv7(1×1) → 32×上采样 → 输出
 FCN-16s: 输入 → ... → pool4 + (2×上采样 conv7) → 16×上采样 → 输出
 FCN-8s:  输入 → ... → pool3 + pool4 + conv7 → 8×上采样 → 输出

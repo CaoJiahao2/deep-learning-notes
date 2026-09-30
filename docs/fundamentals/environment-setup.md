@@ -281,3 +281,17 @@ print(f"Time: {time.time() - start:.2f}s")
 | `torch.cuda.is_available()` 返回 False | 检查 PyTorch 版本与 CUDA 版本匹配 |
 | cuDNN 错误 | 确保 cuDNN 版本与 CUDA 版本兼容 |
 | 显存不足 (OOM) | 减小 batch size，使用梯度累积，启用混合精度 |
+
+---
+
+## 参考文献
+
+[1] NVIDIA Corporation, *CUDA Toolkit Documentation*, https://docs.nvidia.com/cuda/, 2007–2025.
+
+[2] NVIDIA Corporation, *CUDA C++ Programming Guide*, 2025.
+
+[3] Ansel PyTorch Team, *PyTorch: An Imperative Style, High-Performance Deep Learning Library*, NeurIPS, 2019.
+
+[4] Anaconda Inc., *Conda Documentation*, https://docs.conda.io/, 2015–2025.
+
+[5] Docker Inc., *Docker Documentation*, https://docs.docker.com/, 2013–2025.

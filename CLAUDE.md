@@ -28,7 +28,7 @@ CI (`.github/workflows/deploy.yml`) runs: `pip install -r requirements.txt` → 
 ## Architecture
 
 - **`docs/`** — all content. Subdirectories are topic domains: `fundamentals/`, `architectures/`, `training/`, `llm-mllm/`, `deployment/`, `resources/`. `index.md` is the site home page.
-- **`mkdocs.yml`** — the source of truth for navigation. `nav:` maps page titles to files. **When adding a new doc, add it to `nav:` here** (and to `docs/index.md` per contributing checklist).
+- **`mkdocs.yml`** — the source of truth for navigation. `nav:` maps page titles to files, grouped into sub-sections per chapter. **When adding a new doc, add it to `nav:` here** and to the section overview page (`docs/<section>/index.md`, 章节地图卡片).
 - **`scripts/check_math.mjs`** — KaTeX linter. Walks `docs/` for `.md` files, extracts block `$$...$$` then inline `$...$` (skipping ranges already consumed by block spans), and renders each with `throwOnError: true`. Reports `file:line`, exits 1 on any failure. Accepts optional file/dir paths to check only what changed; with no args it scans all of `docs/` (what CI runs).
 - **`docs/javascripts/katex.js`** — runtime renderer; registers `$$...$$`, `\\[...\\]`, `$...$`, `\\(...\\)` delimiters with Material's `document$` stream.
 - **`asserts/`** — images (referenced by relative paths).
@@ -73,6 +73,6 @@ mkdocs build --strict
 1. 阅读 `TODO/*.md` 的内容，判断主题归属，将内容整合进网站合适的章节（例如 LLM 后训练 → `docs/llm-mllm/`、多模态推理 → `docs/llm-mllm/` 等）。
 2. 整合时遵守本文档的公式规范：新公式一律使用 `$$...$$`（块级）与 `$...$`（行内）。TODO 文档若使用 `\[...\]` / `\(...\)`，必须转换为 `$$...$$` / `$...$`（linter 不检查 `\[...\]`）。
 3. 文档以「参考文献」章节结尾（论文标题 + 年份）。
-4. 在 `mkdocs.yml` 的 `nav:` 与 `docs/index.md` 中登记新文档。
+4. 在 `mkdocs.yml` 的 `nav:`（放入正确子分组）与对应章节总览页 `docs/<section>/index.md` 中登记新文档。
 5. 用 linter 与严格构建校验改动：`node scripts/check_math.mjs <changed files>` → `mkdocs build --strict`。
 6. 处理完成后直接删除 `TODO/` 下的 md 文档（删除文件本身）。

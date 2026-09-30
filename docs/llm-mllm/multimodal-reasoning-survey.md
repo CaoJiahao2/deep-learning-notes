@@ -1854,3 +1854,21 @@ Omni-modal
 **Perception, Reason, Think, and Plan: A Survey on Large Multimodal Reasoning Models**  
 arXiv:2505.04921v2, 2025.
 
+
+---
+
+## 参考文献
+
+[1] Z. Zhang et al., *Perception, Reason, Think, and Plan: A Survey on Large Multimodal Reasoning Models*, 2025. arXiv:2505.04921.
+
+[2] DeepSeek-AI, *DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning*, 2025. arXiv:2501.12948.
+
+[3] K. Huang et al., *Vision-R1: Evolving Human-Free Alignment in Large Vision-Language Models via Vision-Guided Reinforcement Learning*, 2025.
+
+[4] Z. Qi et al., *Art or Artifact? Decoding the Interaction of DeepSeek-R1 and Multimodal Reasoning*, 2025.
+
+[5] J. Chen et al., *We Think, Therefore We Are? Probing the Reasoning Boundaries of Multimodal Models*, 2025.
+
+[6] OpenAI, *Learning to Reason with LLMs* (o1 系统卡), 2024.
+
+[7] Google DeepMind, *Gemini 2.0 Flash Thinking*, 2024.

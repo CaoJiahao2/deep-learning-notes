@@ -15,6 +15,7 @@
 7. [常用 Python 库](#7-python)
 8. [Docker](#8-docker)
 9. [监控与调试](#9)
+10. [参考文献](#10)
 
 ---
 
@@ -295,6 +296,8 @@ nvidia-smi                        # 基本信息
 nvidia-smi -l 1                   # 每秒刷新
 nvidia-smi dmon                   # 设备监控
 gpustat                           # 简洁 GPU 状态（需 pip install gpustat）
+nvitop                            # 交互式 GPU 监控（需 pip install nvitop）
+nvtop                             # GPU 版 htop（需 apt install nvtop）
 ```
 
 ### 训练监控
@@ -318,3 +321,26 @@ with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA]) as prof:
     output = model(input)
 print(prof.key_averages().table(sort_by="cuda_time_total"))
 ```
+
+---
+
+## 10. 参考文献
+
+- Pro Git（第 2 版）, 2014
+- Conda 官方文档（Anaconda）, 2016
+- pip 官方文档（PyPA）, 2014
+- tmux 官方仓库与 man 手册, 2007
+- Vim 官方文档（Bram Moolenaar）, 1991
+- Docker 官方文档, 2013
+- PyTorch: An Imperative Style, High-Performance Deep Learning Library, 2019
+- Array Programming with NumPy (Nature), 2020
+- pandas: Data Structures for Statistical Computing in Python, 2010
+- Matplotlib: A 2D Graphics Environment, 2007
+- Polars 官方文档, 2020
+- Accelerate: Training and Serving Deep Learning Models, 2022
+- PEFT: Parameter-Efficient Fine-Tuning of Large-Scale Models, 2023
+- Transformers: State-of-the-Art Natural Language Processing, 2020
+- PyTorch Image Models (timm) 官方仓库, 2020
+- TensorBoard 官方文档（TensorFlow 生态）, 2015
+- Weights & Biases 官方文档（Experiment Tracking）, 2018
+- NVIDIA nvidia-smi 官方文档（NVIDIA System Management Interface）, 2017

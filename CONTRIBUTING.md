@@ -83,7 +83,9 @@
 - [ ] 代码块标注了语言类型
 - [ ] 参考文献完整
 - [ ] 没有拼写错误
-- [ ] 更新了上级目录的索引文件（如有）
+- [ ] 新文档已登记到 `mkdocs.yml` 的 `nav:`（放入正确的子分组）
+- [ ] 新文档已加入对应章节总览页（如 `docs/llm-mllm/index.md`）的章节地图
+- [ ] 运行了 `node scripts/check_math.mjs <改动文件>`（0 失败）与 `mkdocs build --strict`（无警告）
 
 ---
 

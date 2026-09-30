@@ -274,7 +274,7 @@ $$\mathcal{J}_{GRPO}(\theta) = \mathbb{E}\left[\frac{1}{G}\sum_{i=1}^{G}\frac{1}
 
 ### 8.1 决策流程
 
-```
+```text
 资源充足 (> 4×A100)? 
   ├─ 是 → 全量微调（最佳性能）
   └─ 否 → 单卡 (48GB+)?
