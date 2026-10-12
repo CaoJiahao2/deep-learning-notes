@@ -92,7 +92,7 @@ flowchart TD
 
 - **任务谱系**：整理桌面、收纳衣物、清洁厨房、洗衣叠衣、端茶倒水；
 - **核心难点**：物品长尾（每个家都不一样）、布局变化、软体/可变形物体（衣物、线缆）、人机共处安全；
-- **代表进展**：π0.5 演示了"新家庭、新任务"的零样本/少样本整理能力；1X Neo、智元远征等家庭人形开始限量预售/试点；Mobile ALOHA 类遥操作展示了低成本硬件做家务的可能性；
+- **代表进展**：[π0.5](./papers/pi-0-5.md) 演示了“新家庭、新任务”的零样本/少样本整理能力；[π0.7](./papers/pi-0-7.md) 进一步展示复杂指代、逆向数据偏差和零样本跨实体迁移；1X Neo、智元远征等家庭人形开始限量预售/试点；Mobile ALOHA 类遥操作展示了低成本硬件做家务的可能性；
 - **现实节奏**：行业普遍预期先以"特定任务套件"（如叠衣、清洁）进入家庭，再逐步扩展任务域；隐私（家中摄像头）与安全（老人儿童共处）是产品化的前置条件。
 
 ---
@@ -233,7 +233,7 @@ flowchart TD
 
 [1] Figure AI, *Helix: A Vision-Language-Action Model for Generalist Humanoid Robots*, 2025.
 
-[2] Physical Intelligence, *π0.5: Open-World Generalist Robot Policy*, 2025. arXiv:2504.16054.
+[2] Physical Intelligence, *π0.5: a Vision-Language-Action Model with Open-World Generalization*, 2025. arXiv:2504.16054.
 
 [3] NVIDIA, *GR00T N1: An Open Foundation Model for Generalist Humanoid Robots*, 2025. arXiv:2503.14734.
 
@@ -260,3 +260,5 @@ flowchart TD
 [14] 智元机器人, *AgiBot World Colosseo 与远征系列人形机器人*, 2025.（产品与技术报告）
 
 [15] A. Mandlekar et al., *Towards General-Purpose Robots: Foundation Models and Transfer Learning*, 2023. arXiv:2304.12931.
+
+[16] Physical Intelligence, *π0.7: a Steerable Model with Emergent Capabilities*, 2026.

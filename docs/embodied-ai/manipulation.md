@@ -170,7 +170,7 @@ $$\text{WAM} = \text{World Model} + \text{Action Model} = \text{预测未来} + 
 
 | 系统 | 说明 |
 |------|------|
-| π0.5 | Physical Intelligence 的世界动作模型 |
+| [GE-Act 2.0](./papers/ge-act-2.md) | CoAE + single-step visual planner + IDM + KASO，系统验证 300h→30000h zero-shot OOD scaling |
 | WSA-1 | 3D 为中心的世界-空间-动作模型 |
 | MobileWAM | 世界动作模型 + 移动操作，Chain-of-Foresight |
 | ω-0 | 潜在预测世界动作模型，人形移动操作 |
@@ -183,7 +183,7 @@ $$\text{WAM} = \text{World Model} + \text{Action Model} = \text{预测未来} + 
 - **更稳健**：对未来后果的预测使策略更能规避错误；
 - **更通用**：统一"理解环境"与"作用于环境"的能力。
 
-WAM 是"具身基础模型"的重要演进方向，与 `world-model.md` 第 7 节的 VLA 融合互补。
+WAM 是“具身基础模型”的重要演进方向，与 [world-model.md](world-model.md) 的 VLA 融合互补；单篇精读见 [GE-Act 2.0](./papers/ge-act-2.md) 与 [GE-Sim 2.0](./papers/ge-sim-2.md)。
 
 ---
 
@@ -237,7 +237,7 @@ WAM 是"具身基础模型"的重要演进方向，与 `world-model.md` 第 7 �
 
 [3] X. Li, K. Hsu, J. Gu, et al., *Evaluating Real-World Robot Manipulation Policies in Simulation*, RSS, 2024.
 
-[4] Physical Intelligence, *π0.5: Scaling Robot Learning with World-Action Models*, 2025.
+[4] Physical Intelligence, *π0.5: a Vision-Language-Action Model with Open-World Generalization*, 2025. arXiv:2504.16054.
 
 [5] W. Huang, C. Wang, et al., *WSA-1: A 3D-Centric World-Spatial-Action Model for Generalizable Robot Control*, 2025.
 
@@ -250,3 +250,5 @@ WAM 是"具身基础模型"的重要演进方向，与 `world-model.md` 第 7 �
 [9] A. Khazatsky, K. Pertsch, S. Nair, et al., *Open X-Embodiment: Robotic Learning Datasets and RT-X Models*, ICRA, 2025.
 
 [10] R. Qin, et al., *H2R-Bench: Benchmarking Human-to-Robot Manipulation Video Generation*, 2025.
+
+[11] AgiBot Research Team, *GE-Act 2.0: Pretraining and Scaling a World-Action Model for Robotic Manipulation*, 2026. arXiv:2609.05588.

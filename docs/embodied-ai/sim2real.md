@@ -160,6 +160,29 @@ Step 6: 端到端在真机上评测，对失败 case 做域随机化补充
 
 ---
 
+## 8.5 生成式世界模型与 Sim-to-Real 的新关系 {#8-5}
+
+Cosmos、Genie 3、GE-Sim 2.0 等生成式世界模型正在改变 Sim-to-Real 的边界：
+
+| 传统物理仿真 | 生成式世界模型 |
+|---|---|
+| 显式刚体 / 柔体 / 流体方程 | 从视频与交互数据中学习动态 |
+| 精确动作、力与接触反馈 | 多以视觉状态为主，力觉与接触仍难精确 |
+| 场景由资产和规则构成 | 场景由文本、图像或真实视频生成 |
+| 易并行、可微、可控 | 覆盖开放长尾，但存在幻觉与物理误差 |
+| 典型代表 Isaac Lab、MuJoCo、Genesis | Cosmos、Genie 3、GE-Sim 2.0 |
+
+实践建议：
+
+1. 用物理仿真训练低层控制与安全约束；
+2. 用生成式世界模型扩充场景、物体与失败分布；
+3. 用真实 rollout 校准世界模型，报告模拟结果与真实结果的 episode-level agreement；
+4. 关键安全任务不能只依赖生成式仿真验收。
+
+相关单篇精读：[Cosmos](./papers/cosmos.md)、[Genie 3](./papers/genie-3.md)、[GE-Sim 2.0](./papers/ge-sim-2.md)。
+
+---
+
 ## 9 参考文献 {#9}
 
 [1] J. Tobin et al., *Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World*, IROS, 2017.
@@ -175,3 +198,6 @@ Step 6: 端到端在真机上评测，对失败 case 做域随机化补充
 [6] E. Todorov et al., *MuJoCo: A Physics Engine for Model-Based Control*, IROS, 2012.
 
 [7] J. Tremblay et al., *Synth-to-Real Domain Adaptation for Deep Visual Servoing*, 2018.
+[8] NVIDIA et al., *Cosmos World Foundation Model Platform for Physical AI*, 2025. arXiv:2501.03575.
+
+[9] AgiBot Research Team, *GE-Sim 2.0*, 2026. arXiv:2605.27491.

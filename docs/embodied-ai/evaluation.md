@@ -146,7 +146,9 @@ HumanoidBench（Sferrazza et al., 2024）面向人形机器人的全身控制：
 - **动作条件预测**：给定过去帧 + 动作，预测未来帧（FVD、PSNR）；
 - **交互一致性**：动作是否引起因果一致的场景响应；
 - **规划价值**：用世界模型 rollout 做规划，评测任务成功率提升；
-- **GigaWorld / WorldSimProbe 等 2025 工作**：专门诊断仿真器/世界模型的"忠实度"——世界模型预测是否与真实物理一致。
+- **WorldArena / GigaWorld / WorldSimProbe 等 2025–2026 工作**：专门诊断仿真器与世界模型的忠实度；
+- **闭环一致性**：[GE-Sim 2.0](./papers/ge-sim-2.md) 强调 simulated policy outcome 与真实机器人结果在总体和逐 episode 层面一致，而不只比较视频保真度；
+- **规划延迟**：[V-JEPA 2](./papers/v-jepa-2.md) 展示 latent planning 与视频生成规划的效率差异，规划价值必须和时间成本一起报告。
 
 ---
 
@@ -173,9 +175,9 @@ HumanoidBench（Sferrazza et al., 2024）面向人形机器人的全身控制：
 
 除任务成功率外，还应报告：
 
-- 平均步数 / 平均耗时（效率）；
+- 平均步数 / 平均耗时 / throughput（每小时成功任务数，[π*0.6](./papers/pi-star-0-6.md) 的关键部署指标）；
 - 抓取成功率、碰撞率（单元能力）；
-- 跨任务/跨环境的泛化率；
+- 跨任务/跨环境/跨 embodiment 的泛化率，以及反事实指令遵循率（[π0.7](./papers/pi-0-7.md) 的重点）；
 - 仿真 vs 真机的差距（sim2real gap）。
 
 ---
@@ -212,3 +214,7 @@ HumanoidBench（Sferrazza et al., 2024）面向人形机器人的全身控制：
 [9] Google DeepMind, *DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset*, 2024.
 
 [10] P. Mees, et al., *FRANKA Kitchen Dataset and Benchmark*, 2021.
+
+[11] Shang et al., *WorldArena: A Unified Benchmark for Evaluating Embodied World Models*, 2026.
+
+[12] Assran et al., *V-JEPA 2*, 2025. arXiv:2506.09985.

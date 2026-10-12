@@ -19,6 +19,18 @@
     - [模仿学习与策略学习](./policy-learning.md) — BC、Diffusion Policy、离线 RL
     - [机器人控制与运动规划](./control.md) — 运动学/动力学、MPC、全身控制
 
+-   :material-book-open-page-variant:{ .lg .middle } **经典论文与新模型精读**
+
+    ---
+
+    每篇论文单独一页，补齐总览页无法展开的细节。
+
+    - [论文地图](./papers/index.md) — RT / π / 最新 VLA / 世界模型阅读路线
+    - [RT 系列](./papers/rt-1.md) — RT-1、RT-2、RT-X、RT-Trajectory、RT-H
+    - [π 系列](./papers/pi-0.md) — π0、π0.5、π*0.6、π0.7
+    - [最新 VLA](./papers/gemini-robotics.md) — OpenVLA、RDT、GR00T、Gemini、Helix、Xiaomi
+    - [世界模型](./papers/cosmos.md) — Dreamer、Genie、Cosmos、V-JEPA、GE 系列
+
 -   :material-database-outline:{ .lg .middle } **数据与仿真**
 
     ---
@@ -55,9 +67,11 @@
 2. **沿 VLA 主线读**：[VLA 模型](./vla.md) → [策略学习](./policy-learning.md) → [操作学习](./manipulation.md) 构成「架构 → 训练方法 → 任务细化」的递进线。
 3. **数据决定上限**：具身智能当前的瓶颈更多在数据侧，[数据集与数据采集](./data.md) 与 [Sim-to-Real](./sim2real.md) 值得精读。
 4. **模型侧背景**：VLA 本质是 MLLM + 动作头，建议先读 [多模态对齐与融合](../llm-mllm/multimodal-alignment.md) 与 [Flow Matching](../architectures/flow-matching.md)（π0 的动作生成范式）。
+5. **精读原始论文**：总览页负责建立坐标，[论文地图](./papers/index.md) 负责深入单篇。VLA 建议按 RT-1 → RT-2 → π0 → π0.5 → π*0.6 → π0.7 阅读；世界模型建议按 World Models → DreamerV3 → Genie → Cosmos → GE 系列阅读。
 
 ## 延伸阅读
 
 - [统一多模态与任意到任意生成](../llm-mllm/unified-multimodal.md) — VLA 的多模态底座
+- [具身智能论文地图](./papers/index.md) — 26 篇经典与前沿论文单页精读
 - [强化学习与对齐](../training/reinforcement-learning.md) — 策略学习的 RL 基础
 - [常用数据集](../resources/datasets.md) — 具身智能数据集速查

@@ -43,11 +43,11 @@
 
 ### 1.2 SayCan（Google, 2022）
 
-最早的代表性工作：用 LLM 把指令分解为原子技能序列，每步选当前最可能成功的技能执行。
+最早的代表性工作：用 LLM 给出候选技能，用 affordance value function 估计物理成功率，二者相乘选择下一步技能。单篇精读见 [SayCan](./papers/saycan.md)。
 
 ### 1.3 PaLM-E / RT-2 Chain
 
-把 LLM 直接与低层动作头结合，可端到端推理；适合"中等长度"任务。
+[PaLM-E](./papers/palm-e.md) 把图像与机器人状态作为多模态 token 注入 LLM；[RT-2](./papers/rt-2.md) 进一步把动作离散为 token，与网页图文任务共同微调。它们把“具身推理链”和“端到端动作输出”连接起来。
 
 ### 1.4 HiRT（Hierarchical Robot Transformer）
 
@@ -58,9 +58,23 @@
 
 兼顾长程推理与高频控制。
 
-### 1.5 π0.5 的跨实体通用
+### 1.5 π0.5：子任务与异构数据共训练
 
-π0.5 进一步引入"跨实体共享表征"，让高层规划器能在不同机器人形态之间迁移。
+[π0.5](./papers/pi-0-5.md) 同时预测高层子任务和低层动作块，把机器人数据、网页多模态数据和口头指令放进同一训练配方，使模型能进入未见家庭执行 10–15 分钟家务。
+
+### 1.6 π0.7：可操控上下文与世界模型子目标
+
+[π0.7](./papers/pi-0-7.md) 进一步把 prompt 扩展为：
+
+```text
+总任务 + 当前子任务 + 视觉子目标 + episode metadata + 控制模式
+```
+
+其中视觉子目标由轻量世界模型生成，metadata 描述速度、质量和是否出错。这个设计让模型能吸收失败与次优自主轨迹，并通过上下文选择期望行为。
+
+### 1.7 Xiaomi-Robotics-1：从状态转移到指令对齐
+
+[Xiaomi-Robotics-1](./papers/xiaomi-robotics-1.md) 先用超过 100k 小时 UMI 轨迹和自动 state-transition caption 学习“如何改变世界”，再用约 10k 小时跨实体数据把模型对齐到“人类命令机器人做事”的 imperative 指令形式。
 
 ---
 
@@ -91,9 +105,10 @@
 
 ### 2.2 代表工作
 
-- **iManip**：双层 VLA；
-- **HiRT**：上文已提及；
-- **RoboBrain**：把"任务级大脑"作为独立模块，跨任务共享。
+- **iManip / HiRT / RoboBrain**：学术上的分层与双系统设计；
+- **[Helix](./papers/helix.md)**：System 2 为 7B VLM（7–9 Hz），System 1 为 80M 反应策略（200 Hz），控制人形完整上半身；
+- **[GR00T N1](./papers/groot-n1.md)**：Eagle-2 VLM 作为 System 2，DiT / Flow Matching 动作模块作为 System 1；
+- **[Gemini Robotics](./papers/gemini-robotics.md)**：云侧 Gemini backbone + 本地 action decoder，端到端约 250ms，动作块内有效 50Hz。
 
 ### 2.3 优势
 
@@ -229,16 +244,17 @@ NVIDIA **GR00T** 是通用人形机器人的 VLA 基础模型，强调：
 
 | 挑战 | 现状与方向 |
 |------|-----------|
-| 数据规模 | 数据仍远小于语言；自监督视频预训练是突破点 |
-| 长程任务 | 分层规划 + 记忆 + 反思的组合 |
-| 通用泛化 | 跨实体 / 跨场景 / 跨任务的统一基础模型 |
+| 数据规模 | UMI、人类视频、失败轨迹、部署 rollout 与自动标注流水线共同扩大有效数据 |
+| 长程任务 | 分层规划 + 记忆 + 子目标图像 + 世界模型校验 |
+| 通用泛化 | 跨实体 / 跨场景 / 跨任务 / 反事实指令的组合泛化评估 |
+| 经验学习 | π*0.6 类 RL、coaching、advantage conditioning 与自动 reward |
 | 安全 | 标准化安全评估、护栏设计、人在回路 |
 | 实时性 | 模型蒸馏 + 量化 + 边缘部署 |
 | 可解释性 | 推理链可视化、失败归因 |
 | Sim-to-Real | 可微仿真 + Real-to-Sim + 域随机化 |
 | 多模态融合 | 触觉、力觉、听觉的整合 |
 
-> 相关文档：评测基准详见 [`embodied-ai/evaluation.md`](evaluation.md)，操作与灵巧操控详见 [`embodied-ai/manipulation.md`](manipulation.md)，世界模型详见 [`embodied-ai/world-model.md`](world-model.md)。
+> 相关文档：单篇精读见[具身智能论文地图](./papers/index.md)；评测基准详见 [evaluation.md](evaluation.md)，操作与灵巧操控详见 [manipulation.md](manipulation.md)，世界模型详见 [world-model.md](world-model.md)。
 
 ---
 
@@ -267,3 +283,8 @@ NVIDIA **GR00T** 是通用人形机器人的 VLA 基础模型，强调：
 [11] T. Yu et al., *Meta-World: A Benchmark and an Environment for Learning*, CoRL, 2020.
 
 [12] J. Gu et al., *ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills*, ICLR, 2023.
+[13] Physical Intelligence, *π0.5 / π*0.6 / π0.7*, 2025–2026.
+
+[14] Xiaomi Robotics Team, *Xiaomi-Robotics-1*, 2026.
+
+[15] Figure, *Helix: A Vision-Language-Action Model for Generalist Humanoid Control*, 2025.

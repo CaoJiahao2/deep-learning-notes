@@ -1,6 +1,6 @@
 # 世界模型 (World Model)
 
-> 学习环境动力学，在"脑内"推演未来以辅助规划或想象训练——从 Dreamer 到 Genie/Sora，从隐空间 RL 到与 VLA 融合。
+> 学习环境动力学，在“脑内”推演未来以辅助规划或想象训练——从 Dreamer / Genie / Sora 到 Cosmos、V-JEPA 与闭环世界模拟器，并逐步与 VLA 融合。
 
 ---
 
@@ -10,7 +10,7 @@
 2. [Dreamer 系列](#2)
 3. [视频生成作为世界模型](#3)
 4. [动作条件视频生成](#4)
-5. [大规模世界模型：Genie / Sora / Cosmos / World Labs](#5)
+5. [大规模世界模型：Genie / Sora / Cosmos / V-JEPA / GE](#5)
 6. [世界模型与决策](#6)
 7. [世界模型与 VLA 融合](#7)
 8. [评测与开放问题](#8)
@@ -123,25 +123,25 @@ Sora、Wan 2.1、Genie 等大规模视频生成模型引发争论：**视频生�
 
 ---
 
-## 5 大规模世界模型：Genie / Sora / Cosmos / World Labs {#5}
+## 5 大规模世界模型：Genie / Sora / Cosmos / V-JEPA / GE {#5}
 
-2024-2025 年，世界模型从学术实验走向"基础模型"级建设，主要沿四个方向展开。
+2024–2026 年，世界模型从学术实验走向“基础模型”与“闭环模拟基础设施”级建设，主要沿五个方向展开。
 
 ### 5.1 Genie 2 / Genie 3（Google DeepMind）
 
 - **Genie 2**（2024）：单张图像生成可玩的 3D 世界，支持视角控制、长时程一致性、NPC 与物体交互，展示"prompt 世界"的实时交互生成。
-- **Genie 3**（2025）：面向智能体的可交互世界模型，可从第一人称视频学动作，为训练"在可交互世界中行动的智能体"提供基准环境。
+- **[Genie 3](./papers/genie-3.md)**（2025）：文本生成可实时导航的 720p / 24 FPS 交互世界，可保持数分钟一致性；支持 promptable world events，并与 SIMA agent 结合测试环境可用性。
 
 Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第一性目标——不仅预测未来，还支持用户在生成的世界中采取动作并看到因果响应。
 
 ### 5.2 Sora 2 与 World Simulator 叙事
 
 - **Sora（OpenAI, 2024）**：文/图生视频，以其 3D 一致性与物理合理震惊业界。
-- **Sora 2（OpenAI, 2025）**：从"生成视频"转向"世界模拟"——支持编辑现实视频、可交互的实时世界模拟、以及"anything-to-anything"的创作能力，明确把世界模拟作为目标。
+- **[Sora 2](./papers/sora-2.md)**（OpenAI, 2025）：视频-音频联合生成系统，显著改善复杂动力学、失败建模、多镜头状态保持和真实人物注入。它没有显式机器人动作接口，更适合作为视觉先验、数据引擎和评测素材。
 
 ### 5.3 NVIDIA Cosmos 平台
 
-- **Cosmos World Foundation Models**（NVIDIA, 2025）：面向物理 AI 与机器人开发的开源世界基础模型平台。
+- **[Cosmos](./papers/cosmos.md) World Foundation Models**（NVIDIA, 2025）：面向物理 AI 与机器人开发的开源世界基础模型平台。
 - 提供视频生成、世界预测、可交互仿真与合成数据生成能力；
 - 支持把生成的多样化世界数据用于训练机器人（数据飞轮）；
 - 与 Omniverse / Isaac 结合，成为"生成式物理 AI 训练场"。
@@ -154,8 +154,17 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 
 ### 5.5 自监督世界模型：V-JEPA / i-JEPA
 
-- **V-JEPA**（Meta, 2024）：视觉联合嵌入预测架构，在特征空间做未来预测（而非像素空间），更高效、更具物理一致性；
-- 代表"预测式世界模型"路线：预测抽象特征而非逐像素，缓解长期预测累积误差。
+- **[V-JEPA 2](./papers/v-jepa-2.md)**（Meta, 2025）：在超过 100 万小时互联网视频上做联合嵌入预测，冻结视觉编码器后用不到 62 小时 DROID 视频训练 action-conditioned predictor，可零样本规划 Franka 抓放；
+- 代表“预测式世界模型”路线：预测抽象特征而非逐像素，缓解长期预测累积误差，并显著降低规划成本。
+
+### 5.6 2026 年新趋势：闭环模拟与 World-Action Model
+
+世界模型正在从“生成未来视频”走向“可供策略闭环使用的模拟器”：
+
+- **[GE-Sim 2.0](./papers/ge-sim-2.md)**：动作条件多视角视频生成 + proprioceptive state expert + VLM world judge + 加速框架。它不仅生成未来画面，还解码关节/夹爪状态，并给出机器可读的任务评分，使策略训练可以在模拟中闭环；
+- **[GE-Act 2.0](./papers/ge-act-2.md)**：World-Action Model。CoAE 压缩控制相关信息，single-step visual planner 预测未来 latents，IDM 反推动作，并用 KASO 对齐生成未来与记录动作。论文系统验证 300h → 30000h 的 zero-shot OOD scaling；
+- **闭环要素**：未来视觉状态、本体状态、奖励/评价、长期记忆与误差校准缺一不可；
+- **World-Action 与 VLA 的边界正在模糊**：VLA 是 observation → action，WAM 显式加入 future state prediction，再由 inverse dynamics 输出 action。
 
 ---
 
@@ -198,10 +207,10 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 
 | 范式 | 说明 | 代表 |
 |------|------|------|
-| 世界模型作为数据引擎 | 用世界模型生成多任务合成轨迹，扩充 VLA 训练集 | Cosmos + GR00T、Genie 3 |
+| 世界模型作为数据引擎 | 用世界模型生成多任务合成轨迹，扩充 VLA 训练集 | Cosmos + GR00T、Genie 3、GE-Sim 2.0 |
 | 世界模型作为规划器 | 用世界模型 rollout 评估候选动作序列，选最优执行 | 分层 VLA + WM |
 | 世界模型作为正则器 | 用未来预测任务辅助 VLA 表征学习，提升泛化 | 预测式预训练 |
-| 可交互仿真 | 在生成的世界中训练/评测策略，避免真实风险 | UniSim、Genesis |
+| 可交互仿真 | 在生成的世界中训练/评测策略，避免真实风险 | UniSim、Genesis、GE-Sim 2.0 |
 
 ### 7.3 代表性方向
 
@@ -233,7 +242,8 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 | 预测精度 | 未来状态/帧与真实的一致程度 | FVD、PSNR、隐状态重构误差 |
 | 交互一致性 | 动作是否产生因果一致的响应 | 可控性、因果干预准确率 |
 | 长期一致性 | 长程 rollout 是否漂移 | 长时程 FVD、物理违反率 |
-| 规划价值 | 用于决策时能否提升回报 | 规划回报、任务成功率 |
+| 规划价值 | 用于决策时能否提升回报 | 规划回报、任务成功率、规划延迟 |
+| 闭环一致性 | 模拟 rollout 的策略结果是否与真实机器人一致 | aggregate/per-episode outcome agreement、world judge 准确率 |
 | 数据增益 | 合成数据对下游训练的提升 | 下游 VLA 成功率 |
 
 ### 8.2 开放问题
@@ -257,6 +267,15 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 
 ---
 
+## 相关阅读
+
+- 单篇精读：[具身智能论文地图](./papers/index.md)
+- 与 VLA 的关系：[VLA 模型](./vla.md)、[π0.7](./papers/pi-0-7.md)
+- 数据与仿真：[数据集与数据采集](./data.md)、[Sim-to-Real 与仿真器](./sim2real.md)
+- 3D 表示背景：[3D 生成](../architectures/3d-generation.md)
+
+---
+
 ## 9 参考文献 {#9}
 
 [1] D. Hafner et al., *Dream to Control: Learning Behaviors by Latent Imagination*, ICLR, 2020.
@@ -273,7 +292,7 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 
 [7] OpenAI, *Sora: Video Generation Models as World Simulators*, 2024.
 
-[8] OpenAI, *Sora 2: World Simulators*, 2025.
+[8] OpenAI, *Sora 2 is here*, 2025.
 
 [9] NVIDIA, *Cosmos: World Foundation Models for Physical AI*, 2025.
 
@@ -286,3 +305,11 @@ Genie 系列的核心贡献是把"可玩"（playable）作为世界模型的第�
 [13] A. Bardes et al., *Revisiting Feature Prediction for Learning Visual Representations from Video*, ICLR, 2024.
 
 [14] B. Huang et al., *Genesis: A Generative and Universal Physics Engine*, 2024.
+
+[15] M. Assran et al., *V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning*, 2025. arXiv:2506.09985.
+
+[16] Google DeepMind, *Genie 3: A new frontier for world models*, 2025.
+
+[17] AgiBot Research Team, *GE-Sim 2.0: A Roadmap Towards Comprehensive Closed-loop Video World Simulators for Robotic Manipulation*, 2026. arXiv:2605.27491.
+
+[18] AgiBot Research Team, *GE-Act 2.0: Pretraining and Scaling a World-Action Model for Robotic Manipulation*, 2026. arXiv:2609.05588.

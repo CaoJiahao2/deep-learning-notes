@@ -38,7 +38,7 @@ flowchart TD
 | 跨实体真机 | 高 | 中（10^4–10^6） | 有 | 高（共享） | VLA 通用骨干训练 |
 | 本机遥操作 | 极高 | 小（10^1–10^3） | 有 | 极高（专属） | 任务后训练、专精化 |
 
-现代 VLA 的数据配方是**四层混用**：视频学先验、仿真扩规模、跨实体学泛化、本机数据保专精（GR00T N1 把这三源配方显式写进了论文）。
+现代 VLA 的数据配方是**四层混用**：视频学先验、仿真扩规模、跨实体学泛化、本机数据保专精（[GR00T N1](./papers/groot-n1.md) 把数据金字塔显式写进论文，[Xiaomi-Robotics-1](./papers/xiaomi-robotics-1.md) 则用 UMI 把第一层与跨实体层推向 100k+ 小时）。
 
 ---
 
@@ -54,7 +54,7 @@ flowchart TD
 
 ### 2.2 手持与穿戴采集
 
-- **UMI**（Universal Manipulation Interface, 2024）：手持夹爪 + GoPro + SLAM 定位，无需机器人本体即可采集，采集地点不受实验室限制，已用于大规模家庭/商用场景数据；
+- **[UMI](./papers/xiaomi-robotics-1.md)**（Universal Manipulation Interface, 2024）：手持夹爪 + GoPro + SLAM 定位，无需机器人本体即可采集；Xiaomi-Robotics-1 显示该路线可扩展到超过 100k 小时真实操作，并通过自动 caption 流水线两周级完成语言标注；
 - **DexCap**（2024）：便携式灵巧手动捕手套，直接捕获人手高自由度动作并重定向到机器灵巧手；
 - **AirExo / 外骨骼系**（2024–2025）：穿戴式外骨骼遥操作，兼顾低延迟与力反馈。
 
@@ -73,9 +73,9 @@ flowchart TD
 
 ### 3.1 Open X-Embodiment（RT-X, 2023）
 
-DeepMind 牵头、全球 30+ 机构共建的里程碑数据集：
+Google DeepMind 等 21 个机构共建的里程碑数据集：
 
-- **规模**：22 种机器人形态、约 160 万 episodes、数十万任务场景，统一 RLDS 格式；
+- **规模**：22 种机器人形态、约 100 万+ episodes、527 类技能 / 160266 个任务，统一 RLDS 格式；
 - **贡献**：实验证明跨实体联合训练带来正向迁移——RT-X 在 OXE 上训练后，多个形态的性能超过各自单独训练；
 - **地位**：Octo、OpenVLA、RDT-1B 等 VLA 的标准预训练语料。
 
@@ -213,7 +213,7 @@ flowchart LR
 关键组件：
 
 1. **错误检测**：VLM 判别任务是否成功（RT-H、SuccessVQA 类方法），或用世界模型预测与实际观测的偏差检测异常；
-2. **自动恢复**：失败后回退到上一个稳定状态重试（物理 reset 替代品），或训练专门的恢复策略；
+2. **自动恢复**：失败后回退到上一个稳定状态重试（物理 reset 替代品），或训练专门的恢复策略；[π*0.6](./papers/pi-star-0-6.md) 的 RECAP 进一步把失败 rollout、人类干预与 reward 转化为 advantage-conditioned 训练信号；
 3. **人类远程干预**（可选）：低成本遥操作纠错（HIL-SERL、物理智能的远程数据中心模式）；
 4. **选择性训练**：只把"有信息量"的数据（失败边界、新颖场景）加入训练集，避免分布坍缩（model collapse 类比）。
 
@@ -264,7 +264,7 @@ Tesla FSD 的"影子模式 + 事件触发回传"是数据飞轮的成熟先例�
 
 [4] Q. Fu et al., *A Touch, Vision, and Language Dataset for Multimodal Alignment*, 2024.（Mobile ALOHA：C. Fu et al., *Mobile ALOHA*, 2024. arXiv:2401.02117）
 
-[5] Data et al., *On the Bringing-Home of Robot Learning: Universal Manipulation Interface* (UMI), RSS, 2024.
+[5] C. Chi et al., *Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots*, RSS, 2024. arXiv:2402.10373.
 
 [6] C. Wang et al., *DexCap: Scalable and Portable Mocap System for Dexterous Hand Teleoperation*, 2024.
 
@@ -291,3 +291,5 @@ Tesla FSD 的"影子模式 + 事件触发回传"是数据飞轮的成熟先例�
 [17] NVIDIA, *GR00T N1: An Open Foundation Model for Generalist Humanoid Robots*, 2025.
 
 [18] K. Black et al., *Real-Time Action Chunking with Large Models*, 2024.
+
+[19] Xiaomi Robotics Team, *Xiaomi-Robotics-1: Scaling Vision-Language-Action Models with over 100K Hours of Real-World Trajectories*, 2026. arXiv:2607.15330.
