@@ -36,9 +36,9 @@ OpenClaw 和 Hermes Agent 都已经超出了“LLM + Tool Calling”的简单 Ag
 
 ---
 
-# 1. 从“普通 Agent”开始理解
+## 1. 从“普通 Agent”开始理解
 
-## 1.1 最简单的 Agent
+### 1.1 最简单的 Agent
 
 传统 LLM 应用通常是：
 
@@ -110,7 +110,7 @@ $$
 
 ---
 
-# 2. OpenClaw 的定位
+## 2. OpenClaw 的定位
 
 OpenClaw 可以理解为一个：
 
@@ -152,7 +152,7 @@ $$
 
 ---
 
-# 3. OpenClaw 总体架构
+## 3. OpenClaw 总体架构
 
 OpenClaw 官方架构的核心是一个 **long-lived Gateway**。
 
@@ -233,7 +233,7 @@ OpenClaw Gateway
 
 ---
 
-# 4. Gateway：OpenClaw 的控制平面
+## 4. Gateway：OpenClaw 的控制平面
 
 Gateway 是 OpenClaw 最具有辨识度的架构设计之一。
 
@@ -265,7 +265,7 @@ Gateway
 
 ---
 
-# 5. OpenClaw 的 Agent Runtime
+## 5. OpenClaw 的 Agent Runtime
 
 Gateway 完成路由后，任务进入 Agent Runtime。
 
@@ -345,7 +345,7 @@ Runtime        Harness
 
 ---
 
-# 6. Workspace：Agent 的持久化“人格与工作空间”
+## 6. Workspace：Agent 的持久化“人格与工作空间”
 
 一个 OpenClaw Agent 不只是一个 system prompt。
 
@@ -388,11 +388,11 @@ git diff
 
 ---
 
-# 7. Session、Context 与 Memory 必须区分
+## 7. Session、Context 与 Memory 必须区分
 
 这三个概念经常被混淆。
 
-## 7.1 Session
+### 7.1 Session
 
 Session 是一次持续对话或任务流的状态单元。
 
@@ -405,7 +405,7 @@ Session 是一次持续对话或任务流的状态单元。
 - compaction state；
 - transcript metadata。
 
-## 7.2 Context
+### 7.2 Context
 
 Context 是 **某一次 LLM 调用实际看到的 token 集合**。
 
@@ -434,7 +434,7 @@ $$
 
 Context 受到模型 context window 的硬限制。
 
-## 7.3 Memory
+### 7.3 Memory
 
 Memory 是跨 Session 持续存在的知识。
 
@@ -461,7 +461,7 @@ Session History
 
 ---
 
-# 8. OpenClaw Memory 架构
+## 8. OpenClaw Memory 架构
 
 OpenClaw 的 Memory 已经不仅是单一 Markdown 文件。
 
@@ -515,7 +515,7 @@ $$
 
 ---
 
-# 9. 为什么长期 Agent 必须做 Context Lifecycle Management
+## 9. 为什么长期 Agent 必须做 Context Lifecycle Management
 
 长期运行时最直接的问题是 Context 不断增长。
 
@@ -572,11 +572,11 @@ OpenClaw 在 Runtime 中提供 compaction、context pruning 和 memory flush 等
 
 ---
 
-# 10. Tools、Skills 与 Plugins
+## 10. Tools、Skills 与 Plugins
 
 OpenClaw 对能力进行了较明确的分层。
 
-## 10.1 Tool
+### 10.1 Tool
 
 Tool 是一个可调用动作：
 
@@ -598,7 +598,7 @@ LLM 决定何时调用 Tool。
 
 ---
 
-## 10.2 Skill
+### 10.2 Skill
 
 Skill 是指导 Agent 如何完成某类任务的 procedure。
 
@@ -628,7 +628,7 @@ OpenClaw Skill 使用 `SKILL.md` 描述，并可根据环境、配置、binary p
 
 ---
 
-## 10.3 Plugin
+### 10.3 Plugin
 
 Plugin 是 Runtime-level extension。
 
@@ -674,7 +674,7 @@ Runtime 扩展机制
 
 ---
 
-# 11. Multi-Agent：OpenClaw 的重要能力
+## 11. Multi-Agent：OpenClaw 的重要能力
 
 OpenClaw 支持在一个 Gateway 中运行多个隔离 Agent。
 
@@ -725,7 +725,7 @@ flowchart LR
 
 ---
 
-# 12. Subagent 与 Multi-Agent 不是同一概念
+## 12. Subagent 与 Multi-Agent 不是同一概念
 
 还需要区分：
 
@@ -771,7 +771,7 @@ OpenClaw 同样支持 Sub-agent orchestration。
 
 ---
 
-# 13. Sandbox：为什么 Agent Runtime 不能只依赖 Prompt 安全
+## 13. Sandbox：为什么 Agent Runtime 不能只依赖 Prompt 安全
 
 如果 Agent 可以执行：
 
@@ -837,7 +837,7 @@ OpenClaw 可以按 Agent 配置不同的 sandbox 和 tool restrictions。
 
 ---
 
-# 14. Automation：从 Reactive Agent 到 Persistent Agent
+## 14. Automation：从 Reactive Agent 到 Persistent Agent
 
 普通聊天 Agent 的触发方式通常只有：
 
@@ -897,7 +897,7 @@ $$
 
 ---
 
-# 15. OpenClaw 与普通 Agent 的核心区别
+## 15. OpenClaw 与普通 Agent 的核心区别
 
 可以用一张表总结。
 
@@ -922,7 +922,7 @@ $$
 
 ---
 
-# 16. Hermes Agent 的定位
+## 16. Hermes Agent 的定位
 
 Hermes Agent 是 Nous Research 推出的开源自主 Agent。
 
@@ -976,7 +976,7 @@ $$
 
 ---
 
-# 17. Hermes 的 Persistent Memory
+## 17. Hermes 的 Persistent Memory
 
 Hermes 的内置 Memory 强调：
 
@@ -1029,7 +1029,7 @@ Hermes 也支持额外 Memory Provider，例如 Honcho 等扩展。
 
 ---
 
-# 18. Hermes 最有辨识度的能力：Agent-Managed Skills
+## 18. Hermes 最有辨识度的能力：Agent-Managed Skills
 
 这是 Hermes 和很多 Agent Runtime 最明显的区别之一。
 
@@ -1109,7 +1109,7 @@ $$
 
 ---
 
-# 19. Memory 与 Skill：两种不同类型的“学习”
+## 19. Memory 与 Skill：两种不同类型的“学习”
 
 Hermes 的一个重要思想是区分：
 
@@ -1121,7 +1121,7 @@ Procedural Memory
 
 例如：
 
-### Declarative Memory
+#### Declarative Memory
 
 ```text
 用户项目使用 Python 3.12
@@ -1131,7 +1131,7 @@ Procedural Memory
 
 更适合存入 Memory。
 
-### Procedural Memory
+#### Procedural Memory
 
 ```text
 怎样部署该项目
@@ -1161,7 +1161,7 @@ $$
 
 ---
 
-# 20. Hermes 的 Background Skill Maintenance
+## 20. Hermes 的 Background Skill Maintenance
 
 Hermes 不只是让 Agent 写 Skill，还存在 Skill 生命周期管理思路。
 
@@ -1207,7 +1207,7 @@ $$
 
 ---
 
-# 21. Hermes 的 Subagent Delegation
+## 21. Hermes 的 Subagent Delegation
 
 Hermes 支持通过 `delegate_task` 生成子 Agent。
 
@@ -1255,7 +1255,7 @@ $$
 
 ---
 
-# 22. Hermes 的 Multi-Agent：Profiles + Kanban
+## 22. Hermes 的 Multi-Agent：Profiles + Kanban
 
 Hermes 的 Multi-Agent 不能简单理解为 Subagent。
 
@@ -1316,7 +1316,7 @@ Hermes
 
 ---
 
-# 23. Hermes 的 Security
+## 23. Hermes 的 Security
 
 需要修正一个容易过时的印象：
 
@@ -1362,7 +1362,7 @@ Hermes:
 
 ---
 
-# 24. OpenClaw vs Hermes Agent：总体对比
+## 24. OpenClaw vs Hermes Agent：总体对比
 
 | 维度 | OpenClaw | Hermes Agent |
 |---|---|---|
@@ -1385,9 +1385,9 @@ Hermes:
 
 ---
 
-# 25. 二者最根本的架构差异
+## 25. 二者最根本的架构差异
 
-## 25.1 OpenClaw 是 Gateway-centric
+### 25.1 OpenClaw 是 Gateway-centric
 
 OpenClaw 的基本世界观：
 
@@ -1425,7 +1425,7 @@ $$
 
 ---
 
-## 25.2 Hermes 是 Agent-centric
+### 25.2 Hermes 是 Agent-centric
 
 Hermes 的基本世界观更接近：
 
@@ -1462,7 +1462,7 @@ $$
 
 ---
 
-# 26. Multi-Agent：二者关注点不同
+## 26. Multi-Agent：二者关注点不同
 
 OpenClaw 更强调：
 
@@ -1512,11 +1512,11 @@ Profile B
 
 ---
 
-# 27. Memory：二者哲学也不同
+## 27. Memory：二者哲学也不同
 
 可以粗略概括：
 
-### OpenClaw
+#### OpenClaw
 
 更像：
 
@@ -1538,7 +1538,7 @@ Hybrid Retrieval
 - multi-agent awareness；
 - knowledge infrastructure。
 
-### Hermes
+#### Hermes
 
 更像：
 
@@ -1581,11 +1581,11 @@ $$
 
 ---
 
-# 28. Skill：OpenClaw 与 Hermes 的关键差别
+## 28. Skill：OpenClaw 与 Hermes 的关键差别
 
 两者都使用类似 `SKILL.md` 的 procedure 描述，但治理模型不同。
 
-### OpenClaw
+#### OpenClaw
 
 更强调：
 
@@ -1604,7 +1604,7 @@ Runtime filtering/gating
 
 虽然 OpenClaw 也在发展由 Agent/Operator 创建更新 Skill 的 governed workflow，但官方 Skill Workshop 当前仍标记为 proposal。
 
-### Hermes
+#### Hermes
 
 核心 Runtime 已明确提供：
 
@@ -1628,7 +1628,7 @@ Agent
 
 ---
 
-# 29. Hermes “Self-Evolution” 应该如何理解
+## 29. Hermes “Self-Evolution” 应该如何理解
 
 Nous Research 还有一个独立项目：
 
@@ -1688,7 +1688,7 @@ $$
 
 ---
 
-# 30. OpenClaw 与 Hermes 已经开始形成直接竞品关系
+## 30. OpenClaw 与 Hermes 已经开始形成直接竞品关系
 
 一个非常有意思的信号是 Hermes 官方已经提供：
 
@@ -1718,7 +1718,7 @@ hermes claw migrate
 
 ---
 
-# 31. 从 Agent Research 视角拆解
+## 31. 从 Agent Research 视角拆解
 
 如果从算法/系统研究角度看，一个成熟 Agent 可以抽象为：
 
@@ -1796,9 +1796,9 @@ Self-improvement
 
 ---
 
-# 32. 几个值得深入研究的问题
+## 32. 几个值得深入研究的问题
 
-## 32.1 Agent Memory 到底应该存什么？
+### 32.1 Agent Memory 到底应该存什么？
 
 理想 Memory 不是：
 
@@ -1829,7 +1829,7 @@ $$
 
 ---
 
-## 32.2 Skill Learning 是否真的能提高 Agent？
+### 32.2 Skill Learning 是否真的能提高 Agent？
 
 Skill creation 很容易。
 
@@ -1882,7 +1882,7 @@ Patch / Archive
 
 ---
 
-## 32.3 Long-Horizon Agent 的最大问题可能不是 Reasoning
+### 32.3 Long-Horizon Agent 的最大问题可能不是 Reasoning
 
 传统 Benchmark 更关注：
 
@@ -1925,7 +1925,7 @@ $$
 
 ---
 
-## 32.4 Multi-Agent 是否真的优于 Single-Agent？
+### 32.4 Multi-Agent 是否真的优于 Single-Agent？
 
 Multi-Agent 并非越多越好。
 
@@ -1964,9 +1964,9 @@ OpenClaw 的 routing/isolation 和 Hermes 的 delegation/Kanban，实际上代�
 
 ---
 
-# 33. 工程选型建议
+## 33. 工程选型建议
 
-## 更适合 OpenClaw 的场景
+### 更适合 OpenClaw 的场景
 
 如果目标是：
 
@@ -1984,7 +1984,7 @@ OpenClaw 的 routing/isolation 和 Hermes 的 delegation/Kanban，实际上代�
 
 例如：
 
-### 场景 A：多渠道个人数字助理
+#### 场景 A：多渠道个人数字助理
 
 ```text
 Telegram
@@ -1999,7 +1999,7 @@ Gateway
 Personal Agent
 ```
 
-### 场景 B：团队多 Agent
+#### 场景 B：团队多 Agent
 
 ```text
 Slack #research → Research Agent
@@ -2007,7 +2007,7 @@ Slack #ops      → Ops Agent
 Telegram        → Personal Agent
 ```
 
-### 场景 C：需要严格 Tool Policy 的执行 Agent
+#### 场景 C：需要严格 Tool Policy 的执行 Agent
 
 ```text
 External User
@@ -2025,7 +2025,7 @@ Sandbox
 
 ---
 
-# 34. 更适合 Hermes Agent 的场景
+## 34. 更适合 Hermes Agent 的场景
 
 如果目标是：
 
@@ -2043,7 +2043,7 @@ Hermes 很有吸引力。
 
 例如：
 
-### 场景 A：个人 Coding Agent
+#### 场景 A：个人 Coding Agent
 
 Agent 长期学习：
 
@@ -2060,7 +2060,7 @@ debug patterns
 Memory + Skills
 ```
 
-### 场景 B：Research Agent
+#### 场景 B：Research Agent
 
 ```text
 Question
@@ -2073,7 +2073,7 @@ Parent Agent
    └── Coding Subagent
 ```
 
-### 场景 C：个人 AI Operator
+#### 场景 C：个人 AI Operator
 
 ```text
 Terminal
@@ -2088,27 +2088,27 @@ Memory
 
 ---
 
-# 35. 如果从硕士研究选题角度选择
+## 35. 如果从硕士研究选题角度选择
 
-## OpenClaw 更适合 Agent Systems 方向
+### OpenClaw 更适合 Agent Systems 方向
 
 可研究：
 
-### 1. Agent Runtime
+#### 1. Agent Runtime
 
 - state management；
 - scheduling；
 - failure recovery；
 - context lifecycle。
 
-### 2. Multi-Agent Routing
+#### 2. Multi-Agent Routing
 
 - dynamic routing；
 - agent selection；
 - load balancing；
 - capability-aware routing。
 
-### 3. Agent Security
+#### 3. Agent Security
 
 - tool policy；
 - least privilege；
@@ -2116,7 +2116,7 @@ Memory
 - capability security；
 - prompt injection containment。
 
-### 4. Memory Systems
+#### 4. Memory Systems
 
 - retrieval；
 - contradiction detection；
@@ -2125,9 +2125,9 @@ Memory
 
 ---
 
-## Hermes 更适合 Agent Learning 方向
+### Hermes 更适合 Agent Learning 方向
 
-### 1. Skill Learning
+#### 1. Skill Learning
 
 $$
 Trajectory
@@ -2137,7 +2137,7 @@ Procedure
 Skill
 $$
 
-### 2. Continual Agent Learning
+#### 2. Continual Agent Learning
 
 $$
 Experience_t
@@ -2147,7 +2147,7 @@ Knowledge_{t+1}
 Performance_{t+1}
 $$
 
-### 3. Skill Evaluation
+#### 3. Skill Evaluation
 
 研究如何判断：
 
@@ -2155,7 +2155,7 @@ $$
 这个 Skill 是否真的提升成功率？
 ```
 
-### 4. Memory vs Skill
+#### 4. Memory vs Skill
 
 研究：
 
@@ -2164,7 +2164,7 @@ $$
 什么时候应该学习 Procedure？
 ```
 
-### 5. Self-Evolution
+#### 5. Self-Evolution
 
 优化对象可以从模型参数转向：
 
@@ -2180,7 +2180,7 @@ Memory Policy
 
 ---
 
-# 36. 一个更统一的 Agent System 模型
+## 36. 一个更统一的 Agent System 模型
 
 综合 OpenClaw 与 Hermes，可以提出一个比较完整的 Agent Stack：
 
@@ -2218,9 +2218,9 @@ Memory Policy
 
 ---
 
-# 37. 最终总结
+## 37. 最终总结
 
-## 普通 Agent
+### 普通 Agent
 
 核心问题：
 
@@ -2235,7 +2235,7 @@ $$
 
 ---
 
-## OpenClaw
+### OpenClaw
 
 核心问题：
 
@@ -2271,7 +2271,7 @@ $$
 
 ---
 
-## Hermes Agent
+### Hermes Agent
 
 核心问题：
 
@@ -2307,7 +2307,7 @@ $$
 
 ---
 
-# 38. 一句话结论
+## 38. 一句话结论
 
 > **普通 Agent 是“会做事的 LLM”；OpenClaw 更像“让 Agent 长期稳定运行的操作系统/服务平台”；Hermes Agent 更像“能够把经验沉淀成 Memory 与 Skill、逐渐成长的长期个人 Agent”。**
 
@@ -2355,11 +2355,11 @@ Hermes
 
 ---
 
-# 参考文献
+## 参考文献
 
 以下尽量采用官方文档与官方仓库。功能迭代较快，具体 API 和配置以最新文档为准。
 
-## OpenClaw
+### OpenClaw
 
 1. [Gateway Architecture][oc-architecture]
 2. [Agent Runtime Architecture][oc-runtime]
@@ -2372,7 +2372,7 @@ Hermes
 9. [Multi-Agent Sandbox and Tools][oc-multi-sandbox]
 10. [Skill Workshop][oc-skill-workshop]
 
-## Hermes Agent
+### Hermes Agent
 
 1. [Hermes Agent GitHub Repository][hermes-repo]
 2. [Persistent Memory][hermes-memory]

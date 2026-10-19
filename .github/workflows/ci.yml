@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   docs:
     runs-on: ubuntu-latest
@@ -15,20 +19,25 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
 
       - name: Install Python deps
         run: pip install -r requirements.txt
 
       - name: Install Node deps (KaTeX linter)
-        run: npm ci || npm install --no-audit --no-fund
+        run: npm ci
 
       - name: Lint math formulas (KaTeX)
         run: node scripts/check_math.mjs
+
+      - name: Check nav/document consistency
+        run: node scripts/check_nav.mjs
 
       - name: Build docs site
         run: mkdocs build --strict --site-dir site

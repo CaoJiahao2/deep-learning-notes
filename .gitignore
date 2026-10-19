@@ -34,10 +34,11 @@ npm-debug.log*
 
 # Site build output
 site/
+_site/
 
 # OS
 .DS_Store
-CLAUDE.md
-algorithm_learn_website
 
+# 本地草稿与仓库外的临时符号链接（不属于站点内容）
 /TODO
+algorithm_learn_website

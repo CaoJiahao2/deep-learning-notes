@@ -1,8 +1,10 @@
 site_name: 深度学习笔记 Deep Learning Notes
 site_description: 全面、系统的深度学习笔记 —— 从数学基础到大模型部署
+site_url: https://caojiahao2.github.io/deep-learning-notes/
 repo_url: https://github.com/CaoJiahao2/deep-learning-notes
 repo_name: deep-learning-notes
 edit_uri: blob/main/docs/
+copyright: Copyright &copy; 2025–2026 Cao Jiahao · MIT License
 
 theme:
   name: material
@@ -40,7 +42,11 @@ theme:
     repo: fontawesome/brands/github
 
 plugins:
-  - search
+  # 中文站点的搜索需要指定语言；安装 jieba 后会自动做中文分词（见 requirements.txt）
+  - search:
+      lang:
+        - zh
+        - en
 
 markdown_extensions:
   - admonition
@@ -58,6 +64,10 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  # Material 图标语法 `:material-xxx:` / `:octicons-xxx:` 依赖此扩展
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.arithmatex:
       generic: true
   - toc:

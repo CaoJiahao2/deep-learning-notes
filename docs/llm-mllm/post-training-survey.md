@@ -33,7 +33,7 @@ $$
 
 ---
 
-# 1. Introduction：为什么需要 Post-Training
+## 1. Introduction：为什么需要 Post-Training
 
 Pre-training 解决的是：
 
@@ -71,9 +71,9 @@ $$
 
 ---
 
-# 2. Overview：Post-Training 的演化与数学基础
+## 2. Overview：Post-Training 的演化与数学基础
 
-## 2.1 历史演化
+### 2.1 历史演化
 
 可以压缩为：
 
@@ -113,7 +113,7 @@ $$
 
 ---
 
-## 2.2 PPO
+### 2.2 PPO
 
 PPO 的核心是：**提高高 Advantage 动作的概率，但限制策略更新幅度。**
 
@@ -182,7 +182,7 @@ $$
 
 ---
 
-## 2.3 RLHF
+### 2.3 RLHF
 
 RLHF：
 
@@ -228,7 +228,7 @@ $$
 
 ---
 
-## 2.4 DPO
+### 2.4 DPO
 
 DPO 的目标是绕开显式 Reward Model + PPO。
 
@@ -276,7 +276,7 @@ DPO 的核心操作：
 
 ---
 
-## 2.5 GRPO
+### 2.5 GRPO
 
 GRPO 是 PPO 的变体。
 
@@ -334,7 +334,7 @@ $$
 
 ---
 
-# 3. PoLMs for Fine-Tuning
+## 3. PoLMs for Fine-Tuning
 
 本章分成：
 
@@ -350,7 +350,7 @@ $$
 
 ---
 
-## 3.1 Supervised Fine-Tuning
+### 3.1 Supervised Fine-Tuning
 
 基本模式：
 
@@ -395,7 +395,7 @@ $$
 
 ---
 
-## 3.2 Instruction Tuning
+### 3.2 Instruction Tuning
 
 普通 SFT：
 
@@ -421,7 +421,7 @@ $$
 
 ---
 
-## 3.3 Prefix / Prompt Tuning
+### 3.3 Prefix / Prompt Tuning
 
 核心：
 
@@ -445,7 +445,7 @@ $$
 
 ---
 
-## 3.4 Reinforcement Fine-Tuning
+### 3.4 Reinforcement Fine-Tuning
 
 传统 SFT：
 
@@ -473,7 +473,7 @@ $$
 
 ---
 
-# 4. PoLMs for Alignment
+## 4. PoLMs for Alignment
 
 三条核心路线：
 
@@ -489,7 +489,7 @@ $$
 
 ---
 
-## 4.1 RLHF
+### 4.1 RLHF
 
 标准流程：
 
@@ -533,7 +533,7 @@ $$
 
 ---
 
-## 4.2 RLAIF
+### 4.2 RLAIF
 
 RLAIF：
 
@@ -569,7 +569,7 @@ $$
 
 ---
 
-## 4.3 DPO
+### 4.3 DPO
 
 DPO 直接从偏好数据：
 
@@ -620,7 +620,7 @@ $$
 
 ---
 
-# 5. PoLMs for Reasoning
+## 5. PoLMs for Reasoning
 
 这是整篇论文最关键的章节之一。
 
@@ -636,7 +636,7 @@ $$
 
 ---
 
-## 5.1 Self-Refine
+### 5.1 Self-Refine
 
 统一模式：
 
@@ -668,7 +668,7 @@ $$
 
 ---
 
-## 5.2 Reasoning as MDP
+### 5.2 Reasoning as MDP
 
 把推理看成：
 
@@ -718,7 +718,7 @@ $$
 
 ---
 
-## 5.3 Reasoning Reward
+### 5.3 Reasoning Reward
 
 常见四类：
 
@@ -747,7 +747,7 @@ $$
 
 ---
 
-## 5.4 DeepSeek-R1 / R1-Zero
+### 5.4 DeepSeek-R1 / R1-Zero
 
 R1-Zero：
 
@@ -793,7 +793,7 @@ $$
 
 ---
 
-# 6. PoLMs for Efficiency
+## 6. PoLMs for Efficiency
 
 三条主线：
 
@@ -809,7 +809,7 @@ $$
 
 ---
 
-## 6.1 Quantization
+### 6.1 Quantization
 
 把高精度数值转换为低 bit：
 
@@ -835,7 +835,7 @@ $$
 
 ---
 
-## 6.2 Pruning
+### 6.2 Pruning
 
 核心：
 
@@ -854,7 +854,7 @@ Structured Pruning 更容易获得真实硬件加速。
 
 ---
 
-## 6.3 LoRA / PEFT
+### 6.3 LoRA / PEFT
 
 LoRA：
 
@@ -884,7 +884,7 @@ $$
 
 ---
 
-## 6.4 Knowledge Distillation
+### 6.4 Knowledge Distillation
 
 基本结构：
 
@@ -928,7 +928,7 @@ $$
 
 ---
 
-# 7. PoLMs for Integration and Adaptation
+## 7. PoLMs for Integration and Adaptation
 
 三部分：
 
@@ -944,7 +944,7 @@ $$
 
 ---
 
-## 7.1 Multimodal Integration
+### 7.1 Multimodal Integration
 
 典型结构：
 
@@ -986,7 +986,7 @@ $$
 
 ---
 
-## 7.2 Knowledge Editing vs RAG
+### 7.2 Knowledge Editing vs RAG
 
 Knowledge Editing：
 
@@ -1048,7 +1048,7 @@ $$
 
 ---
 
-## 7.3 Model Merging
+### 7.3 Model Merging
 
 统一形式：
 
@@ -1099,7 +1099,7 @@ $$
 
 ---
 
-# 8. Datasets
+## 8. Datasets
 
 Post-training 数据按来源分成三类：
 
@@ -1115,7 +1115,7 @@ $$
 
 ---
 
-## 8.1 Human-Labeled
+### 8.1 Human-Labeled
 
 特点：
 
@@ -1132,7 +1132,7 @@ $$
 
 ---
 
-## 8.2 Distilled Data
+### 8.2 Distilled Data
 
 核心：
 
@@ -1150,7 +1150,7 @@ $$
 
 ---
 
-## 8.3 Synthetic Data
+### 8.3 Synthetic Data
 
 核心：
 
@@ -1198,7 +1198,7 @@ $$
 
 ---
 
-# 9. Applications
+## 9. Applications
 
 作者把应用分成三类：
 
@@ -1214,7 +1214,7 @@ $$
 
 ---
 
-## 9.1 Professional Domains
+### 9.1 Professional Domains
 
 主要包括：
 
@@ -1237,7 +1237,7 @@ $$
 
 ---
 
-## 9.2 Technical Reasoning
+### 9.2 Technical Reasoning
 
 主要是：
 
@@ -1271,7 +1271,7 @@ $$
 
 ---
 
-## 9.3 Understanding and Interaction
+### 9.3 Understanding and Interaction
 
 包括：
 
@@ -1293,11 +1293,11 @@ $$
 
 ---
 
-# 10. Open Problems and Future Directions
+## 10. Open Problems and Future Directions
 
 论文提出七个主要开放问题。
 
-## 10.1 Beyond Large-Scale RL
+### 10.1 Beyond Large-Scale RL
 
 当前 RL 仍过度依赖：
 
@@ -1320,7 +1320,7 @@ $$
 
 ---
 
-## 10.2 Scalability
+### 10.2 Scalability
 
 问题：
 
@@ -1340,7 +1340,7 @@ $$
 
 ---
 
-## 10.3 Ethical Alignment and Bias
+### 10.3 Ethical Alignment and Bias
 
 问题：
 
@@ -1363,7 +1363,7 @@ $$
 
 ---
 
-## 10.4 Multimodal Reasoning
+### 10.4 Multimodal Reasoning
 
 真正的多模态 reasoning 不能只靠：
 
@@ -1391,7 +1391,7 @@ $$
 
 ---
 
-## 10.5 Context-Adaptive Trustworthiness
+### 10.5 Context-Adaptive Trustworthiness
 
 未来 Alignment 不应该是一套固定规则。
 
@@ -1409,7 +1409,7 @@ $$
 
 ---
 
-## 10.6 Democratization
+### 10.6 Democratization
 
 最先进 Post-training 技术成本太高。
 
@@ -1425,7 +1425,7 @@ $$
 
 ---
 
-## 10.7 Creative Intelligence + System 2 Thinking
+### 10.7 Creative Intelligence + System 2 Thinking
 
 当前 reasoning model 很擅长：
 
@@ -1454,7 +1454,7 @@ $$
 
 ---
 
-# 11. Conclusion
+## 11. Conclusion
 
 论文最终将 Post-training 概括为：
 
@@ -1502,7 +1502,7 @@ $$
 
 ---
 
-# 12. 最终技术地图
+## 12. 最终技术地图
 
 整篇论文可以用下面这一条链条记忆：
 
@@ -1580,7 +1580,7 @@ $$
 
 ---
 
-# 13. 快速复习：最值得记住的概念
+## 13. 快速复习：最值得记住的概念
 
 | 概念 | 一句话理解 |
 |---|---|
@@ -1604,7 +1604,7 @@ $$
 
 ---
 
-# 14. 阅读优先级
+## 14. 阅读优先级
 
 如果以后重新复习这篇论文，建议优先级为：
 
@@ -1633,7 +1633,7 @@ $$
 
 ---
 
-## 最后一条记忆
+### 最后一条记忆
 
 如果只能记一句：
 
@@ -1645,6 +1645,6 @@ $$
 
 ---
 
-## 参考文献
+### 参考文献
 
 [1] Gu, Y., Zhang, P., et al. *A Survey on Post-Training of Large Language Models*. arXiv preprint, 2025.

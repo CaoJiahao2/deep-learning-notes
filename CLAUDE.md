@@ -11,25 +11,29 @@ A Chinese-language deep learning knowledge base (深度学习笔记) built with 
 ```bash
 # Local preview (live math rendering)
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt   # mkdocs, mkdocs-material, pymdown-extensions
-npm install                        # KaTeX for the math linter
+pip install -r requirements.txt   # mkdocs, mkdocs-material, pymdown-extensions, jieba
+npm ci                             # KaTeX for the math linter (locked versions)
 mkdocs serve                       # http://127.0.0.1:8000
 
 # Math formula lint — scans docs/ for $..$ and $$..$$, fails on any non-compilable LaTeX.
 # Pass specific files/dirs to check only what changed: node scripts/check_math.mjs docs/llm-mllm/x.md
 node scripts/check_math.mjs        # or: npm run check:math
 
+# Nav/document consistency — every docs/**/*.md must be in mkdocs.yml nav: and vice versa
+node scripts/check_nav.mjs         # or: npm run check:nav
+
 # Strict build (CI uses this; any warning fails)
 mkdocs build --strict
 ```
 
-CI (`.github/workflows/deploy.yml`) runs: `pip install -r requirements.txt` → `npm ci` → `node scripts/check_math.mjs` → `mkdocs build --strict --site-dir _site` → deploy to GitHub Pages. Run the math linter and strict build before committing; a broken formula breaks CI.
+CI (`.github/workflows/ci.yml` on PR/push, `.github/workflows/deploy.yml` on main) runs: `pip install -r requirements.txt` → `npm ci` → `node scripts/check_math.mjs` → `node scripts/check_nav.mjs` → `mkdocs build --strict` → deploy to GitHub Pages. Run both linters and the strict build before committing; a broken formula breaks CI.
 
 ## Architecture
 
-- **`docs/`** — all content. Subdirectories are topic domains: `fundamentals/`, `architectures/`, `training/`, `llm-mllm/`, `deployment/`, `resources/`. `index.md` is the site home page.
+- **`docs/`** — all content. Subdirectories are topic domains: `fundamentals/`, `architectures/`, `training/`, `llm-mllm/`, `agents/`, `embodied-ai/`, `deployment/`, `resources/`. `index.md` is the site home page.
 - **`mkdocs.yml`** — the source of truth for navigation. `nav:` maps page titles to files, grouped into sub-sections per chapter. **When adding a new doc, add it to `nav:` here** and to the section overview page (`docs/<section>/index.md`, 章节地图卡片).
-- **`scripts/check_math.mjs`** — KaTeX linter. Walks `docs/` for `.md` files, extracts block `$$...$$` then inline `$...$` (skipping ranges already consumed by block spans), and renders each with `throwOnError: true`. Reports `file:line`, exits 1 on any failure. Accepts optional file/dir paths to check only what changed; with no args it scans all of `docs/` (what CI runs).
+- **`scripts/check_math.mjs`** — KaTeX linter. Walks `docs/` for `.md` files, masks fenced code blocks and inline code spans, extracts block `$$...$$` then inline `$...$`, and renders each with `throwOnError: true`. Reports the real `file:line`, exits 1 on any failure. Accepts optional file/dir paths to check only what changed; with no args it scans all of `docs/` (what CI runs).
+- **`scripts/check_nav.mjs`** — nav consistency linter: fails when a `nav:` entry points at a missing file, when a `docs/**/*.md` is absent from `nav:`, or when a filename is not kebab-case. `mkdocs build --strict` does not catch the "orphan page" case (only INFO), so this runs alongside it.
 - **`docs/javascripts/katex.js`** — runtime renderer; registers `$$...$$`, `\\[...\\]`, `$...$`, `\\(...\\)` delimiters with Material's `document$` stream.
 - **`asserts/`** — images (referenced by relative paths).
 - **`site/`** — build output (gitignored).
@@ -52,7 +56,8 @@ Only check the math you actually added — judge it against the md syntax rules 
 node scripts/check_math.mjs docs/llm-mllm/rlhf.md docs/fundamentals/backprop.md
 # find changed files:  git diff --name-only HEAD~1 -- docs/
 
-# 2) real gate — the linter can't catch nav/heading warnings
+# 2) real gate — the nav checker + strict build
+node scripts/check_nav.mjs
 mkdocs build --strict
 ```
 
@@ -62,13 +67,13 @@ mkdocs build --strict
 - Inline `$...$` must stay on one line and contain no literal `$` (so `\$` breaks it too). Spanning a line means it is silently skipped by the linter — a broken formula that CI won't catch.
 - `$` must be paired. An unpaired `$` in prose is silently skipped by the linter but garbles rendering.
 - `$$...$$` closes at the first `$$` — block math cannot contain `$$` inside.
-- The linter does NOT skip fenced code blocks — keep `$` out of code samples.
+- Fenced code blocks and inline code spans are skipped, but do not rely on that for real formulas.
 
-**Workflow**: edit → `node scripts/check_math.mjs <changed files>` → `mkdocs build --strict`. A non-compilable formula fails CI.
+**Workflow**: edit → `node scripts/check_math.mjs <changed files>` → `node scripts/check_nav.mjs` → `mkdocs build --strict`. A non-compilable formula fails CI.
 
 ## TODO 目录处理流程 (Processing the TODO directory)
 
-`TODO/` 存放待处理的 Markdown 文档。每次处理流程如下：
+`TODO/` 存放待处理的 Markdown 文档（该目录在 `.gitignore` 中，属于本地草稿区，不会被提交）。每次处理流程如下：
 
 1. 阅读 `TODO/*.md` 的内容，判断主题归属，将内容整合进网站合适的章节（例如 LLM 后训练 → `docs/llm-mllm/`、多模态推理 → `docs/llm-mllm/` 等）。
 2. 整合时遵守本文档的公式规范：新公式一律使用 `$$...$$`（块级）与 `$...$`（行内）。TODO 文档若使用 `\[...\]` / `\(...\)`，必须转换为 `$$...$$` / `$...$`（linter 不检查 `\[...\]`）。

@@ -9,15 +9,17 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/CaoJiahao2/deep-learning-notes/actions/workflows/ci.yml"><img src="https://github.com/CaoJiahao2/deep-learning-notes/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://caojiahao2.github.io/deep-learning-notes/"><img src="https://img.shields.io/badge/docs-online-success.svg" alt="Docs"></a>
   <a href="https://github.com/CaoJiahao2/deep-learning-notes/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="#contributing"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
+  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
 </p>
 
 ---
 
 ## 关于本项目
 
-这是一套系统化的深度学习笔记，覆盖从机器学习基础理论到 2025 年最新大模型技术的完整知识体系。项目旨在为深度学习学习者、研究者和工程师提供一份**结构清晰、内容详实、持续更新**的参考资料。
+这是一套系统化的深度学习笔记，覆盖从机器学习基础理论到 2025–2026 年最新大模型技术的完整知识体系。项目旨在为深度学习学习者、研究者和工程师提供一份**结构清晰、内容详实、持续更新**的参考资料。
 
 ### 核心理念
 
@@ -30,7 +32,7 @@
 
 ## 📂 文档结构
 
-全站共八大章节，每章都有 `index.md` 总览页（卡片式导航 + 学习建议），章节内部再按子主题分组：
+全站共八大章节，每章都有 `index.md` 总览页（卡片式导航 + 学习建议），章节内部再按子主题分组。下面是节选（完整清单见 `mkdocs.yml` 的 `nav:`）：
 
 ```
 docs/
@@ -62,7 +64,8 @@ docs/
 ├── embodied-ai/               # 具身智能（基础策略 / 数据仿真 / 世界模型评测 / 前沿应用）
 │   ├── index.md               # 章节总览
 │   ├── vla.md                 # VLA 模型（RT-2/OpenVLA/π0/GR00T）
-│   └── sim2real.md            # Sim-to-Real 与仿真器
+│   ├── sim2real.md            # Sim-to-Real 与仿真器
+│   └── papers/                # 26 篇 VLA / 世界模型论文精读
 ├── deployment/                # 推理部署（推理实现 / 服务化 / 压缩端侧 / LLMOps）
 │   ├── index.md               # 章节总览
 │   ├── inference-implementation.md # 推理实现详解（KV Cache、PagedAttention）
@@ -94,19 +97,20 @@ cd deep-learning-notes
 
 ### 本地预览与公式校验
 
-项目使用 **MkDocs + Material + KaTeX** 渲染文档，数学公式在浏览器中正常显示：
+项目使用 **MkDocs + Material + KaTeX** 渲染文档，数学公式在浏览器中正常显示。需要 Python ≥ 3.9 与 Node.js ≥ 18：
 
 ```bash
 # 1. 安装依赖
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-npm install   # 公式校验所需的 KaTeX
+npm ci        # 公式校验所需的 KaTeX（锁定版本）
 
 # 2. 本地预览（支持公式实时渲染）
 mkdocs serve
 
-# 3. 校验所有数学公式可编译（KaTeX，CI 也会执行）
+# 3. 校验公式可编译 + nav 与文档一致（CI 也会执行）
 node scripts/check_math.mjs
+node scripts/check_nav.mjs
 
 # 4. 严格构建（CI 使用，任何警告都会失败）
 mkdocs build --strict
@@ -140,6 +144,10 @@ mkdocs build --strict
 
 感谢所有为本项目做出贡献的开发者！
 
+<a href="https://github.com/CaoJiahao2/deep-learning-notes/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=CaoJiahao2/deep-learning-notes" alt="Contributors" />
+</a>
+
 ---
 
 ## 📄 许可证
@@ -151,6 +159,10 @@ mkdocs build --strict
 ## ⭐ Star History
 
 如果本项目对你有帮助，欢迎 Star ⭐
+
+<a href="https://star-history.com/#CaoJiahao2/deep-learning-notes&Date">
+  <img src="https://api.star-history.com/svg?repos=CaoJiahao2/deep-learning-notes&type=Date" alt="Star History Chart" />
+</a>
 
 ---
 

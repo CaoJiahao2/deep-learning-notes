@@ -10,7 +10,7 @@
 
 <div class="grid cards" markdown>
 
--   :material-route:{ .lg .middle } **入门与路线**
+-   :material-routes:{ .lg .middle } **入门与路线**
 
     ---
 

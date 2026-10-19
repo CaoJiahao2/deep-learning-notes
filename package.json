@@ -2,9 +2,11 @@
   "name": "deep-learning-notes-math-lint",
   "version": "1.0.0",
   "private": true,
-  "description": "KaTeX-based math formula linter for docs",
+  "description": "Linters for docs: KaTeX math formulas and mkdocs nav consistency",
   "scripts": {
-    "check:math": "node scripts/check_math.mjs"
+    "check:math": "node scripts/check_math.mjs",
+    "check:nav": "node scripts/check_nav.mjs",
+    "check": "npm run check:math && npm run check:nav"
   },
   "devDependencies": {
     "katex": "^0.16.11"

@@ -32,7 +32,7 @@ Native Multimodal Reasoning
 
 ---
 
-# 1. 论文到底在研究什么？
+## 1. 论文到底在研究什么？
 
 传统多模态大模型更多关注：
 
@@ -77,7 +77,7 @@ LMRM 的目标不只是识别“图里有什么”，而是希望模型能够完
 
 ---
 
-# 2. 整篇论文的核心路线图
+## 2. 整篇论文的核心路线图
 
 论文正文主要组织为三个已发展的阶段，并进一步提出一个未来范式。
 
@@ -110,7 +110,7 @@ Perception ↔ Reasoning ↔ Generation ↔ Action ↔ Environment
 
 ---
 
-# 3. Stage 1：感知驱动的模块化推理
+## 3. Stage 1：感知驱动的模块化推理
 
 早期多模态模型主要解决三个问题：
 
@@ -168,7 +168,7 @@ Prediction
 
 ---
 
-# 4. Stage 2：Language-Centric Short Reasoning
+## 4. Stage 2：Language-Centric Short Reasoning
 
 Stage 2 的关键变化是：
 
@@ -186,7 +186,7 @@ Reasoning + Answer
 
 此时最重要的技术就是：
 
-# Multimodal Chain-of-Thought（MCoT）
+## Multimodal Chain-of-Thought（MCoT）
 
 传统：
 
@@ -212,7 +212,7 @@ Answer
 
 ---
 
-## 4.1 Prompt-based MCoT：告诉模型“你要思考”
+### 4.1 Prompt-based MCoT：告诉模型“你要思考”
 
 这是最轻量的方法。
 
@@ -256,7 +256,7 @@ Answer
 
 ---
 
-## 4.2 Structural Reasoning：规定模型“怎么思考”
+### 4.2 Structural Reasoning：规定模型“怎么思考”
 
 Prompt-based CoT 太自由，因此作者进一步讨论结构化推理。
 
@@ -294,11 +294,11 @@ Answer
 
 作者把 Structural Reasoning 分为三类：
 
-### 1. Rationale Construction
+#### 1. Rationale Construction
 
 让模型学习生成更高质量、更细粒度的 rationale。
 
-### 2. Defined Reasoning Procedure
+#### 2. Defined Reasoning Procedure
 
 人为定义明确推理流程：
 
@@ -306,7 +306,7 @@ Answer
 A → B → C → D
 ```
 
-### 3. Modality-specific Structural Reasoning
+#### 3. Modality-specific Structural Reasoning
 
 针对不同模态设计不同推理结构，比如：
 
@@ -329,7 +329,7 @@ Structural Reasoning 的优势是：
 
 ---
 
-## 4.3 Externally Augmented Reasoning：把部分推理交给外部系统
+### 4.3 Externally Augmented Reasoning：把部分推理交给外部系统
 
 这一步已经开始出现 Agent 的味道。
 
@@ -396,7 +396,7 @@ Problem → Search → Path B → Evaluate → Answer
 
 ---
 
-# 5. Stage 2 的本质：System-1
+## 5. Stage 2 的本质：System-1
 
 虽然 MCoT、结构化流程和工具增强都让模型“更像在推理”，但作者认为 Stage 2 仍然属于：
 
@@ -434,7 +434,7 @@ Problem → Search → Path B → Evaluate → Answer
 
 ---
 
-# 6. Stage 3：Language-Centric Long Reasoning
+## 6. Stage 3：Language-Centric Long Reasoning
 
 Stage 3 是整篇论文技术上最核心的部分。
 
@@ -468,7 +468,7 @@ Stage 3 被分为三个方向：
 
 ---
 
-# 7. Cross-Modal Reasoning：不仅“看图”，还要“用图思考”
+## 7. Cross-Modal Reasoning：不仅“看图”，还要“用图思考”
 
 很多所谓 Multimodal CoT，实际上仍然是：
 
@@ -524,7 +524,7 @@ Text Reasoning
 
 论文讨论了三类方式：
 
-### External Tools
+#### External Tools
 
 根据 reasoning state 动态调用：
 
@@ -533,7 +533,7 @@ Text Reasoning
 - CV Expert；
 - Program Execution。
 
-### External Algorithms
+#### External Algorithms
 
 例如：
 
@@ -542,7 +542,7 @@ Text Reasoning
 - Image-of-Thought；
 - visual subgoal generation。
 
-### Model-Intrinsic
+#### Model-Intrinsic
 
 让模型自身学会：
 
@@ -556,13 +556,13 @@ Text Reasoning
 
 ---
 
-# 8. Multimodal-O1：用 Long CoT + Search 把推理做深
+## 8. Multimodal-O1：用 Long CoT + Search 把推理做深
 
 O1-like 方法可以粗略概括为：
 
 > **高质量 CoT 数据 + Long Reasoning + Test-Time Search**
 
-## 训练阶段
+### 训练阶段
 
 使用高质量 rationale / Long-CoT 数据进行 fine-tuning。
 
@@ -588,7 +588,7 @@ Answer
 
 先处理视觉信息，再进入更深 reasoning。
 
-## 推理阶段
+### 推理阶段
 
 重点是：
 
@@ -598,7 +598,7 @@ Answer
 
 代表技术：
 
-### Best-of-N
+#### Best-of-N
 
 ```text
 Generate N Answers
@@ -606,11 +606,11 @@ Generate N Answers
 Select Best
 ```
 
-### Beam Search
+#### Beam Search
 
 在每个中间步骤保留最有希望的候选。
 
-### MCTS
+#### MCTS
 
 把 reasoning 看成一棵搜索树：
 
@@ -642,7 +642,7 @@ Problem
 
 ---
 
-# 9. Multimodal-R1：用 RL 学习“应该怎么推理”
+## 9. Multimodal-R1：用 RL 学习“应该怎么推理”
 
 R1-like 更进一步。
 
@@ -671,7 +671,7 @@ Updated Policy
 
 ---
 
-## DPO
+### DPO
 
 使用 preference data：
 
@@ -687,7 +687,7 @@ Reasoning B
 
 ---
 
-## GRPO
+### GRPO
 
 模型一次生成多个 reasoning trajectories：
 
@@ -721,7 +721,7 @@ Prompt
 
 ---
 
-# 10. O1 与 R1 的关键区别
+## 10. O1 与 R1 的关键区别
 
 这是理解当前 Reasoning Model 路线最重要的一点。
 
@@ -766,7 +766,7 @@ Inference 时继续扩大计算
 
 ---
 
-# 11. Multimodal-R1 当前最大的瓶颈
+## 11. Multimodal-R1 当前最大的瓶颈
 
 论文指出：
 
@@ -790,7 +790,7 @@ Inference 时继续扩大计算
 
 ---
 
-# 12. 为什么还需要 Native LMRM？
+## 12. 为什么还需要 Native LMRM？
 
 即使 O1 / R1 已经具有 Long CoT、Search 和 RL，作者认为仍然存在一个根本限制：
 
@@ -816,7 +816,7 @@ Image / Video / Audio
 
 ---
 
-## 12.1 Omni-modal 能力不足
+### 12.1 Omni-modal 能力不足
 
 现实世界不仅有：
 
@@ -841,7 +841,7 @@ Image / Video / Audio
 
 ---
 
-## 12.2 Agentic 能力不足
+### 12.2 Agentic 能力不足
 
 真实世界任务需要：
 
@@ -869,11 +869,11 @@ Re-planning
 
 因此作者提出：
 
-# Native Large Multimodal Reasoning Model（N-LMRM）
+## Native Large Multimodal Reasoning Model（N-LMRM）
 
 ---
 
-# 13. 什么叫“Native”？
+## 13. 什么叫“Native”？
 
 Native 并不是：
 
@@ -909,13 +909,13 @@ Action ─┤
 
 ---
 
-# 14. N-LMRM 的两根核心支柱
+## 14. N-LMRM 的两根核心支柱
 
 作者认为未来 N-LMRM 需要把目前相对独立的两条研究路线真正统一。
 
 ---
 
-## 14.1 Multimodal Agentic Reasoning
+### 14.1 Multimodal Agentic Reasoning
 
 目标从：
 
@@ -947,15 +947,15 @@ Re-planning
 
 关键能力包括：
 
-### Hierarchical Task Decomposition
+#### Hierarchical Task Decomposition
 
 把复杂目标拆成长程子任务。
 
-### Dynamic Adaptation
+#### Dynamic Adaptation
 
 根据环境反馈实时修改策略。
 
-### Embodied Learning
+#### Embodied Learning
 
 通过真实或模拟环境 interaction 学习，而不是只依赖静态 dataset。
 
@@ -965,7 +965,7 @@ Re-planning
 
 ---
 
-# 15. Omni-Modal Understanding + Generative Reasoning
+## 15. Omni-Modal Understanding + Generative Reasoning
 
 第二根支柱解决的是：
 
@@ -1024,7 +1024,7 @@ Generation
 
 ---
 
-# 16. o3 / o4-mini 为什么被作者特别关注？
+## 16. o3 / o4-mini 为什么被作者特别关注？
 
 作者把 o3 / o4-mini 视为向 N-LMRM 迈进的早期案例。
 
@@ -1079,13 +1079,13 @@ Reason
 
 ---
 
-# 17. N-LMRM 的四条关键技术路线
+## 17. N-LMRM 的四条关键技术路线
 
 论文第 4.3 节给出了非常值得关注的研究方向。
 
 ---
 
-## 17.1 Unified Representation and Cross-Modal Fusion
+### 17.1 Unified Representation and Cross-Modal Fusion
 
 第一个问题：
 
@@ -1127,7 +1127,7 @@ Core Model ─ Modality Expert B
 
 ---
 
-# 18. Interleaved Multimodal Long Chain-of-Thought
+## 18. Interleaved Multimodal Long Chain-of-Thought
 
 这是第四章技术上非常关键的概念。
 
@@ -1195,7 +1195,7 @@ Action
 
 ---
 
-# 19. Learning and Evolving from World Experiences
+## 19. Learning and Evolving from World Experiences
 
 传统训练：
 
@@ -1254,7 +1254,7 @@ Environment
 
 ---
 
-# 20. Data Synthesis：未来真正缺什么数据？
+## 20. Data Synthesis：未来真正缺什么数据？
 
 普通 Image-Text Pair 已经不够。
 
@@ -1293,7 +1293,7 @@ Continue Action
 
 ---
 
-# 21. 第五章：Dataset and Benchmark
+## 21. 第五章：Dataset and Benchmark
 
 第五章主要回答：
 
@@ -1313,7 +1313,7 @@ Planning
 
 ---
 
-# 22. Multimodal Understanding
+## 22. Multimodal Understanding
 
 核心问题：
 
@@ -1321,7 +1321,7 @@ Planning
 
 包括：
 
-### Visual-Centric Understanding
+#### Visual-Centric Understanding
 
 - VQA；
 - OCR；
@@ -1337,7 +1337,7 @@ Planning
 - MMMU；
 - MM-Vet。
 
-### Audio-Centric Understanding
+#### Audio-Centric Understanding
 
 包括：
 
@@ -1355,11 +1355,11 @@ Planning
 
 ---
 
-# 23. Multimodal Generation
+## 23. Multimodal Generation
 
 分成两类。
 
-## Cross-modal Generation
+### Cross-modal Generation
 
 一个模态输入，另一个模态输出：
 
@@ -1375,7 +1375,7 @@ Text → Speech
 - semantic consistency；
 - generation quality。
 
-## Joint Multimodal Generation
+### Joint Multimodal Generation
 
 同时生成多个模态：
 
@@ -1393,7 +1393,7 @@ Text + Image + Audio + Video
 
 ---
 
-# 24. Multimodal Reasoning
+## 24. Multimodal Reasoning
 
 这一层不只是识别内容，而是要求模型：
 
@@ -1401,7 +1401,7 @@ Text + Image + Audio + Video
 
 论文分为：
 
-## General Visual Reasoning
+### General Visual Reasoning
 
 ```text
 视觉理解
@@ -1419,7 +1419,7 @@ Text + Image + Audio + Video
 - PhysBench；
 - VideoPhy。
 
-## Domain-specific Reasoning
+### Domain-specific Reasoning
 
 评估特定领域的高难 reasoning：
 
@@ -1437,7 +1437,7 @@ Text + Image + Audio + Video
 
 ---
 
-# 25. Multimodal Planning
+## 25. Multimodal Planning
 
 这是第五章里与未来 Agent 最直接相关的一类。
 
@@ -1465,7 +1465,7 @@ Continue
 
 ---
 
-## 25.1 GUI Navigation
+### 25.1 GUI Navigation
 
 让模型操作：
 
@@ -1502,7 +1502,7 @@ Action
 
 ---
 
-## 25.2 Embodied / Simulated Environment
+### 25.2 Embodied / Simulated Environment
 
 进一步进入：
 
@@ -1536,13 +1536,13 @@ Environment Feedback
 
 ---
 
-# 26. Evaluation Method：到底怎么评分？
+## 26. Evaluation Method：到底怎么评分？
 
 作者总结四类主流评价方法。
 
 ---
 
-## 26.1 Exact / Fuzzy Match
+### 26.1 Exact / Fuzzy Match
 
 模型答案与标准答案进行直接或模糊匹配。
 
@@ -1558,7 +1558,7 @@ Environment Feedback
 
 ---
 
-## 26.2 Option Matching
+### 26.2 Option Matching
 
 把问题转成选择题。
 
@@ -1573,7 +1573,7 @@ Environment Feedback
 
 ---
 
-## 26.3 LLM / MLLM Scoring
+### 26.3 LLM / MLLM Scoring
 
 使用另一个强模型做 Judge：
 
@@ -1598,7 +1598,7 @@ Score
 
 ---
 
-## 26.4 Agentic Evaluation
+### 26.4 Agentic Evaluation
 
 评价器本身也可以：
 
@@ -1619,7 +1619,7 @@ Agent-based Evaluation
 
 ---
 
-# 27. 整篇论文的统一逻辑
+## 27. 整篇论文的统一逻辑
 
 从模型能力角度：
 
@@ -1675,27 +1675,27 @@ Agentic Evaluation
 
 ---
 
-# 28. 我认为最值得记住的 5 个关键词
+## 28. 我认为最值得记住的 5 个关键词
 
 如果几个月后只允许记住五个词：
 
-## 1. Perception
+### 1. Perception
 
 先让模型看懂世界。
 
-## 2. CoT
+### 2. CoT
 
 把隐式 reasoning 显式化。
 
-## 3. Search
+### 3. Search
 
 让模型探索多个 reasoning trajectories。
 
-## 4. RL
+### 4. RL
 
 让模型学习“什么样的 reasoning strategy 更好”。
 
-## 5. Agent
+### 5. Agent
 
 让 reasoning 与 action、tools、environment feedback 形成闭环。
 
@@ -1705,7 +1705,7 @@ Agentic Evaluation
 
 ---
 
-# 29. O1、R1、N-LMRM 三者关系
+## 29. O1、R1、N-LMRM 三者关系
 
 可以这样理解：
 
@@ -1733,7 +1733,7 @@ N-LMRM = Native Multimodal Agentic Intelligence
 
 ---
 
-# 30. 论文最终想表达什么？
+## 30. 论文最终想表达什么？
 
 这篇综述真正的核心观点并不是：
 
@@ -1773,7 +1773,7 @@ Environment Interaction
 
 ---
 
-# 31. 阅读建议
+## 31. 阅读建议
 
 如果只是为了快速掌握这篇 91 页综述，不建议平均用力。
 
@@ -1810,7 +1810,7 @@ Section 5：按需查 Benchmark
 
 ---
 
-# 32. 最终速记版
+## 32. 最终速记版
 
 ```text
 Stage 1
@@ -1849,7 +1849,7 @@ Omni-modal
 
 ---
 
-## 参考论文
+### 参考论文
 
 **Perception, Reason, Think, and Plan: A Survey on Large Multimodal Reasoning Models**  
 arXiv:2505.04921v2, 2025.
@@ -1857,7 +1857,7 @@ arXiv:2505.04921v2, 2025.
 
 ---
 
-## 参考文献
+### 参考文献
 
 [1] Z. Zhang et al., *Perception, Reason, Think, and Plan: A Survey on Large Multimodal Reasoning Models*, 2025. arXiv:2505.04921.
 

@@ -6,17 +6,18 @@ This is a Chinese-language deep learning knowledge base built with **MkDocs Mate
 
 - `docs/` — All Markdown content, grouped by domain (`architectures/`, `training/`, `llm-mllm/`, `agents/`, `embodied-ai/`, `deployment/`, `fundamentals/`, `resources/`).
 - `mkdocs.yml` — Site config and the source of truth for navigation (`nav:`).
-- `scripts/check_math.mjs` — KaTeX linter that validates all LaTeX in `docs/`.
+- `scripts/check_math.mjs` — KaTeX linter that validates all LaTeX in `docs/` (skips code blocks/code spans).
+- `scripts/check_nav.mjs` — validates that `mkdocs.yml` `nav:` ↔ `docs/**/*.md` match both ways and filenames are kebab-case.
 - `asserts/` — Images and static assets.
-- `TODO/` — Pending drafts awaiting integration.
+- `TODO/` — Local, git-ignored drafts awaiting integration (never committed).
 - `site/` — Build output (gitignored).
 
 ## Build & Development Commands
 
 ```bash
-# Setup
+# Setup (Python >= 3.9, Node >= 18)
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt && npm install
+pip install -r requirements.txt && npm ci
 
 # Live preview at http://127.0.0.1:8000
 mkdocs serve
@@ -25,11 +26,14 @@ mkdocs serve
 node scripts/check_math.mjs                       # all docs
 node scripts/check_math.mjs docs/path/file.md     # specific file
 
+# Check nav ↔ docs consistency / filename conventions
+node scripts/check_nav.mjs
+
 # Strict production build (warnings fail; used by CI)
 mkdocs build --strict
 ```
 
-CI runs: install → `check_math.mjs` → `mkdocs build --strict` → deploy to GitHub Pages. Always run the linter and strict build locally before pushing.
+CI runs: install → `check_math.mjs` → `check_nav.mjs` → `mkdocs build --strict` → deploy to GitHub Pages. Always run the linters and strict build locally before pushing.
 
 ## Style & Naming Conventions
 
@@ -45,9 +49,10 @@ CI runs: install → `check_math.mjs` → `mkdocs build --strict` → deploy to 
 There is no unit-test framework. Validation is:
 
 1. `node scripts/check_math.mjs` — catches non-compilable LaTeX.
-2. `mkdocs build --strict` — catches broken links, missing nav entries, Markdown warnings.
+2. `node scripts/check_nav.mjs` — catches pages missing from `nav:` (or nav entries pointing at missing files) and bad filenames.
+3. `mkdocs build --strict` — catches broken links and Markdown warnings. It does **not** fail on "page exists but is not in `nav:`" (only INFO), which is why `check_nav.mjs` exists.
 
-Both must pass before submitting a PR.
+All three must pass before submitting a PR.
 
 ## Commit & Pull Request Guidelines
 
@@ -56,7 +61,7 @@ Both must pass before submitting a PR.
 - **PR checklist**:
   - Register new pages in `mkdocs.yml` `nav:` (inside the correct sub-group) and add them to the section overview page (`docs/<section>/index.md` 章节地图).
   - End every new document with 参考文献 (paper title + year).
-  - Run the math linter on changed files and `mkdocs build --strict`.
+  - Run both linters on changed files and `mkdocs build --strict`.
   - Describe the change and link related issues.
 
 ## TODO Integration Workflow
