@@ -1,5 +1,5 @@
-mkdocs>=1.6,<2
-mkdocs-material>=9.5,<10
-pymdown-extensions>=10.8
+mkdocs>=1.6.1,<2
+mkdocs-material>=9.7.7,<10
+pymdown-extensions>=12.3
 # 中文搜索分词（Material 的 search 插件会检测并启用）
 jieba>=0.42.1
